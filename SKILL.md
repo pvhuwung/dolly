@@ -297,6 +297,8 @@ What makes it look expensive, in any style:
   it: inset a plain `position: absolute` div instead.
 - `alpha()` and `mix()` return CSS `color-mix()` strings: fine in styles, but Remotion's
   `interpolateColors` rejects them. Interpolate between plain hex or rgba colours there.
+- Remotion's bundled ffmpeg is minimal (no `fps`, `hstack`, `tile` or `volumedetect` filters): for a
+  frame strip use `-r 1` output, and its first cells can repeat frame 0; check those with `-ss`.
 - `focusOn`'s `size` is only a size. A region's own `x`/`y` are page coordinates, not where the
   card is on the stage: pass `size: {width, height}` and, if it moved, `layer`.
 - The shader transitions (`zoomBlur`, `filmBurn`, `bookFlip`, …) show an error in the Studio unless

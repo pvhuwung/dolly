@@ -145,6 +145,8 @@ const chunk = (lines: Word[][], max: number, chars: number): Word[][] => {
  */
 export const Captions: React.FC<{
   lines?: VoiceLine[];
+  /** The indices of the lines this waveform follows; the others leave it flat. Default: all. */
+  only?: number[];
   text?: string;
   seconds?: number;
   words?: Word[];
@@ -303,9 +305,14 @@ const Synthetic: React.FC<{seed: number; children: (spectrum: Levels, wave: Leve
  * `start`s playing on; with neither, it makes up motion that looks like speech.
  *
  *   <Waveform lines={tutorial} start={15} variant="circle">{face}</Waveform>
+ *
+ * With two voices, give each person's waveform `only` their lines (indices into `lines`): it moves
+ * while they speak and lies flat while the other one does.
  */
 export const Waveform: React.FC<{
   lines?: VoiceLine[];
+  /** The indices of the lines this waveform follows; the others leave it flat. Default: all. */
+  only?: number[];
   gap?: number;
   src?: string;
   start?: number;
@@ -318,7 +325,7 @@ export const Waveform: React.FC<{
   color?: string;
   seed?: number;
   children?: React.ReactNode;
-}> = ({lines, gap = 0.3, src, start = 0, variant = 'bars', width = 720, height = 160, size = 360, bars, color, seed = 3, children}) => {
+}> = ({lines, only, gap = 0.3, src, start = 0, variant = 'bars', width = 720, height = 160, size = 360, bars, color, seed = 3, children}) => {
   const look = useLook();
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -388,7 +395,7 @@ export const Waveform: React.FC<{
   if (lines) {
     // The line playing now, read from its own file; flat between lines.
     const timing = voiceTiming(lines, {start, gap, fps});
-    const i = timing.findIndex((t) => frame >= t.start && frame < t.end);
+    const i = timing.findIndex((t, k) => frame >= t.start && frame < t.end && (!only || only.includes(k)));
     return i < 0 ? <Silent>{draw}</Silent> : <FromAudio key={i} src={lines[i].src} start={timing[i].start}>{draw}</FromAudio>;
   }
   return src ? <FromAudio src={src} start={start}>{draw}</FromAudio> : <Synthetic seed={seed}>{draw}</Synthetic>;

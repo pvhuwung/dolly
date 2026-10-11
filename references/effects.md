@@ -55,7 +55,7 @@ Positions are px in the parent; most come in at `start` or `at` and leave at `ex
 |---|---|
 | `<Stat value label prefix? suffix? delta? />` | A big number with its label, and a "+38%" chip once it lands |
 | `<Ring value label? />` | A ring filling to a percent, the number counting in the middle |
-| `<Bars data={[{label, value}]} highlight? />` | Bars growing one after another, values counting |
+| `<Bars data={[{label, value}]} highlight? across? />` | Bars growing one after another, values counting; `across` lays them on their side for named categories or a tall frame |
 | `<LineChart values labels? />` | A line drawing across, area filling under it, a dot riding the head |
 | `<Progress value label? />` | A bar filling to a percent |
 | `<Checklist items />` | Items ticking off one by one |
@@ -106,7 +106,7 @@ and where its speech starts and ends. Recorded WAVs with the same `.ts` work the
 | `<Voiceover lines start? gap? />` | Plays the lines one after another |
 | `voiceTiming(lines, {start, gap, fps})`, `voiceEnd(...)` | When each line plays, in frames: time scenes and cuts to the voice |
 | `<Captions lines start? variant? position? />` | Words in sync, 2–5 at a time: `karaoke` (a box on the word being said), `pop`, `line` |
-| `<Waveform lines \| src variant? />` | Moves with the voice: `bars`, `line`, `circle` round an avatar or cover |
+| `<Waveform lines \| src variant? only? />` | Moves with the voice: `bars`, `line`, `circle` round an avatar or cover; `only` (line indices) follows one speaker of two |
 
 Word timing spreads each line's speech over its words by length, so it can drift a few frames on a
 long line. `say` voices are for drafts: publish with a recorded voice, or one the user has rights to.

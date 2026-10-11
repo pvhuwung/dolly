@@ -91,6 +91,9 @@ export const Metric: React.FC<{value: number; label: string; prefix?: string; su
 }) => {
   const look = useLook();
   const noteIn = useIn(50);
+  // As big as the frame allows: a long number ("1,284 km") shrinks to fit the safe width.
+  const chars = `${prefix ?? ''}${value.toLocaleString('en-US', {maximumFractionDigits: decimals ?? 0})}${suffix ?? ''}`.length;
+  const fontSize = Math.round(Math.min(look.size * (look.tall ? 3 : 3.6), inner(look) / (chars * 0.62)));
   return (
     <Page gap={Math.round(look.size * 0.3)}>
       <Counter
@@ -100,7 +103,7 @@ export const Metric: React.FC<{value: number; label: string; prefix?: string; su
         decimals={decimals}
         start={4}
         frames={Math.round(42 * look.pace)}
-        style={{...look.headline, color: look.accentText, fontSize: Math.round(look.size * (look.tall ? 3 : 3.6)), lineHeight: 1}}
+        style={{...look.headline, color: look.accentText, fontSize, lineHeight: 1}}
       />
       <Kinetic text={label} start={16} align="center" style={{fontSize: Math.round(look.size * 0.9)}} />
       {note ? (
@@ -532,7 +535,7 @@ export const Lineup: React.FC<{eyebrow?: string; title?: string; accent?: string
   return (
     <Page gap={Math.round(look.size * 0.6)}>
       <Heading eyebrow={eyebrow} title={title} accent={accent} />
-      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap, width: '100%'}}>
+      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap, width: Math.min(inner(look), cols * cw + gap * (cols - 1))}}>
         {people.map((p, i) => {
           const t = pop(22 + i * Math.round(6 * look.pace), 26);
           return (
@@ -738,6 +741,8 @@ export const Countdown: React.FC<{eyebrow?: string; title?: string; accent?: str
           const t = pop(16 + i * Math.round(5 * look.pace), 24);
           const changed = tick > 0 && v !== before[i];
           const show = (n: number) => String(n).padStart(2, '0');
+          // Two digits fill a tile; more (214 days) shrink to fit it.
+          const fit = 2 / Math.max(2, show(Math.max(v, before[i])).length);
           const digit: React.CSSProperties = {
             position: 'absolute',
             left: 0,
@@ -746,7 +751,7 @@ export const Countdown: React.FC<{eyebrow?: string; title?: string; accent?: str
             top: '50%',
             lineHeight: 1,
             fontFamily: look.fonts.headline,
-            fontSize: digits,
+            fontSize: Math.round(digits * fit),
             fontWeight: look.headline.fontWeight,
             letterSpacing: '-0.02em',
             fontVariantNumeric: 'tabular-nums',
@@ -941,7 +946,7 @@ export const Timeline: React.FC<{eyebrow?: string; title?: string; accent?: stri
                     top: lineY - 34,
                     textAlign: 'center',
                     fontFamily: look.fonts.headline,
-                    fontSize: last ? 54 : 44,
+                    fontSize: Math.round(Math.max(1, look.size / 62) * (last ? 54 : 44)),
                     fontWeight: look.headline.fontWeight,
                     letterSpacing: '-0.02em',
                     lineHeight: 1,
@@ -960,7 +965,7 @@ export const Timeline: React.FC<{eyebrow?: string; title?: string; accent?: stri
                     top: lineY + 42,
                     textAlign: 'center',
                     fontFamily: look.fonts.body,
-                    fontSize: last ? 38 : 34,
+                    fontSize: Math.round(Math.max(1, look.size / 62) * (last ? 38 : 34)),
                     fontWeight: last ? 700 : 500,
                     lineHeight: 1.25,
                     color: last ? look.ink : look.dim,
@@ -1085,7 +1090,7 @@ export const List: React.FC<{eyebrow?: string; title?: string; accent?: string; 
  *
  *   <Announcement eyebrow="Big news" text="We raised $18M" accent="to build what's next." detail="Series A" />
  */
-export const Announcement: React.FC<{eyebrow?: string; text: string; accent?: string; detail?: string}> = ({eyebrow, text, accent, detail}) => {
+export const Announcement: React.FC<{eyebrow?: string; text: string; accent?: string; detail?: string; size?: number}> = ({eyebrow, text, accent, detail, size}) => {
   const look = useLook();
   const frame = useCurrentFrame();
   const pop = useStagger();
@@ -1100,7 +1105,7 @@ export const Announcement: React.FC<{eyebrow?: string; text: string; accent?: st
     <Page gap={Math.round(look.size * 0.45)}>
       <Eyebrow text={eyebrow} />
       <div style={{position: 'relative', display: 'inline-block', maxWidth, transform: `scale(${punch})`}}>
-        <Kinetic text={text} accent={accent} start={6} align="center" style={{fontSize: Math.round(look.size * (look.tall ? 1.2 : 1.5))}} />
+        <Kinetic text={text} accent={accent} start={6} align="center" style={{fontSize: size ?? Math.round(look.size * (look.tall ? 1.2 : 1.5))}} />
         {/* The glint: a soft band of light crossing the words, clipped to their box. */}
         <div style={{position: 'absolute', inset: '-10% 0', overflow: 'hidden', pointerEvents: 'none'}}>
           <div

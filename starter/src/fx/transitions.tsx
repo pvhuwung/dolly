@@ -329,20 +329,23 @@ export const scenesLength = (scenes: Scene[], style: StyleName) => {
 export const Scenes: React.FC<{scenes: Scene[]}> = ({scenes}) => {
   const look = useLook();
   const names = transitionsOf(scenes, look.transition);
+  // The page behind the scenes: what a flip or a slide shows while a scene is turned away.
   return (
-    <TransitionSeries>
-      {scenes.map((s, i) => {
-        const t = transitionFor(names[i], look);
-        return (
-          <React.Fragment key={s.name}>
-            {t ? <TransitionSeries.Transition presentation={t.presentation} timing={t.timing} /> : null}
-            <TransitionSeries.Sequence name={s.name} durationInFrames={framesOf(s.seconds)}>
-              <s.component />
-            </TransitionSeries.Sequence>
-          </React.Fragment>
-        );
-      })}
-    </TransitionSeries>
+    <AbsoluteFill style={{background: look.background}}>
+      <TransitionSeries>
+        {scenes.map((s, i) => {
+          const t = transitionFor(names[i], look);
+          return (
+            <React.Fragment key={s.name}>
+              {t ? <TransitionSeries.Transition presentation={t.presentation} timing={t.timing} /> : null}
+              <TransitionSeries.Sequence name={s.name} durationInFrames={framesOf(s.seconds)}>
+                <s.component />
+              </TransitionSeries.Sequence>
+            </React.Fragment>
+          );
+        })}
+      </TransitionSeries>
+    </AbsoluteFill>
   );
 };
 
