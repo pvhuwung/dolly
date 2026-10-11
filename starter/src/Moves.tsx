@@ -1,7 +1,8 @@
 import React from 'react';
 import {AbsoluteFill, Series, useVideoConfig} from 'remotion';
-import {brand, fontFamily, monoFamily} from './brand';
+import {Backdrop} from './fx/backdrops';
 import {Footage, Layer, Screen, Stage, focusOn, moves, useShot, whole} from './kit';
+import {useLook} from './look';
 import {MAC, PANE, PHONE} from './scenes/takes';
 
 // The sample reel: every move in `moves` (kit.tsx), a few seconds each, on the starter's window,
@@ -26,13 +27,15 @@ const MOVES: {code: string; seconds: number; phone?: boolean; keys: (f: Framings
 export const MOVES_FRAMES = MOVES.reduce((sum, m) => sum + m.seconds * 30, 0);
 
 const Demo: React.FC<{move: (typeof MOVES)[number]}> = ({move}) => {
+  const look = useLook();
   const video = useVideoConfig();
   const frame = (rect: Parameters<typeof focusOn>[0]['rect'], fill: number) => focusOn({rect, size: MAC, video, lens: LENS, fill});
   const f = {wide: frame(whole(MAC), 0.8), left: frame(PANE.leftTop, 0.5), right: frame(PANE.browser, 0.5)};
   const camera = useShot(move.keys(f), {dolly: 30});
   return (
-    <AbsoluteFill style={{background: brand.background}}>
-      <Stage camera={camera} lens={LENS} background={brand.background} font={fontFamily}>
+    <AbsoluteFill>
+      <Backdrop />
+      <Stage camera={camera} lens={LENS} font={look.fonts.body}>
         <Layer>
           <Screen frame="none" width={MAC.width} height={MAC.height} glare={0.4}>
             <Footage src={MAC.src} at={20} />
@@ -52,13 +55,13 @@ const Demo: React.FC<{move: (typeof MOVES)[number]}> = ({move}) => {
           left: 60,
           bottom: 56,
           padding: '14px 22px',
-          borderRadius: 14,
-          background: brand.card,
-          boxShadow: '0 8px 30px rgba(20,19,16,0.12)',
-          fontFamily: monoFamily,
+          borderRadius: Math.min(look.radius, 14),
+          background: look.surface,
+          boxShadow: `0 0 0 1px ${look.line}, 0 8px 30px rgba(0, 0, 0, 0.12)`,
+          fontFamily: look.fonts.mono,
           fontSize: 30,
           fontWeight: 600,
-          color: brand.ink,
+          color: look.ink,
         }}
       >
         {move.code}

@@ -62,8 +62,10 @@ fi
 step "Ready"
 cat <<EOF
   cd $dest
-  npx remotion studio                       # preview and scrub
-  npx remotion still Sheet out/sheet.png    # the whole video on one image
-  npm run render                            # out/video.mp4
-  npm run moves                             # out/moves.mp4: every camera move, as samples
+  npx remotion studio       # preview and scrub
+  npm run styles            # out/styles.png: one frame in every style, to pick a look
+  npm run gallery           # out/gallery.png: every template and effect, labelled with its code
+  npm run sheet             # out/sheet.png: the whole video on one image
+  npm run render            # out/video.mp4 (16:9); render:vertical, render:square, render:portrait
+  npm run promo             # out/promo.mp4: a motion-graphics cut, no recordings needed
 EOF

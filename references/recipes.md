@@ -3,7 +3,7 @@
 Bigger moves for the kit in `starter/src/kit.tsx`, each rendered and checked. For everyday camera
 moves (zoom in, zoom out, focus, pan, orbit, push through) use `moves` in the kit first. Frames assume 30
 fps. Coordinates are px; y points down, z toward the viewer. `content` stands for whatever goes in
-the screen, usually `<Footage src={MAC.src} at={...} />`.
+the screen, usually `<Footage src={MAC.src} at={...} />`, and `look` for `useLook()`.
 
 The starter's scenes cover the everyday shots: a window framed under its caption, pane cards, the
 phone close up, the Mac and phone in sync. Use these sparingly: one showy move per 10 s at most.
@@ -52,13 +52,14 @@ const MotionBlur: React.FC<{samples?: number; children: React.ReactNode}> = ({sa
 };
 
 const FlyPast: React.FC = () => {
+  const look = useLook();
   const frame = useCurrentFrame();
   const camera = animate(frame, [
     [0, {x: -220, z: 0, yaw: -14, pitch: 6, dolly: 120}],
     [104, {x: 1680, z: -1180, yaw: -26, pitch: 3, dolly: 260}, ease.inOut],
   ]);
   return (
-    <Stage camera={camera} lens={1500} background={brand.background}>
+    <Stage camera={camera} lens={1500} background={look.background}>
       {[0, 1, 2, 3].map((i) => (
         <Layer key={i} x={i * 560} z={-i * 390} ry={24} scale={0.62}>
           <Screen width={1280} height={800}>{content}</Screen>
@@ -80,7 +81,7 @@ const {lens} = animate(frame, [[0, {lens: 3200}], [90, {lens: 900}, ease.inOut]]
 <Stage lens={lens}>
   <Floor y={300} />
   <Layer z={-1500} y={-300}>
-    <div style={{fontSize: 320, fontWeight: 800, color: brand.ink, opacity: 0.12}}>EVERYTHING ELSE</div>
+    <div style={{fontSize: 320, fontWeight: 800, color: look.ink, opacity: 0.12}}>EVERYTHING ELSE</div>
   </Layer>
   <Layer scale={0.55}><Screen width={1280} height={800}>{content}</Screen></Layer>
 </Stage>
@@ -95,7 +96,7 @@ Big type sits deep behind the product, so as the camera moves, the product slide
 
 ```tsx
 <Layer z={-600} y={-40}>
-  <div style={{fontSize: 260, fontWeight: 800, color: brand.ink, opacity: 0.08}}>AGENTS</div>
+  <div style={{fontSize: 260, fontWeight: 800, color: look.ink, opacity: 0.08}}>AGENTS</div>
 </Layer>
 <Layer z={150} x={380}><Screen frame="phone" width={340} height={700}>{content}</Screen></Layer>
 ```

@@ -2,12 +2,19 @@
   "name": "dolly-starter",
   "private": true,
   "version": "1.0.0",
-  "description": "A Remotion project for product videos made from real screen recordings, with 3D camera moves",
+  "description": "A Remotion project for product videos and motion graphics: real screen recordings in 3D, styles, formats for every platform, and effects",
   "scripts": {
     "postinstall": "node scripts/sfx.mjs",
     "studio": "remotion studio",
     "sheet": "remotion still Sheet out/sheet.png",
     "render": "remotion render Video out/video.mp4",
+    "render:vertical": "remotion render Vertical out/vertical.mp4",
+    "render:square": "remotion render Square out/square.mp4",
+    "render:portrait": "remotion render Portrait out/portrait.mp4",
+    "promo": "remotion render Promo out/promo.mp4",
+    "styles": "remotion still Styles out/styles.png",
+    "formats": "remotion still Formats out/formats.png",
+    "gallery": "remotion still GallerySheet out/gallery.png",
     "moves": "remotion render Moves out/moves.mp4",
     "music": "node scripts/music.mjs public/music.wav",
     "typecheck": "tsc --noEmit"
@@ -15,6 +22,8 @@
   "dependencies": {
     "@remotion/cli": "4.0.528",
     "@remotion/google-fonts": "4.0.528",
+    "@remotion/transitions": "4.0.528",
+    "lucide-react": "1.48.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "remotion": "4.0.528"

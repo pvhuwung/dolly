@@ -355,8 +355,9 @@ export type Rect = {x: number; y: number; width: number; height: number};
 /**
  * The camera values that frame `rect` until it fills `fill` of the video. `rect` is measured from
  * the top-left of a card of `size` (a Screen or a Clip); `layer` is where that card sits on the
- * stage, if not at the origin. `top` keeps that many px at the top of the frame free (for a
- * caption) and centres the rect in the space below. Exact while the camera faces the card square.
+ * stage, if not at the origin. `top` and `bottom` keep that many px of the frame free (a caption
+ * band, a platform's buttons) and centre the rect in the space between: pass `look.aim`. Exact
+ * while the camera faces the card square.
  *
  * Don't zoom past the footage's own pixels: a 2x take softens beyond about 2x its points.
  */
@@ -367,6 +368,7 @@ export const focusOn = ({
   lens,
   fill = 0.8,
   top = 0,
+  bottom = 0,
   layer = {},
 }: {
   rect: Rect;
@@ -375,14 +377,15 @@ export const focusOn = ({
   lens: number;
   fill?: number;
   top?: number;
+  bottom?: number;
   layer?: {x?: number; y?: number; z?: number; scale?: number};
 }) => {
   const s = layer.scale ?? 1;
-  const zoom = Math.min((fill * video.width) / (rect.width * s), (fill * (video.height - top)) / (rect.height * s));
+  const zoom = Math.min((fill * video.width) / (rect.width * s), (fill * (video.height - top - bottom)) / (rect.height * s));
   return {
     x: (layer.x ?? 0) + (rect.x + rect.width / 2 - size.width / 2) * s,
-    // Aim above the rect's centre by half the band, so the rect sits in the middle of what's left.
-    y: (layer.y ?? 0) + (rect.y + rect.height / 2 - size.height / 2) * s - top / 2 / zoom,
+    // Aim off the rect's centre by half the difference of the bands, so it sits in the middle of what's left.
+    y: (layer.y ?? 0) + (rect.y + rect.height / 2 - size.height / 2) * s - (top - bottom) / 2 / zoom,
     z: layer.z ?? 0,
     // Something at the target's depth looks lens / (lens - dolly) times bigger: solve for zoom.
     dolly: lens * (1 - 1 / zoom),

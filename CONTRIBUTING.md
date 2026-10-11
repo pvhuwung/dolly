@@ -13,7 +13,12 @@ npx tsc --noEmit
 npx remotion still Sheet out/sheet.png                  # look at it
 npx remotion render Video out/video.mp4 --scale=0.5     # and watch it
 npm run moves                                           # if you touched the camera or moves
+npm run styles && npm run formats                       # if you touched a style, a format or a scene
+npx remotion still GallerySheet out/g.png --props='{"only":"text","format":"vertical"}'   # an effect, in another format
 ```
+
+A new effect or template goes in `src/fx/` or `src/templates.tsx` with a `demos` entry, reads
+everything from `useLook()`, and must look right in every style and format.
 
 Copy the files you changed back into `starter/` when you're done.
 

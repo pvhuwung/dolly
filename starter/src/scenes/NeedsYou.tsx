@@ -1,9 +1,10 @@
 import React from 'react';
 import {AbsoluteFill, Series, useCurrentFrame, useVideoConfig} from 'remotion';
-import {brand, fontFamily} from '../brand';
-import {Footage, Layer, Screen, Stage, animate, ease, focusOn, useShot, whole} from '../kit';
-import {Caption, SAFE_TOP, Tap} from '../parts';
-import {MAC, PHONE, PUSH} from './takes';
+import {Backdrop} from '../fx/backdrops';
+import {Footage, Layer, Screen, Stage, animate, ease, focusOn, moves, useShot, whole} from '../kit';
+import {useLook} from '../look';
+import {Caption, Tap} from '../parts';
+import {MAC, PANE, PHONE, PUSH} from './takes';
 
 export const LENS = 1800;
 
@@ -14,13 +15,18 @@ export const Window: React.FC<{at: number; speed?: number}> = ({at, speed}) => (
   </Screen>
 );
 
-/** The whole window, framed under the caption, square to the camera, creeping in. */
+/**
+ * The whole window, framed under the caption, square to the camera, creeping in. A tall frame
+ * can't read a whole window, so there the camera pushes in to the pane that lights up.
+ */
 const Wide: React.FC = () => {
+  const look = useLook();
   const video = useVideoConfig();
-  const framed = focusOn({rect: whole(MAC), size: MAC, video, lens: LENS, fill: 0.94, top: SAFE_TOP});
-  const camera = useShot([[0, framed]], {dolly: 40});
+  const frame = (rect: Parameters<typeof focusOn>[0]['rect'], fill: number) => focusOn({rect, size: MAC, video, lens: LENS, fill, ...look.aim});
+  const wide = frame(whole(MAC), 0.94);
+  const camera = useShot(look.format === 'landscape' ? [[0, wide]] : moves.zoomIn(wide, frame(PANE.leftTop, 0.88), {hold: 40, frames: 50}), {dolly: 40});
   return (
-    <Stage camera={camera} lens={LENS} background={brand.background} font={fontFamily}>
+    <Stage camera={camera} lens={LENS} font={look.fonts.body}>
       <Layer>
         <Window at={25.5} />
       </Layer>
@@ -30,10 +36,11 @@ const Wide: React.FC = () => {
 
 /** The real push notification on the phone: close on the banner while it's read, then the tap. */
 const Phone: React.FC = () => {
+  const look = useLook();
   const frame = useCurrentFrame();
   const {scale} = animate(frame, [[0, {scale: 1.75}], [67, {scale: 1.8}, ease.linear], [99, {scale: 0.88}, ease.inOut], [150, {scale: 0.9}, ease.linear]]);
   return (
-    <AbsoluteFill style={{alignItems: 'center', paddingTop: 200}}>
+    <AbsoluteFill style={{alignItems: 'center', paddingTop: look.band - 30}}>
       <div style={{transform: `scale(${scale})`, transformOrigin: '50% 0%'}}>
         <Screen frame="phone" width={PHONE.width} height={PHONE.height} glare={0}>
           <Footage src={PUSH.src} at={0.5} />
@@ -48,7 +55,8 @@ const Phone: React.FC = () => {
 export const NeedsYou: React.FC = () => {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill style={{background: brand.background}}>
+    <AbsoluteFill>
+      <Backdrop />
       <Series>
         <Series.Sequence durationInFrames={210}>
           <Wide />

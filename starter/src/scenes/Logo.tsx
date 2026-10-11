@@ -1,7 +1,9 @@
 import React from 'react';
 import {AbsoluteFill, Img, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {accentStyle, brand, fontFamily, serifFamily} from '../brand';
-import {Words} from '../kit';
+import {brand} from '../brand';
+import {Backdrop} from '../fx/backdrops';
+import {Kinetic} from '../fx/text';
+import {useLook} from '../look';
 
 /** The app icon, landing with the only bounce in the video. */
 export const Icon: React.FC<{size: number; land: number}> = ({size, land}) => {
@@ -13,9 +15,10 @@ export const Icon: React.FC<{size: number; land: number}> = ({size, land}) => {
       style={{
         width: size,
         height: size,
+        flexShrink: 0,
         transform: `scale(${0.6 + 0.4 * t}) translateY(${(1 - t) * 40}px)`,
         opacity: Math.min(1, t * 2),
-        filter: 'drop-shadow(0 26px 40px rgba(20,19,16,0.16))',
+        filter: 'drop-shadow(0 26px 40px rgba(0, 0, 0, 0.18))',
       }}
     >
       <Img src={staticFile(brand.logo)} style={{width: size, height: size}} />
@@ -23,20 +26,34 @@ export const Icon: React.FC<{size: number; land: number}> = ({size, land}) => {
   );
 };
 
+/** The product's name as a wordmark, in the look's UI face. */
+export const wordmark = (look: ReturnType<typeof useLook>, fontSize: number): React.CSSProperties => ({
+  ...look.headline,
+  fontFamily: look.fonts.body,
+  fontWeight: 700,
+  fontStyle: 'normal',
+  letterSpacing: '-0.03em',
+  fontSize,
+});
+
 // LOGO: the answer to the hook, on the beat.
-export const Logo: React.FC = () => (
-  <AbsoluteFill style={{background: brand.background, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 30}}>
-    <Icon size={220} land={0} />
-    <Words text={brand.name} start={16} style={{fontFamily, fontSize: 112, fontWeight: 700, color: brand.ink, letterSpacing: -3.5}} />
-    <div style={{display: 'flex', gap: 13}}>
-      <Words text="Run agents in parallel." start={30} stagger={4} style={{fontFamily: serifFamily, fontSize: 44, fontWeight: 500, color: brand.dim}} />
-      <Words
-        text="Manage them all in one place."
-        start={50}
-        stagger={3}
-        style={{fontFamily: serifFamily, fontSize: 44, fontWeight: 500}}
-        wordStyle={accentStyle}
-      />
-    </div>
-  </AbsoluteFill>
-);
+export const Logo: React.FC = () => {
+  const look = useLook();
+  return (
+    <AbsoluteFill>
+      <Backdrop />
+      <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 30, padding: `0 ${look.safe.right}px 0 ${look.safe.left}px`}}>
+        <Icon size={220} land={0} />
+        <Kinetic text={brand.name} start={16} effect="rise" style={wordmark(look, 112)} />
+        <Kinetic
+          text="Run agents in parallel."
+          accent="Manage them all in one place."
+          start={30}
+          stagger={4}
+          align="center"
+          style={{fontSize: Math.round(look.size * 0.72), color: look.dim, maxWidth: 1300}}
+        />
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
