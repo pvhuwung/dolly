@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {brand, monoFamily, serifFamily} from '../brand';
+import {accentStyle, brand, monoFamily, serifFamily} from '../brand';
 import {Footage, Rect, Words} from '../kit';
 import {MAC, PANE, crop} from './takes';
 
@@ -37,7 +37,7 @@ export const Hook: React.FC = () => {
       </div>
       <div style={{position: 'absolute', left: 110, top: 410, width: 680, display: 'flex', flexDirection: 'column', gap: 4}}>
         <Words text="One needs you." start={150} style={line} />
-        <Words text="Which one?" start={168} style={line} wordStyle={{fontStyle: 'italic', color: brand.alert}} />
+        <Words text="Which one?" start={168} style={line} wordStyle={{...accentStyle, color: brand.alert}} />
       </div>
       <PaneCard pane={PANE.leftTop} at={24} appear={18} x={860} y={170} scale={0.84} />
       <PaneCard pane={PANE.browser} at={6} appear={28} x={1375} y={170} scale={0.556} />

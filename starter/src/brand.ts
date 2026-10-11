@@ -1,3 +1,4 @@
+import type React from 'react';
 import {loadFont as loadSans} from '@remotion/google-fonts/DMSans';
 import {loadFont as loadSerif} from '@remotion/google-fonts/SourceSerif4';
 import {loadFont as loadMono} from '@remotion/google-fonts/JetBrainsMono';
@@ -9,6 +10,8 @@ export const {fontFamily} = loadSans('normal', {weights: ['400', '500', '600', '
 export const {fontFamily: serifFamily} = loadSerif('normal', {weights: ['500', '600'], subsets: ['latin']});
 loadSerif('italic', {weights: ['500', '600'], subsets: ['latin']});
 export const {fontFamily: monoFamily} = loadMono('normal', {weights: ['400', '600'], subsets: ['latin']});
+/** The headline face, used by Caption. */
+export const headlineFamily = serifFamily;
 
 export const brand = {
   name: 'Termary',
@@ -26,3 +29,6 @@ export const brand = {
   background: '#fbfbf9',
   card: '#ffffff',
 };
+
+/** How a headline's accent phrase differs from the rest. termary.com sets it in italic green. */
+export const accentStyle: React.CSSProperties = {fontStyle: 'italic', color: brand.accent};

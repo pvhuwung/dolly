@@ -2,3 +2,5 @@ node_modules/
 out/
 .take
 .DS_Store
+public/sfx/
+public/music.wav

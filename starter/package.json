@@ -4,9 +4,12 @@
   "version": "1.0.0",
   "description": "A Remotion project for product videos made from real screen recordings, with 3D camera moves",
   "scripts": {
+    "postinstall": "node scripts/sfx.mjs",
     "studio": "remotion studio",
     "sheet": "remotion still Sheet out/sheet.png",
     "render": "remotion render Video out/video.mp4",
+    "moves": "remotion render Moves out/moves.mp4",
+    "music": "node scripts/music.mjs public/music.wav",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

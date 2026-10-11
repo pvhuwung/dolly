@@ -43,7 +43,7 @@ export const Video: React.FC = () => (
     </Series>
     {TINGS.map(([scene, at]) => (
       <Sequence key={`${scene}-${at}`} from={startOf(scene) + at} durationInFrames={40}>
-        <Audio src={staticFile('ting.wav')} volume={0.4} />
+        <Audio src={staticFile('sfx/ting.wav')} volume={0.4} />
       </Sequence>
     ))}
   </>

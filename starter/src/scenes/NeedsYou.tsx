@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Series, useCurrentFrame, useVideoConfig} from 'remotion';
 import {brand, fontFamily} from '../brand';
-import {Footage, Layer, Screen, Stage, animate, ease, focusOn, useShot} from '../kit';
+import {Footage, Layer, Screen, Stage, animate, ease, focusOn, useShot, whole} from '../kit';
 import {Caption, SAFE_TOP, Tap} from '../parts';
 import {MAC, PHONE, PUSH} from './takes';
 
@@ -17,8 +17,8 @@ export const Window: React.FC<{at: number; speed?: number}> = ({at, speed}) => (
 /** The whole window, framed under the caption, square to the camera, creeping in. */
 const Wide: React.FC = () => {
   const video = useVideoConfig();
-  const whole = focusOn({rect: {x: 0, y: 0, ...MAC}, screen: MAC, video, lens: LENS, fill: 0.94, top: SAFE_TOP});
-  const camera = useShot([[0, whole]], {dolly: 40});
+  const framed = focusOn({rect: whole(MAC), size: MAC, video, lens: LENS, fill: 0.94, top: SAFE_TOP});
+  const camera = useShot([[0, framed]], {dolly: 40});
   return (
     <Stage camera={camera} lens={LENS} background={brand.background} font={fontFamily}>
       <Layer>

@@ -40,35 +40,55 @@ git clone https://github.com/gettermary/observee && cd observee && ./install.sh
 
 Then ask:
 
-> Make a 45-second launch video of my app for X and LinkedIn. The logo is logo.svg.
+> Make a 45-second launch video for yourapp.com, for X and LinkedIn.
 
-You need macOS for recording (the editing works anywhere) and Node 18 or newer. Your terminal app
-needs Screen Recording permission, plus Accessibility for observee.
+The agent starts every video with `new.sh`, which installs what's missing: Node (with Homebrew),
+the project's packages, the sound effects, and the headless Chrome that renders the frames.
+Recording needs macOS, and your terminal app needs Screen Recording permission (plus
+Accessibility for observee). The editing works anywhere.
+
+## Camera moves
+
+Ready-made moves for any shot: `tiltIn`, `zoomIn`, `zoomOut`, `focus`, `pan`, `orbit` and
+`pushThrough`. Each turns two framings into keyframes, and they chain. `npm run moves` renders a
+sample reel of every one:
+
+![Six moves from the sample reel, each labelled with the line that makes it](docs/moves.jpg)
+
+```tsx
+const wide = focusOn({rect: whole(PAGE), size: PAGE, video, lens: 1800, top: SAFE_TOP});
+const card = focusOn({rect: PRICING_CARD, size: PAGE, video, lens: 1800, fill: 0.4, top: SAFE_TOP});
+const camera = useShot(moves.zoomIn(wide, card), {dolly: 40});
+```
 
 ## What's inside
 
 | | |
 |---|---|
-| `SKILL.md` | The pipeline the agent follows, and the rules of motion |
+| `SKILL.md` | The pipeline the agent follows, the look, and the rules of motion |
+| `new.sh` | Sets up a new video project with everything installed |
 | `starter/` | A working 41-second Remotion video to start from, with its takes |
-| `starter/src/kit.tsx` | The 3D kit, in one file: `Stage` (camera and lens), `Layer`, `Screen`, `Footage`, `Words`, `Floor`, `animate`, `useShot`, `focusOn` |
+| `starter/src/kit.tsx` | The 3D kit, in one file: `Stage` (camera and lens), `Layer`, `Screen`, `Clip`, `Footage`, `Words`, `Floor`, `animate`, `useShot`, `focusOn`, `moves` |
 | `starter/src/parts.tsx` | Headlines (`Caption`), tap dots, callouts and speed chips, in the brand's look |
-| `starter/scripts/take.sh` | Records a take: screen and Simulator at once |
-| `references/recipes.md` | More moves: fly-past with motion blur, dolly zoom, reflection, turn-around reveal |
+| `starter/scripts/` | `take.sh` records a take (screen and Simulator at once); `sfx.mjs` generates a chime, a whoosh and a click; `music.mjs` generates an original soundtrack of any length |
+| `references/recipes.md` | Bigger moves: fly-past with motion blur, dolly zoom, reflection, turn-around reveal |
 
-Every scene and recipe is rendered and checked against the versions pinned in
-`starter/package.json`.
+Every scene, move and recipe is rendered and checked against the versions pinned in
+`starter/package.json`. The sounds and the music are synthesized by the scripts, so they're
+free to use anywhere.
 
 ## Without an agent
 
 The starter is a normal Remotion project:
 
 ```sh
-cp -R starter ~/my-video && cd ~/my-video && npm install
+~/.claude/skills/dolly/new.sh ~/my-video && cd ~/my-video
 npx remotion studio                                  # preview and scrub
 scripts/take.sh start A 30 && scripts/take.sh wait   # record a 30 s take
 npx remotion still Sheet out/sheet.png               # the whole video on one image
-npx remotion render Video out/video.mp4              # render it
+npm run render                                       # out/video.mp4
+npm run moves                                        # out/moves.mp4, the camera moves
+npm run music -- 45                                  # public/music.wav, 45 s of original music
 ```
 
 ## License

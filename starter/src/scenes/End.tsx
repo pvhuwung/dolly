@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {brand, fontFamily, serifFamily} from '../brand';
+import {accentStyle, brand, fontFamily, serifFamily} from '../brand';
 import {Words} from '../kit';
 import {Pop} from '../parts';
 import {Icon} from './Logo';
@@ -19,7 +19,7 @@ export const End: React.FC = () => (
         start={44}
         stagger={4}
         style={{fontFamily: serifFamily, fontSize: 52, fontWeight: 600, letterSpacing: -1}}
-        wordStyle={{fontStyle: 'italic', color: brand.accent}}
+        wordStyle={accentStyle}
       />
     </div>
     <Pop at={70} style={{marginTop: 18, padding: '18px 34px', borderRadius: 999, background: brand.accentSoft, fontFamily, fontSize: 38, fontWeight: 700, color: brand.accentDeep}}>

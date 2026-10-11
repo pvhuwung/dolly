@@ -1,6 +1,7 @@
 # Shot recipes
 
-Bigger moves for the kit in `starter/src/kit.tsx`, each rendered and checked. Frames assume 30
+Bigger moves for the kit in `starter/src/kit.tsx`, each rendered and checked. For everyday camera
+moves (zoom in, zoom out, focus, pan, orbit, push through) use `moves` in the kit first. Frames assume 30
 fps. Coordinates are px; y points down, z toward the viewer. `content` stands for whatever goes in
 the screen, usually `<Footage src={MAC.src} at={...} />`.
 
@@ -14,7 +15,8 @@ The cut is invisible, and the video goes from a 3D world to plain, sharp footage
 
 ```tsx
 const video = useVideoConfig();
-const full = focusOn({rect: {x: 0, y: 0, width: 1600, height: 900}, screen: {width: 1600, height: 900}, video, lens: 1800, fill: 1});
+const SIZE = {width: 1600, height: 900};
+const full = focusOn({rect: whole(SIZE), size: SIZE, video, lens: 1800, fill: 1});
 const camera = animate(frame, [[0, {yaw: -10, dolly: -300, x: 0, y: 0}], [45, {...full, yaw: 0}, ease.inOut]]);
 <Stage camera={camera}>
   <Layer><Screen frame="none" width={1600} height={900}>{content}</Screen></Layer>

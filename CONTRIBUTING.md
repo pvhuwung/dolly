@@ -8,10 +8,11 @@ small fix, open an issue first so we can agree on the approach.
 Work in a copy of the starter, so `node_modules` never lands in the skill folder:
 
 ```sh
-cp -R starter /tmp/dolly-test && cd /tmp/dolly-test && npm install
+./new.sh /tmp/dolly-test && cd /tmp/dolly-test
 npx tsc --noEmit
 npx remotion still Sheet out/sheet.png                  # look at it
 npx remotion render Video out/video.mp4 --scale=0.5     # and watch it
+npm run moves                                           # if you touched the camera or moves
 ```
 
 Copy the files you changed back into `starter/` when you're done.

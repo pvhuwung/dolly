@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Img, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {brand, fontFamily, serifFamily} from '../brand';
+import {accentStyle, brand, fontFamily, serifFamily} from '../brand';
 import {Words} from '../kit';
 
 /** The app icon, landing with the only bounce in the video. */
@@ -35,7 +35,7 @@ export const Logo: React.FC = () => (
         start={50}
         stagger={3}
         style={{fontFamily: serifFamily, fontSize: 44, fontWeight: 500}}
-        wordStyle={{fontStyle: 'italic', color: brand.accent}}
+        wordStyle={accentStyle}
       />
     </div>
   </AbsoluteFill>

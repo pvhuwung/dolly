@@ -262,6 +262,34 @@ export const Footage: React.FC<{src: string; at?: number; speed?: number; crop?:
   );
 };
 
+/**
+ * A region of a take as a floating card. `region` is in the take's points (what observee and the
+ * screen report); `scale` is the take's pixels per point: 2 for a Retina screen take. Children are
+ * laid over the card in the region's own points (a Callout, a Tap). `frame="window"` adds a title
+ * bar, for a web page cut from a browser.
+ */
+export const Clip: React.FC<{
+  src: string;
+  at?: number;
+  speed?: number;
+  region: Rect;
+  scale?: number;
+  frame?: 'none' | 'window';
+  title?: string;
+  radius?: number;
+  children?: React.ReactNode;
+}> = ({src, at, speed, region, scale = 2, frame = 'none', title, radius = 16, children}) => (
+  <Screen frame={frame} title={title} width={region.width} height={region.height + (frame === 'window' ? 40 : 0)} radius={radius} glare={0.35}>
+    <Footage
+      src={src}
+      at={at}
+      speed={speed}
+      crop={{x: region.x * scale, y: region.y * scale, width: region.width * scale, height: region.height * scale}}
+    />
+    {children}
+  </Screen>
+);
+
 /** A grid floor that fades with distance. When the camera moves, it's what makes the move read as 3D. */
 export const Floor: React.FC<{y?: number; color?: string}> = ({y = 460, color = 'rgba(128,128,128,0.2)'}) => (
   <Layer y={y} rx={90}>
@@ -325,34 +353,102 @@ export const Words: React.FC<{
 export type Rect = {x: number; y: number; width: number; height: number};
 
 /**
- * The camera values that push in on `rect` (px from the screen's outer top-left, title bar
- * included) until it fills `fill` of the video. `screen` is the screen's size plus its Layer's
- * x, y, z and scale. `top` keeps that many px at the top of the frame free (for a caption) and
- * centres the rect in the space below. Exact while the camera faces the screen square.
+ * The camera values that frame `rect` until it fills `fill` of the video. `rect` is measured from
+ * the top-left of a card of `size` (a Screen or a Clip); `layer` is where that card sits on the
+ * stage, if not at the origin. `top` keeps that many px at the top of the frame free (for a
+ * caption) and centres the rect in the space below. Exact while the camera faces the card square.
+ *
+ * Don't zoom past the footage's own pixels: a 2x take softens beyond about 2x its points.
  */
 export const focusOn = ({
   rect,
-  screen,
+  size,
   video,
   lens,
   fill = 0.8,
   top = 0,
+  layer = {},
 }: {
   rect: Rect;
-  screen: {width: number; height: number; x?: number; y?: number; z?: number; scale?: number};
+  size: {width: number; height: number};
   video: {width: number; height: number};
   lens: number;
   fill?: number;
   top?: number;
+  layer?: {x?: number; y?: number; z?: number; scale?: number};
 }) => {
-  const s = screen.scale ?? 1;
+  const s = layer.scale ?? 1;
   const zoom = Math.min((fill * video.width) / (rect.width * s), (fill * (video.height - top)) / (rect.height * s));
   return {
-    x: (screen.x ?? 0) + (rect.x + rect.width / 2 - screen.width / 2) * s,
+    x: (layer.x ?? 0) + (rect.x + rect.width / 2 - size.width / 2) * s,
     // Aim above the rect's centre by half the band, so the rect sits in the middle of what's left.
-    y: (screen.y ?? 0) + (rect.y + rect.height / 2 - screen.height / 2) * s - top / 2 / zoom,
-    z: screen.z ?? 0,
+    y: (layer.y ?? 0) + (rect.y + rect.height / 2 - size.height / 2) * s - top / 2 / zoom,
+    z: layer.z ?? 0,
     // Something at the target's depth looks lens / (lens - dolly) times bigger: solve for zoom.
     dolly: lens * (1 - 1 / zoom),
   };
+};
+
+/** The whole of a card of `size`: what `focusOn` frames when you want all of it. */
+export const whole = (size: {width: number; height: number}): Rect => ({x: 0, y: 0, width: size.width, height: size.height});
+
+/** A rect inside a region, measured from the region's top-left: for Callouts and push-ins in a Clip. */
+export const within = (region: Rect, r: Rect): Rect => ({x: r.x - region.x, y: r.y - region.y, width: r.width, height: r.height});
+
+// ---------------------------------------------------------------------------------------------
+// Moves: ready-made camera keyframes for useShot. Each takes framings from focusOn (or any
+// camera values) and a `start` frame, so moves can follow one another in one shot:
+//
+//   const wide = focusOn({rect: whole(SIZE), size: SIZE, video, lens: 1800, top: SAFE_TOP});
+//   const card = focusOn({rect: DETAIL, size: SIZE, video, lens: 1800, fill: 0.5, top: SAFE_TOP});
+//   const camera = useShot([...moves.tiltIn(wide), ...moves.focus(wide, card, {start: 70})], {dolly: 40});
+
+type Key = readonly [frame: number, values: Partial<Camera>, ease?: Ease];
+type Pose = Partial<Camera>;
+const plus = (p: Pose, d: Pose): Pose => {
+  const out: Pose = {...p};
+  for (const k of Object.keys(d) as (keyof Camera)[]) out[k] = (p[k] ?? 0) + (d[k] ?? 0);
+  return out;
+};
+
+export const moves = {
+  /** Arrive from far back, turned and from above, and settle on `at`. The classic opener. */
+  tiltIn: (at: Pose, {start = 0, frames = 60, yaw = -28, pitch = 14, back = 900} = {}): Key[] => [
+    [start, plus(at, {yaw, pitch, dolly: -back})],
+    [start + frames, at, ease.out],
+  ],
+  /** Hold on `from`, then push in to `to`: make one detail the subject. */
+  zoomIn: (from: Pose, to: Pose, {start = 0, hold = 15, frames = 45} = {}): Key[] => [
+    [start, from],
+    [start + hold, from],
+    [start + hold + frames, to, ease.inOut],
+  ],
+  /** Start close on `from`, then pull back to `to`: reveal where the detail lives. */
+  zoomOut: (from: Pose, to: Pose, {start = 0, hold = 20, frames = 50} = {}): Key[] => [
+    [start, from],
+    [start + hold, from],
+    [start + hold + frames, to, ease.inOut],
+  ],
+  /** Push in to `detail`, hold it long enough to read, pull back to `wide`. */
+  focus: (wide: Pose, detail: Pose, {start = 0, push = 40, hold = 60} = {}): Key[] => [
+    [start, wide],
+    [start + push, detail, ease.inOut],
+    [start + push + hold, detail],
+    [start + push * 2 + hold, wide, ease.inOut],
+  ],
+  /** Slide from one framing to another at about the same distance: follow along a wide screen. */
+  pan: (from: Pose, to: Pose, {start = 0, frames = 90} = {}): Key[] => [
+    [start, from],
+    [start + frames, to, ease.inOut],
+  ],
+  /** Swing around `at` by `degrees`: parallax between things at different depths. */
+  orbit: (at: Pose, {start = 0, frames = 120, degrees = 30} = {}): Key[] => [
+    [start, plus(at, {yaw: -degrees / 2})],
+    [start + frames, plus(at, {yaw: degrees / 2}), ease.inOut],
+  ],
+  /** Fly into the screen until it fills the frame: the cut to the next scene. */
+  pushThrough: (at: Pose, lens: number, {start = 0, frames = 22} = {}): Key[] => [
+    [start, at],
+    [start + frames, {...at, dolly: lens * 0.97}, ease.in],
+  ],
 };

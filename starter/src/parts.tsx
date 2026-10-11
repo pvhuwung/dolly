@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {brand, fontFamily, serifFamily} from './brand';
+import {accentStyle, brand, fontFamily, headlineFamily} from './brand';
 import {Words} from './kit';
 
 // The 2D pieces laid over the shots, in the brand's look.
@@ -9,8 +9,9 @@ import {Words} from './kit';
 export const SAFE_TOP = 230;
 
 /**
- * The headline of a shot: a small uppercase eyebrow, a serif title, and an optional italic accent
- * phrase in the brand colour ("Approve it *from your phone.*"). Top left, in the caption band.
+ * The headline of a shot: a small uppercase eyebrow, a title in the brand's headline face, and an
+ * optional accent phrase set the brand's way (`accentStyle`): "Approve it *from your phone.*".
+ * Top left, in the caption band.
  */
 export const Caption: React.FC<{
   eyebrow?: string;
@@ -24,7 +25,7 @@ export const Caption: React.FC<{
   const {fps} = useVideoConfig();
   const eIn = spring({frame: frame - start + 4, fps, config: {damping: 200}, durationInFrames: 18});
   const eOut = exit === undefined ? 0 : spring({frame: frame - exit, fps, config: {damping: 200}, durationInFrames: 12});
-  const heading: React.CSSProperties = {fontFamily: serifFamily, fontSize: size, fontWeight: 600, letterSpacing: -1.2, lineHeight: 1.1, color: brand.ink};
+  const heading: React.CSSProperties = {fontFamily: headlineFamily, fontSize: size, fontWeight: 600, letterSpacing: -1.2, lineHeight: 1.1, color: brand.ink};
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
       <div style={{position: 'absolute', top: 64, left: 110, display: 'flex', flexDirection: 'column', gap: 12}}>
@@ -52,7 +53,7 @@ export const Caption: React.FC<{
               start={start + title.split(' ').length * 6}
               exit={exit}
               style={heading}
-              wordStyle={{fontStyle: 'italic', color: brand.accent}}
+              wordStyle={accentStyle}
             />
           ) : null}
         </div>
