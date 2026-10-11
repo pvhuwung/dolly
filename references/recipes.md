@@ -1,166 +1,148 @@
 # Shot recipes
 
-Each recipe is a camera idea plus the code for it, using the kit in `starter/src/kit`. Frame numbers
-assume 30 fps; scale them for 60. Coordinates are px, y points down, z points at the viewer.
+More moves for the kit in `starter/src/kit.tsx`, each rendered and checked. Frames assume 30 fps.
+Coordinates are px; y points down, z toward the viewer. `content` stands for whatever goes in the
+screen: `<Footage ... />` or the starter's `<DemoApp />`.
 
-The five recipes the starter already shows, with the file to copy from:
+The starter's own scenes cover the core moves: `Hero` (tilt-in with drift), `Orbit` (two screens
+with parallax), `Focus` (push-in on a detail, then push through), `End` (3D logo card).
 
-| Recipe | File | Use it for |
-|---|---|---|
-| Tilt-in + drift | `scenes/Hero.tsx` | Opening on the product |
-| Orbit with parallax | `scenes/Orbit.tsx` | Two surfaces that work together (desktop + phone) |
-| Push-in, hold, push-through | `scenes/Focus.tsx` | Making one detail of the UI the subject |
-| Fly-past with motion blur | `scenes/Fan.tsx` | "Many of these": parallel runs, a list of features |
-| 3D logo end card | `scenes/End.tsx` | Name and call to action |
+## From 3D to full-frame footage
 
-## Keyframes in one paragraph
-
-`animate(frame, restCamera, keys)` returns a full pose. A key is `[frame, {fields}, easeIntoThisKey]`
-and pins only the fields it names, so different fields can have different timing in one list. The
-ease on a key shapes the segment that ends there. Before the first key a field holds its first
-value, after the last key its last value. For a slow constant drift on top, add it after:
-`{...pose, yaw: pose.yaw + 6 * (frame / durationInFrames)}`.
-
-## Screen to full frame (3D into flat footage)
-
-Push in until the screen's content exactly fills the frame, then cut to the same footage full frame.
-The cut is invisible and the video switches from a 3D world to plain, sharp footage.
+Push in until the screen exactly fills the frame, then cut to the same take, full frame and flat.
+The cut is invisible, and the video goes from a 3D world to plain, sharp footage.
 
 ```tsx
-const full = focusOn({
-  rect: {x: 0, y: 40, width: APP_SIZE.width, height: APP_SIZE.height - 40}, // skip the title bar
-  layer: {}, size: APP_SIZE, frame: {width, height}, lens: LENS, fill: 1,
-});
-const camera = animate(frame, restCamera, [[0, {yaw: -8, dolly: -200}], [40, {...full, yaw: 0}, ease.inOut]]);
-// ...and the next scene is <Footage src="same.mov" from={sameFrame} /> in an AbsoluteFill.
+const video = useVideoConfig();
+const full = focusOn({rect: {x: 0, y: 0, width: 1600, height: 900}, screen: {width: 1600, height: 900}, video, lens: 1800, fill: 1});
+const camera = animate(frame, [[0, {yaw: -10, dolly: -300, x: 0, y: 0}], [45, {...full, yaw: 0}, ease.inOut]]);
+<Stage camera={camera}>
+  <Layer><Screen frame="none" width={1600} height={900}>{content}</Screen></Layer>
+</Stage>
+// The next scene: <Footage src="takes/A-mac.mov" at={sameMoment} crop={WINDOW} /> in an AbsoluteFill.
 ```
 
-The content's aspect ratio must match the frame (16:9) for `fill: 1` to cover it edge to edge.
+The screen's aspect ratio must match the video's (16:9) for `fill: 1` to cover it edge to edge.
 
-## Dolly zoom (vertigo)
+## Fly-past with motion blur
 
-The subject stays the same size while the world behind it stretches. In CSS 3D this is just the lens:
-anything at z = 0 keeps its size whatever the perspective, and everything else changes.
+Screens in a row, receding; the camera trucks along them fast. Anything that crosses the frame in
+under half a second strobes without motion blur, so this shot gets it. Wrap the scene's content
+(background included: the blur needs an opaque frame) in `MotionBlur`:
 
 ```tsx
-const lens = track(frame, [[0, 3200], [90, 900, ease.inOut]]);
+import {AbsoluteFill, Freeze, useCurrentFrame} from 'remotion';
+
+// Renders the shot `samples` times across the shutter and averages them. Each sample goes over the
+// ones before at opacity 1/(i+1), which leaves an exact mean (@remotion/motion-blur bands dark
+// gradients instead). Render time multiplies by `samples`: wrap only the fast shot.
+const MotionBlur: React.FC<{samples?: number; children: React.ReactNode}> = ({samples = 10, children}) => {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill>
+      {Array.from({length: samples}, (_, i) => (
+        <AbsoluteFill key={i} style={{opacity: 1 / (i + 1)}}>
+          <Freeze frame={frame + (i / (samples - 1) - 0.5) * 0.5}>{children}</Freeze>
+        </AbsoluteFill>
+      ))}
+    </AbsoluteFill>
+  );
+};
+
+const FlyPast: React.FC = () => {
+  const frame = useCurrentFrame();
+  const camera = animate(frame, [
+    [0, {x: -220, z: 0, yaw: -14, pitch: 6, dolly: 120}],
+    [104, {x: 1680, z: -1180, yaw: -26, pitch: 3, dolly: 260}, ease.inOut],
+  ]);
+  return (
+    <Stage camera={camera} lens={1500} background={brand.background}>
+      {[0, 1, 2, 3].map((i) => (
+        <Layer key={i} x={i * 560} z={-i * 390} ry={24} scale={0.62}>
+          <Screen width={1280} height={800}>{content}</Screen>
+        </Layer>
+      ))}
+    </Stage>
+  );
+};
+// In the scene list: <MotionBlur><FlyPast /></MotionBlur>
+```
+
+## Dolly zoom
+
+The subject keeps its size while the world behind it stretches: a "something just changed" move,
+once per video at most. In CSS 3D it's just the lens: anything at z = 0 keeps its size.
+
+```tsx
+const {lens} = animate(frame, [[0, {lens: 3200}], [90, {lens: 900}, ease.inOut]]);
 <Stage lens={lens}>
-  <Camera pose={{pitch: 8}}>
-    <Floor />                                    {/* stretches */}
-    <Layer z={-900} y={-420}><Words text="Everything else" /></Layer>  {/* rushes away */}
-    <Layer><Screen ... /></Layer>                {/* z = 0: holds its size */}
-  </Camera>
+  <Floor y={300} />
+  <Layer z={-1500} y={-300}>
+    <div style={{fontSize: 320, fontWeight: 800, color: 'rgba(255,255,255,0.12)'}}>EVERYTHING ELSE</div>
+  </Layer>
+  <Layer scale={0.55}><Screen width={1280} height={800}>{content}</Screen></Layer>
 </Stage>
 ```
 
-Far things must sit outside the subject's silhouette (here, above it), or the subject hides the
-effect. Use once per video at most. It's a "something just changed" move.
+The background must be far back and much wider than the subject: as the lens widens it shrinks
+toward the centre, and anything that ends up behind the subject is hidden.
 
-## Text behind the product (split depth)
+## Text behind the product
 
-Big type sits deeper than the product, so as the camera moves the product slides across it.
+Big type sits deep behind the product, so as the camera moves, the product slides across it.
 
 ```tsx
 <Layer z={-600} y={-40}>
   <div style={{fontSize: 260, fontWeight: 800, color: 'rgba(255,255,255,0.08)'}}>AGENTS</div>
 </Layer>
-<Layer z={150} x={380}><Screen frame="phone" width={340} height={700}>...</Screen></Layer>
+<Layer z={150} x={380}><Screen frame="phone" width={340} height={700}>{content}</Screen></Layer>
 ```
 
-Keep the background type low-contrast: it's texture, not copy. Anything people must read goes in
-front.
+Keep it low-contrast: it's texture, not copy. Anything people must read goes in front.
 
-## Reflection on a glossy floor
+## Reflection
 
-A flipped copy under the screen, fading out. The fade (a mask) goes on an inner div, never on the
-Layer, or the Layer flattens.
+A flipped copy under the screen, fading out. The fade goes on an inner div, never on the Layer, or
+the Layer flattens.
 
 ```tsx
-const H = APP_SIZE.height;
+const H = 800;
 <Layer y={H + 12}>
   <div style={{transform: 'scaleY(-1)', opacity: 0.25,
                maskImage: 'linear-gradient(to top, black, transparent 40%)',
                WebkitMaskImage: 'linear-gradient(to top, black, transparent 40%)'}}>
-    <Screen width={APP_SIZE.width} height={H} shadow={0} glare={0}><Footage src="clip.mov" /></Screen>
+    <Screen width={1280} height={H} shadow={0} glare={0}>{content}</Screen>
   </div>
 </Layer>
+<Layer><Screen width={1280} height={H}>{content}</Screen></Layer>
 ```
 
-The real screen sits at y = 0 here; in general put the copy at `screenY + H * scale + gap`, with
-the same x, z and scale as the real screen, and render the same `Footage` (same `from`)
-so the reflection plays in sync. Drop the Floor grid when you use reflections: pick one ground.
+The copy sits at the screen's `y + height × scale + gap`, with the same `x`, `z` and `scale`, and
+shows the same footage at the same `at`, so the two play in sync. It only reads on bright content:
+a dark UI's reflection disappears into a dark background. Drop the `Floor` with it.
 
 ## Turn-around reveal
 
-A card spins half a turn to reveal its back: before/after, the old way/the new way.
+A card spins half a turn to show its back: before and after, the old way and the new way.
 
 ```tsx
-const turn = track(frame, [[20, 0], [50, 180, ease.inOut]]);
+const {turn} = animate(frame, [[20, {turn: 0}], [50, {turn: 180}, ease.inOut]]);
 <Layer ry={turn}>
   <div style={{position: 'relative', transformStyle: 'preserve-3d'}}>
-    <div style={{backfaceVisibility: 'hidden'}}><Screen ...>{before}</Screen></div>
+    <div style={{backfaceVisibility: 'hidden'}}><Screen width={1280} height={800}>{before}</Screen></div>
     <div style={{position: 'absolute', inset: 0, transform: 'rotateY(180deg)', backfaceVisibility: 'hidden'}}>
-      <Screen ...>{after}</Screen>
+      <Screen width={1280} height={800}>{after}</Screen>
     </div>
   </div>
 </Layer>
 ```
 
-At exactly 90° the card is edge-on and invisible for a frame; that's expected. Push the camera in
-slightly (dolly +60) during the turn, or the spin looks like a slideshow transition.
+At exactly 90° the card is edge-on and invisible for a frame, which is expected. Push the camera in a
+little (dolly +60) during the turn, or it looks like a slideshow transition.
 
-## Rack focus (depth of field)
+## Push-through transition
 
-Blur what's not the subject, and shift the focus when the subject changes. The blur goes on a div
-around the Screen, inside the Layer.
-
-```tsx
-const focusZ = track(frame, [[0, 0], [45, 260, ease.inOut]]); // from the window to the phone
-const blur = (z: number) => Math.min(8, Math.abs(z - focusZ) / 40);
-<Layer z={0}><div style={{filter: `blur(${blur(0)}px)`}}><Screen ... /></div></Layer>
-<Layer z={260} x={520}><div style={{filter: `blur(${blur(260)}px)`}}><Screen frame="phone" ... /></div></Layer>
-```
-
-Blur is expensive to render. Use it on a shot or two, not everywhere.
-
-## Click highlight on footage
-
-Show where the user clicked: a ring that pops at the click and fades. Position it in the Screen's
-content coordinates, as a child next to the footage.
-
-```tsx
-const Click: React.FC<{x: number; y: number; at: number}> = ({x, y, at}) => {
-  const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
-  const t = spring({frame: frame - at, fps, config: {damping: 200}, durationInFrames: 18});
-  if (frame < at || frame > at + 24) return null;
-  return <div style={{position: 'absolute', left: x - 28, top: y - 28, width: 56, height: 56,
-    borderRadius: 28, border: '3px solid white', transform: `scale(${0.4 + t})`, opacity: 1 - t}} />;
-};
-```
-
-Captures with `screencapture -k` already draw clicks; don't add a second ring on top.
-
-## Device pair
-
-Desktop and phone together tell "it follows you". Put the phone nearer (z 200–300) and to one side,
-turned slightly toward the centre (`ry` -10 to -15 when it sits on the right), and orbit. See
-`scenes/Orbit.tsx`.
-
-## Stack / cascade
-
-Many cards along a line in depth, the camera travelling along them: `scenes/Fan.tsx`. To make it a
-vertical stack instead, change x to y and turn `ry` into `rx`. Stagger their content (each card's
-footage starts later) so the cards don't move in lockstep.
-
-## Kinetic title beats
-
-- One line, `Words`, centred, 64–96 px at 1080p. Swing in, hold, then leave with `exit`.
-- For a statement that lands on a music hit, set `start` so the LAST word lands on the beat.
-- Don't stack more than two lines of kinetic type; past that, use a plain fade.
-
-## Push-through as a transition
-
-End scene A by dollying into a surface until it fills the frame (`dolly` → `lens * 0.97`, ease.in,
-the last 15–25 frames). Start scene B already moving the same way: arriving from `dolly: -300` with
-ease.out. Cut on the bar line. If the surface's colour matches B's background, it reads as one move.
+End scene A by dollying into a surface until it fills the frame (`dolly` to `lens * 0.97` with
+`ease.in` over the last 15–25 frames, as `Focus` does). Start scene B already moving the same way,
+arriving from `dolly: -300` with `ease.out`. If the surface's colour matches B's background, the two
+read as one move.

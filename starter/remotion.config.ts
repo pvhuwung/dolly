@@ -1,8 +1,4 @@
 import {Config} from '@remotion/cli/config';
 
-Config.setEntryPoint('src/index.ts');
-// three.js needs a GPU-backed WebGL in headless Chrome. The default renderer can't run it on most
-// machines and the canvas renders blank.
-Config.setChromiumOpenGlRenderer('angle');
-Config.setVideoImageFormat('jpeg');
-Config.setJpegQuality(92);
+// Frames go through JPEG on their way to the video. The default quality (80) smears small UI text.
+Config.setJpegQuality(95);

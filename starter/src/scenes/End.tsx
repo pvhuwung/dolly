@@ -1,27 +1,31 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
-import {brand, fontFamily, logoSvg} from '../brand';
-import {Words} from '../kit';
-import {Logo3D} from '../three/Logo3D';
+import {spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {brand, fontFamily} from '../brand';
+import {Extrude, Layer, Stage, Words} from '../kit';
 
-// Recipe: 3D END CARD. A real extruded logo (three.js) over the same CSS background, with the name
-// and the call to action in flat type underneath, where it stays crisp and readable.
+// END CARD. The logo swings in with real thickness and keeps turning gently, so light keeps moving
+// across it. The name and the call to action sit flat underneath, where they read clearly.
 export const End: React.FC = () => {
   const frame = useCurrentFrame();
-  const glow = interpolate(frame, [0, 40], [0, 1], {extrapolateRight: 'clamp'});
+  const {fps, durationInFrames} = useVideoConfig();
+  const swing = spring({frame, fps, config: {damping: 14}, durationInFrames: 50}); // a little bounce: logos only
+  const ry = (1 - swing) * -75 + Math.sin(frame / 22) * 18;
+  const rx = (1 - swing) * 20 + Math.sin(frame / 31) * 6;
+
   return (
-    <AbsoluteFill style={{background: brand.background}}>
-      <AbsoluteFill
-        style={{
-          opacity: glow,
-          background: `radial-gradient(28% 32% at 50% 40%, ${brand.accent}55 0%, transparent 70%)`,
-        }}
-      />
-      <Logo3D svg={logoSvg} accent={brand.accent} />
-      <AbsoluteFill style={{alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 170, gap: 18}}>
-        <Words text={brand.name} start={34} style={{fontFamily, fontSize: 92, fontWeight: 800, color: brand.ink, letterSpacing: -2}} />
-        <Words text={brand.tagline} start={48} stagger={3} style={{fontFamily, fontSize: 38, fontWeight: 400, color: brand.dim}} />
-      </AbsoluteFill>
-    </AbsoluteFill>
+    <Stage camera={{dolly: (frame / durationInFrames) * 120, pitch: 3}} background={brand.background} font={fontFamily}>
+      <Layer z={-300} y={-120}>
+        <div style={{width: 1400, height: 1000, background: `radial-gradient(closest-side, ${brand.accent}44, transparent)`}} />
+      </Layer>
+      <Layer y={-120} rx={rx} ry={ry}>
+        <Extrude src={brand.logo} size={400} depth={40} shine={ry / 30} />
+      </Layer>
+      <Layer y={190}>
+        <Words text={brand.name} start={30} style={{fontSize: 92, fontWeight: 800, color: brand.ink, letterSpacing: -2}} />
+      </Layer>
+      <Layer y={285}>
+        <Words text={brand.tagline} start={44} stagger={3} style={{fontSize: 38, color: brand.dim}} />
+      </Layer>
+    </Stage>
   );
 };

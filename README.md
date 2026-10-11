@@ -1,66 +1,60 @@
 # dolly
 
-**3D motion videos, made by your coding agent.**
+**Ask your coding agent for a launch video. It records your app and edits it in 3D.**
 
-dolly is an agent skill for making product, launch and demo videos with real camera moves: screens
-that tilt in from depth, orbits with parallax, push-ins on the one detail that matters, fly-pasts
-with motion blur, an extruded 3D logo on the end card. The agent writes the video as code in
-[Remotion](https://www.remotion.dev), renders it, and reviews its own work frame by frame before
-you see it.
+dolly is an agent skill for product, launch and demo videos with real camera moves: screens that
+tilt in from depth, orbits with parallax, push-ins on the one detail that matters, a 3D logo on the
+end card. The agent records takes of your app, writes the video as code in
+[Remotion](https://www.remotion.dev), and checks its own frames before you see anything.
 
-![Four frames from the starter: a tilt-in, an orbit with a phone, a fly-past, a 3D logo](docs/preview.jpg)
+![Four frames from the starter video: a tilt-in, an orbit with a phone, a push-in, the logo card](docs/preview.jpg)
+
+## How a video gets made
+
+1. **Plan.** The agent asks where the video will play, the one thing viewers should remember,
+   and the call to action.
+2. **Record.** `scripts/take.sh` records your Mac's screen, and the iOS Simulator if it's
+   running. With [observee](https://github.com/gettermary/observee) installed, the agent drives
+   your app itself while it records.
+3. **Build shots.** Windows are cut out of the takes and placed in 3D, then the camera moves
+   through them.
+4. **Review.** The agent renders contact sheets (many frames on one image) and reads them.
+5. **Render.** 1080p or 4K MP4, plus a poster frame.
 
 ## Install
 
-dolly is a folder with a `SKILL.md`, so any agent that reads Agent Skills can load it. For
+dolly is a folder with a `SKILL.md`, so any agent that reads Agent Skills can use it. For
 Claude Code:
 
 ```sh
 git clone https://github.com/gettermary/dolly ~/.claude/skills/dolly
 ```
 
-Then ask for a video:
+For the agent to record your app by itself, add observee too. It needs Rust:
 
-> Make a 45-second launch video for my app. The screen recordings are in ./footage, the logo is
-> logo.svg, and it's for X and LinkedIn.
+```sh
+git clone https://github.com/gettermary/observee && cd observee && ./install.sh
+```
 
-or invoke it directly with `/dolly`.
+Then ask:
 
-You need Node 18 or newer. Remotion downloads its own headless Chrome the first time it renders.
+> Make a 45-second launch video of my app for X and LinkedIn. The logo is logo.svg.
 
-## What the agent gets
+You need macOS for recording (the editing works anywhere) and Node 18 or newer. Your terminal app
+needs Screen Recording permission, plus Accessibility for observee.
+
+## What's inside
 
 | | |
 |---|---|
-| `SKILL.md` | The workflow (brief → beat sheet → footage → shots → review → delivery) and twelve rules of motion that separate "expensive" from "slideshow" |
-| `starter/` | A working Remotion project: a CSS 3D kit (camera, layers, screens, kinetic type, push-in helper, motion blur), a three.js logo, five example scenes, a timeline measured in music bars and a contact-sheet renderer |
-| `references/recipes.md` | Shot recipes with code: dolly zoom, split depth, reflections, turn-around reveal, rack focus, push-through transitions and more |
-| `references/capture.md` | Recording footage that survives a 3D treatment, on macOS, iOS, Android, the web and the terminal |
-| `references/three.md` | When and how to use real 3D (three.js via `@remotion/three`) |
-| `references/delivery.md` | Music, sound effects, captions, render settings, loudness, vertical cuts and a hand-over checklist |
+| `SKILL.md` | The pipeline the agent follows, and the rules of motion |
+| `starter/` | A working 22-second Remotion video to start from |
+| `starter/src/kit.tsx` | The 3D kit, in one file: `Stage` (camera and lens), `Layer`, `Screen`, `Footage`, `Words`, `Extrude`, `Floor`, `animate`, `focusOn` |
+| `starter/scripts/take.sh` | Records a take: screen and Simulator at once |
+| `references/recipes.md` | More moves: fly-past with motion blur, dolly zoom, reflection, turn-around reveal |
 
-The starter and every shot recipe were rendered and checked frame by frame against the pinned
-versions in `starter/package.json`. The audio and three.js video-texture snippets are type-checked.
-
-## The kit in one shot
-
-```tsx
-const camera = animate(frame, restCamera, [
-  [0, {yaw: -34, pitch: 18, dolly: -1100}],          // start far back, high and turned
-  [75, {yaw: -6, pitch: 6, dolly: 0}, ease.out],     // arrive and settle
-]);
-
-<Stage lens={1600} background={brand.background}>
-  <Camera pose={camera}>
-    <Floor />
-    <Layer y={70} scale={0.85}>
-      <Screen width={1280} height={800} title="My App">
-        <Footage src="clip.mov" from={45} />
-      </Screen>
-    </Layer>
-  </Camera>
-</Stage>
-```
+Every scene and recipe is rendered and checked against the versions pinned in
+`starter/package.json`.
 
 ## Without an agent
 
@@ -68,18 +62,17 @@ The starter is a normal Remotion project:
 
 ```sh
 cp -R starter ~/my-video && cd ~/my-video && npm install
-npx remotion studio                                   # preview and scrub
-npx remotion still Sheet out/sheet.png                # contact sheet: the whole video, 1 frame/s
-npx remotion render Showcase out/showcase.mp4         # 1080p render (about 30 s on an M-series Mac)
+npx remotion studio                                  # preview and scrub
+scripts/take.sh start A 30 && scripts/take.sh wait   # record a 30 s take
+npx remotion still Sheet out/sheet.png               # the whole video on one image
+npx remotion render Video out/video.mp4              # render it
 ```
 
 ## License
 
-dolly is MIT licensed (see [LICENSE](LICENSE)).
-
-The starter depends on Remotion, which has its own license: it's free for individuals, non-profits
-and companies with up to 3 employees, and larger companies need a
-[company license](https://www.remotion.pro). three.js is MIT.
+dolly is MIT licensed (see [LICENSE](LICENSE)). It builds on Remotion, which has its own license:
+free for individuals and companies of up to 3 people, while larger companies need a
+[company license](https://www.remotion.pro).
 
 Made by the team behind [Termary](https://termary.com). Contributions are welcome; see
 [CONTRIBUTING.md](CONTRIBUTING.md).

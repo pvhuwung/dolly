@@ -1,7 +1,7 @@
 import React from 'react';
 
-// A stand-in app so the starter renders with no footage. Swap it for <Footage src="..."> (your
-// real screen recording) as soon as you have one: real UI always beats a mock.
+// A stand-in app so the starter renders with no footage. Replace it with <Footage src="clip.mov" />
+// as soon as you have a real recording: real UI always beats a mock.
 
 export const APP_SIZE = {width: 1280, height: 800};
 
@@ -12,7 +12,7 @@ const line = (w: number, c = 'rgba(255,255,255,0.16)') => (
   <div style={{height: 10, width: w, borderRadius: 5, background: c}} />
 );
 
-export const PlaceholderApp: React.FC<{accent?: string}> = ({accent = '#7c5cff'}) => (
+export const DemoApp: React.FC<{accent?: string}> = ({accent = '#7c5cff'}) => (
   <div style={{display: 'flex', width: '100%', height: '100%', fontSize: 15, color: '#e6edf3'}}>
     <div
       style={{
