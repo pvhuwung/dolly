@@ -75,7 +75,7 @@ Read the product's website first, then settle these with the user, asking only w
   | `soft` | A pastel tint of the accent, rounded type, the accent phrase on a pill, bouncy pops, round reveals |
   | `terminal` | Mono everything, headlines typed out with a cursor, scanlines, glitch cuts |
   | `cinema` | A trailer: near-black, a big quiet serif, film grain, slow fades through black |
-  | `paper` | Drawing with code: paper cards on a soft lavender page, a light serif with a bold accent, page turns |
+  | `paper` | Drawing with code: paper cards on a soft lavender page, a light serif with a bold accent, card flips |
 
 - **The one sentence** the viewer should remember, the real moment in the product that proves it,
   and **the ask** for the end card (a URL, a download, a waitlist).
@@ -270,10 +270,14 @@ What makes it look expensive, in any style:
   point (2 for a Retina take). Lower `fill` if a close-up looks soft.
 - `AbsoluteFill` is 100% wide and tall, so `left`/`right` insets on it move it rather than shrink
   it: inset a plain `position: absolute` div instead.
+- `alpha()` and `mix()` return CSS `color-mix()` strings: fine in styles, but Remotion's
+  `interpolateColors` rejects them. Interpolate between plain hex or rgba colours there.
 - `focusOn`'s `size` is only a size. A region's own `x`/`y` are page coordinates, not where the
   card is on the stage: pass `size: {width, height}` and, if it moved, `layer`.
-- The shader transitions (`zoomBlur`, `filmBurn`, …) render in `remotion render` but show an error
-  in the Studio unless Chrome has `chrome://flags/#canvas-draw-element` on. Check them in stills.
+- The shader transitions (`zoomBlur`, `filmBurn`, `bookFlip`, …) show an error in the Studio unless
+  Chrome has `chrome://flags/#canvas-draw-element` on, and in heavy scenes they can drop a layer
+  from frames, even after the transition. Use one only as an accent, and check every frame of the
+  final render around it; the styles' defaults are all plain DOM transitions.
 
 ## 6. Review
 

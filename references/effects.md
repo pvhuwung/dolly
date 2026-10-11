@@ -118,7 +118,9 @@ join, so a video's length depends on them: `scenesLength(SCENES, style)` and
 | `filmBurn`, `ripple` | 30 | Shaders: a film burn, a water ripple |
 
 Directional transitions move right to left, so motion carries one way through the video.
-Shaders need WebGL2: the starter's `remotion.config.ts` sets the ANGLE renderer for that, and the
+Every style's default is a plain DOM transition. The shaders are accents: in heavy scenes they can
+drop a layer from frames (even after the transition), so check the final render frame by frame
+around one. They need WebGL2: the starter's `remotion.config.ts` sets the ANGLE renderer for that, and the
 Studio previews them only in Chrome 148+ with `chrome://flags/#canvas-draw-element` on. A sheet
 with more than about a dozen shader transitions shows some of them blank (Chrome's limit on live
 WebGL contexts); each renders fine on its own.

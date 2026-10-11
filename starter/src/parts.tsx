@@ -27,6 +27,9 @@ export const Caption: React.FC<{
   const {fps} = useVideoConfig();
   const eIn = spring({frame: frame - start + 4, fps, config: {damping: 200}, durationInFrames: 18});
   const eOut = exit === undefined ? 0 : spring({frame: frame - exit, fps, config: {damping: 200}, durationInFrames: 12});
+  // The scrim covers this caption's band (smaller type, a shorter band), and leaves after the words.
+  const sOut = exit === undefined ? 0 : spring({frame: frame - exit - 10, fps, config: {damping: 200}, durationInFrames: 12});
+  const band = size ? Math.round(look.safe.top + ((look.band - look.safe.top) * size) / look.size) : look.band;
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
       {scrim ? (
@@ -36,9 +39,9 @@ export const Caption: React.FC<{
             left: 0,
             right: 0,
             top: 0,
-            height: look.band + 60,
-            opacity: eIn - eOut,
-            background: `linear-gradient(${look.background} ${Math.round(((look.band - 20) / (look.band + 60)) * 100)}%, transparent)`,
+            height: band + 60,
+            opacity: eIn - sOut,
+            background: `linear-gradient(${look.background} ${Math.round(((band - 20) / (band + 60)) * 100)}%, transparent)`,
           }}
         />
       ) : null}

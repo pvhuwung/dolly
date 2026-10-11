@@ -466,7 +466,7 @@ export const STYLES: Record<StyleName, {about: string; make: (b: {accent: string
     },
   },
   paper: {
-    about: 'Drawing with code: paper cards on a soft lavender page, a light serif with the accent phrase in bold, mono labels, page turns.',
+    about: 'Drawing with code: paper cards on a soft lavender page, a light serif with the accent phrase in bold, mono labels, card flips.',
     make: ({accent, alert, fonts}) => {
       const f = {headline: FONT.newsreader(), body: FONT.dmSans(), mono: FONT.jetbrains(), ...fonts};
       const accentText = readable(accent, false);
@@ -502,7 +502,8 @@ export const STYLES: Record<StyleName, {about: string; make: (b: {accent: string
         shadow: '0 18px 40px rgba(45, 38, 70, 0.14), 0 3px 8px rgba(45, 38, 70, 0.06)',
         backdrop: 'plain',
         text: 'rise',
-        transition: 'bookFlip',
+        // A DOM flip, not the bookFlip shader: shaders can drop layers from frames in heavy scenes.
+        transition: 'flip',
         spring: {damping: 200},
         pace: 1.1,
         scale: 1.1,
