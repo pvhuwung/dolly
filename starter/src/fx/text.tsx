@@ -575,12 +575,12 @@ export const Counter: React.FC<{
   const widest = [fmt(from), fmt(to)].sort((a, b) => b.length - a.length)[0];
   return (
     <span style={{...look.headline, fontSize: look.size, ...style, display: 'inline-flex', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap'}}>
-      {prefix}
+      <span style={{whiteSpace: 'pre'}}>{prefix}</span>
       <span style={{display: 'inline-grid'}}>
         <span style={{gridArea: '1 / 1', visibility: 'hidden'}}>{widest}</span>
         <span style={{gridArea: '1 / 1', textAlign: 'right'}}>{fmt(from + (to - from) * p)}</span>
       </span>
-      {suffix}
+      <span style={{whiteSpace: 'pre'}}>{suffix}</span>
     </span>
   );
 };

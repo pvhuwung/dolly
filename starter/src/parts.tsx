@@ -19,7 +19,9 @@ export const Caption: React.FC<{
   exit?: number;
   size?: number;
   effect?: React.ComponentProps<typeof Kinetic>['effect'];
-}> = ({eyebrow, title, accent, start = 8, exit, size, effect}) => {
+  /** Fades the page colour in behind the band, for a shot that pushes in until UI runs under it. */
+  scrim?: boolean;
+}> = ({eyebrow, title, accent, start = 8, exit, size, effect, scrim}) => {
   const look = useLook();
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -27,6 +29,19 @@ export const Caption: React.FC<{
   const eOut = exit === undefined ? 0 : spring({frame: frame - exit, fps, config: {damping: 200}, durationInFrames: 12});
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
+      {scrim ? (
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            height: look.band + 60,
+            opacity: eIn - eOut,
+            background: `linear-gradient(${look.background} ${Math.round(((look.band - 20) / (look.band + 60)) * 100)}%, transparent)`,
+          }}
+        />
+      ) : null}
       <div
         style={{
           position: 'absolute',
@@ -118,10 +133,10 @@ export const Speed: React.FC<{label: string}> = ({label}) => {
         position: 'absolute',
         top: look.safe.top + 8,
         right: look.safe.right,
-        padding: '8px 16px',
+        padding: '0.36em 0.72em',
         borderRadius: 999,
         fontFamily: look.fonts.body,
-        fontSize: 22,
+        fontSize: Math.round(look.size * 0.36),
         fontWeight: 600,
         color: look.dim,
         background: look.surface,

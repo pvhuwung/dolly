@@ -8,9 +8,10 @@ import {loadFont as loadIBMPlexMono} from '@remotion/google-fonts/IBMPlexMono';
 import {loadFont as loadInstrumentSerif} from '@remotion/google-fonts/InstrumentSerif';
 import {loadFont as loadInterTight} from '@remotion/google-fonts/InterTight';
 import {loadFont as loadJetBrainsMono} from '@remotion/google-fonts/JetBrainsMono';
+import {loadFont as loadNewsreader} from '@remotion/google-fonts/Newsreader';
 import {loadFont as loadNunito} from '@remotion/google-fonts/Nunito';
 import {loadFont as loadSourceSerif} from '@remotion/google-fonts/SourceSerif4';
-import {brand} from './brand';
+import {Brand, brand} from './brand';
 
 // How the video looks and moves (its STYLE), and the frame it's made for (its FORMAT).
 //
@@ -21,8 +22,11 @@ import {brand} from './brand';
 //
 // A format is the frame: its size, and the parts a platform covers with its own buttons. The look
 // knows which format it's in from the composition's size, so one scene renders in all of them.
+//
+// One project can hold videos for several brands: <LookProvider brand={{name, accent, ...}}> sets
+// the brand for everything inside it, and useBrand() reads it.
 
-export type StyleName = 'editorial' | 'midnight' | 'bold' | 'swiss' | 'soft' | 'terminal' | 'cinema';
+export type StyleName = 'editorial' | 'midnight' | 'bold' | 'swiss' | 'soft' | 'terminal' | 'cinema' | 'paper';
 export type FormatName = 'landscape' | 'vertical' | 'square' | 'portrait';
 
 /** How words come in. Implemented by `Kinetic` (fx/text.tsx). */
@@ -137,7 +141,7 @@ export const FORMATS: Record<
   // the caption and sound at the bottom, and like/comment/share up the right edge from about
   // halfway down. Text inside x 120-960, y 288-1248 is clear of all three. Footage may run under
   // the bottom band (`aimBottom`), but nothing that has to be read.
-  vertical: {width: 1080, height: 1920, for: 'Reels, TikTok, YouTube Shorts, Stories', safe: {top: 288, right: 120, bottom: 672, left: 120}, band: 660, size: 84, aimBottom: 500},
+  vertical: {width: 1080, height: 1920, for: 'Reels, TikTok, YouTube Shorts, Stories', safe: {top: 288, right: 120, bottom: 672, left: 120}, band: 660, size: 84, aimBottom: 380},
   square: {width: 1080, height: 1080, for: 'feeds on X, LinkedIn and Instagram', safe: {top: 64, right: 72, bottom: 72, left: 72}, band: 285, size: 58, aimBottom: 40},
   // The Instagram profile grid shows the middle 3:4 of a 4:5 post: keep the subject central.
   portrait: {width: 1080, height: 1350, for: 'Instagram and LinkedIn feeds (4:5)', safe: {top: 72, right: 72, bottom: 96, left: 72}, band: 330, size: 66, aimBottom: 60},
@@ -202,6 +206,7 @@ const FONT = {
   interTight: once(() => loadInterTight('normal', {weights: ['400', '500', '600', '700', '800'], subsets}).fontFamily),
   plexMono: once(() => loadIBMPlexMono('normal', {weights: ['400', '500', '600'], subsets}).fontFamily),
   nunito: once(() => loadNunito('normal', {weights: ['500', '700', '800', '900'], subsets}).fontFamily),
+  newsreader: once(() => loadNewsreader('normal', {weights: ['300', '400', '700'], subsets}).fontFamily),
   instrument: once(() => {
     loadInstrumentSerif('italic', {weights: ['400'], subsets});
     return loadInstrumentSerif('normal', {weights: ['400'], subsets}).fontFamily;
@@ -325,7 +330,7 @@ export const STYLES: Record<StyleName, {about: string; make: (b: {accent: string
     },
   },
   swiss: {
-    about: 'White, black type on a column grid, the accent used sparingly, square cards, hard wipes. Clean and precise.',
+    about: 'Off-white, black type on a column grid, the accent used sparingly, square cards, hard wipes. Clean and precise.',
     make: ({accent, alert, fonts}) => {
       const f = {headline: FONT.interTight(), body: FONT.interTight(), mono: FONT.plexMono(), ...fonts};
       const accentText = readable(accent, false);
@@ -427,7 +432,7 @@ export const STYLES: Record<StyleName, {about: string; make: (b: {accent: string
     },
   },
   cinema: {
-    about: 'A trailer: black, a big quiet serif, film grain, slow fades through black. Teasers and launch announcements.',
+    about: 'A trailer: near-black, a big quiet serif, film grain, slow fades through black. Teasers and launch announcements.',
     make: ({accent, alert, fonts}) => {
       const f = {headline: FONT.instrument(), body: FONT.interTight(), mono: FONT.jetbrains(), ...fonts};
       const accentText = readable(accent, true);
@@ -460,6 +465,50 @@ export const STYLES: Record<StyleName, {about: string; make: (b: {accent: string
       };
     },
   },
+  paper: {
+    about: 'Drawing with code: paper cards on a soft lavender page, a light serif with the accent phrase in bold, mono labels, page turns.',
+    make: ({accent, alert, fonts}) => {
+      const f = {headline: FONT.newsreader(), body: FONT.dmSans(), mono: FONT.jetbrains(), ...fonts};
+      const accentText = readable(accent, false);
+      return {
+        dark: false,
+        background: mix('#e2dfee', accent, 0.06),
+        surface: '#f8f4ea',
+        ink: '#1d1b24',
+        dim: '#5f5a6b',
+        line: 'rgba(29, 27, 36, 0.1)',
+        accent,
+        accentText,
+        accentSoft: alpha(accent, 0.14),
+        onAccent: textOn(accent),
+        alert,
+        fonts: f,
+        headline: {fontFamily: f.headline, fontWeight: 300, letterSpacing: '-0.025em', lineHeight: 1.08, color: '#1d1b24'},
+        emphasis: {fontWeight: 700, color: '#1d1b24'},
+        mark: 'none',
+        eyebrow: {
+          fontFamily: f.mono,
+          fontWeight: 500,
+          letterSpacing: '0',
+          color: '#1d1b24',
+          background: '#fbf9f4',
+          padding: '0.2em 0.6em',
+          borderRadius: 999,
+          width: 'fit-content',
+          boxShadow: '0 1px 2px rgba(29, 27, 36, 0.08)',
+        },
+        eyebrowPrefix: '',
+        radius: 10,
+        shadow: '0 18px 40px rgba(45, 38, 70, 0.14), 0 3px 8px rgba(45, 38, 70, 0.06)',
+        backdrop: 'plain',
+        text: 'rise',
+        transition: 'bookFlip',
+        spring: {damping: 200},
+        pace: 1.1,
+        scale: 1.1,
+      };
+    },
+  },
 };
 
 export const STYLE_NAMES = Object.keys(STYLES) as StyleName[];
@@ -468,8 +517,8 @@ export const STYLE_NAMES = Object.keys(STYLES) as StyleName[];
 // The look of the frame being rendered
 
 /** Builds the look for a style at a frame size. Most code wants useLook() instead. */
-export const makeLook = (style: StyleName, width: number, height: number): Look => {
-  const {scale, ...def} = STYLES[style].make({accent: brand.accent, alert: brand.alert, fonts: brand.fonts});
+export const makeLook = (style: StyleName, width: number, height: number, b: Brand = brand): Look => {
+  const {scale, ...def} = STYLES[style].make({accent: b.accent, alert: b.alert, fonts: b.fonts});
   const format = formatOf(width, height);
   const f = FORMATS[format];
   // Formats are designed at their own size; scale them to the frame (a 4K landscape, say).
@@ -481,17 +530,34 @@ export const makeLook = (style: StyleName, width: number, height: number): Look 
 };
 
 const StyleContext = createContext<StyleName | null>(null);
+const BrandContext = createContext<Brand>(brand);
 
-/** Sets the style for everything inside it. The default is `brand.style`. */
-export const LookProvider: React.FC<{style?: StyleName; children: React.ReactNode}> = ({style, children}) => (
-  <StyleContext.Provider value={style ?? null}>{children}</StyleContext.Provider>
-);
+/**
+ * Sets the style, and optionally the brand, for everything inside it. Unset, they come from the
+ * provider around it, and at the top from brand.ts (whose `style` is the default style).
+ *
+ *   <LookProvider style="soft" brand={{name: 'Quillo', logo: 'quillo.svg', accent: '#e8590c'}}>
+ */
+export const LookProvider: React.FC<{style?: StyleName; brand?: Partial<Brand>; children: React.ReactNode}> = ({style, brand: b, children}) => {
+  const outerStyle = useContext(StyleContext);
+  const outer = useContext(BrandContext);
+  const merged = useMemo(() => (b ? {...outer, ...b, fonts: {...outer.fonts, ...b.fonts}} : outer), [outer, b]);
+  return (
+    <BrandContext.Provider value={merged}>
+      <StyleContext.Provider value={style ?? outerStyle}>{children}</StyleContext.Provider>
+    </BrandContext.Provider>
+  );
+};
+
+/** The brand being rendered: its name, URL and logo, and the colours and fonts the look is made from. */
+export const useBrand = (): Brand => useContext(BrandContext);
 
 /** The look of the frame being rendered: its style's colours, type and motion, and its format. */
 export const useLook = (): Look => {
-  const style = useContext(StyleContext) ?? brand.style;
+  const b = useBrand();
+  const style = useContext(StyleContext) ?? b.style;
   const {width, height} = useVideoConfig();
-  return useMemo(() => makeLook(style, width, height), [style, width, height]);
+  return useMemo(() => makeLook(style, width, height, b), [style, width, height, b]);
 };
 
 /** Picks a value by the frame's shape: `tall` for vertical and 4:5, `square`, else `wide`. */

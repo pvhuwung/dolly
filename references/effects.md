@@ -7,7 +7,7 @@ takes colours or fonts. Times are frames from the start of the scene it's in.
 See them all: `npm run gallery` (one still each), or `npx remotion render Gallery out/gallery.mp4`
 (each playing, labelled with its code). Narrow either with
 `--props='{"only":"text","style":"bold","format":"vertical"}'`; `only` is `templates`, `text`,
-`graphics`, `backdrops` or `transitions`.
+`graphics`, `drawings`, `backdrops` or `transitions`.
 
 ## Templates: whole scenes (`templates.tsx`)
 
@@ -64,6 +64,28 @@ Positions are px in the parent; most come in at `start` or `at` and leave at `ex
 | `<Marquee items loop? reverse? />` | An endless ticker of words or logos |
 | `<Burst x y at />` | Confetti for a success moment |
 | `<Shine at every?>children</Shine>` | A glint across a button, a logo, a price |
+
+## Drawings (`fx/drawings.tsx`)
+
+Illustrations drawn with code, each animating as it's drawn from `start`, deterministic per `seed`
+(another seed, another plant). Their pigments (rose, ochre, terracotta, plum, sage, dusty blue) are
+tinted toward the brand colour; `palette` overrides them.
+
+| | |
+|---|---|
+| `<Paper width height rotate?>children</Paper>` | A card of warm paper with grain and an uneven edge: the frame for a drawing |
+| `<Flower size? petals? />` | A watercolour flower: the stem draws up, leaves unfurl, the bud opens |
+| `<Stamps width height motif? count? />` | Stamped motifs (`flower`, `star`, `leaf`, `dot`, `sprig`) landing one by one |
+| `<HexField width height origin? />` | A hexagon heat map spreading from a hot spot |
+| `<Butterfly size? arrive? />` | A veined butterfly fluttering in and hovering |
+| `<Plant width? height? seed? />` | A branching plant growing, leaves and blooms |
+| `<Stitch size? shape? />` | Embroidery sewn in: `sun`, `circle`, `heart`, `leaf` |
+| `<Watercolor width height kind?>headline</Watercolor>` | A brushstroke or pool painted in behind words |
+| `<Doodles kind />` | Pen marks drawn on: `underline`, `circle`, `squiggle`, `arrow`, `loop`, `spiral`, `star`, `sparkle`, `heart`, `burst`, `check` |
+| `<Constellation width height count? />` | Stars appearing and joining with fine lines |
+| `<Contours width height levels? />` | Topographic lines drawing on, level by level: a map |
+| `<Ripple width height drops? />` | Ink drops landing and rippling out |
+| `<Scribble width height />` | A marker scribble filling in behind a word |
 
 ## Backdrops (`fx/backdrops.tsx`)
 

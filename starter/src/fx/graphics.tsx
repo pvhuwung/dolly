@@ -2,9 +2,8 @@ import React, {useId} from 'react';
 import {AbsoluteFill, Img, interpolate, random, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import type {LucideIcon} from 'lucide-react';
 import {Bell, Check, GitPullRequest, Rocket, ShieldCheck, Sparkles, Zap} from 'lucide-react';
-import {brand} from '../brand';
 import {ease, type Ease} from '../kit';
-import {alpha, mix, useLook, type Look} from '../look';
+import {alpha, mix, type Look, useBrand, useLook} from '../look';
 import type {Demo} from './demo';
 
 // Motion graphics: the pieces laid over or between shots. Charts, a cursor, notifications, chat,
@@ -350,6 +349,9 @@ export const LineChart: React.FC<{
   const value = interpolate(headX, pts.map((p) => p.x), values);
   const dot = pop(start, 14);
   const fontSize = Math.max(22, Math.min(30, width * 0.03));
+  // The value pill sits centred over the head, and slides to one side near the ends so it never
+  // hangs past the chart.
+  const anchor = interpolate(headX / width, [0, 0.12, 0.88, 1], [-8, -50, -50, -92], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <div style={{position: 'relative', width, height, opacity: 1 - out}}>
       <svg width={width} height={plot} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
@@ -377,7 +379,7 @@ export const LineChart: React.FC<{
           position: 'absolute',
           left: headX,
           top: headY - 26,
-          transform: `translate(-50%, -100%) scale(${dot})`,
+          transform: `translate(${anchor}%, -100%) scale(${dot})`,
           padding: '6px 14px',
           borderRadius: look.radius === 0 ? 0 : 999,
           background: look.accent,
@@ -907,8 +909,11 @@ export const Toast: React.FC<{
   exit?: number;
   width?: number;
   from?: 'top' | 'right';
-}> = ({title, body, app = brand.name, time = 'now', icon: IconGlyph, logo = brand.logo, at = 0, exit, width = 560, from = 'top'}) => {
+}> = ({title, body, app: appName, time = 'now', icon: IconGlyph, logo: logoFile, at = 0, exit, width = 560, from = 'top'}) => {
   const {look, pop, gone} = useTempo();
+  const brand = useBrand();
+  const app = appName ?? brand.name;
+  const logo = logoFile ?? brand.logo;
   const p = pop(at, 26);
   const out = gone(exit, 14);
   const r = look.radius === 0 ? 0 : Math.max(20, look.radius);
@@ -1049,8 +1054,10 @@ export const Badge: React.FC<{
   tone?: 'accent' | 'soft' | 'card' | 'alert';
   size?: number;
   pulse?: boolean;
-}> = ({text, icon: Glyph, at = 0, exit, tone = 'soft', size = 30, pulse}) => {
+}> = ({text, icon: Glyph, at = 0, exit, tone = 'soft', size: sizeProp, pulse}) => {
   const {look, frame, pop, gone} = useTempo();
+  // Scales with the format's headline: 30 px in 16:9, 40 in 9:16.
+  const size = sizeProp ?? Math.round(look.size * 0.48);
   const p = pop(at, 20);
   const out = gone(exit);
   const colors = {

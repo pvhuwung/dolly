@@ -1,15 +1,15 @@
 import React from 'react';
 import {AbsoluteFill, Img, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {brand} from '../brand';
 import {Backdrop} from '../fx/backdrops';
 import {Kinetic} from '../fx/text';
-import {useLook} from '../look';
+import {useBrand, useLook} from '../look';
 
 /** The app icon, landing with the only bounce in the video. */
 export const Icon: React.FC<{size: number; land: number}> = ({size, land}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const t = spring({frame: frame - land, fps, config: {damping: 14, stiffness: 110, mass: 0.9}});
+  const brand = useBrand();
   return (
     <div
       style={{
@@ -39,6 +39,7 @@ export const wordmark = (look: ReturnType<typeof useLook>, fontSize: number): Re
 // LOGO: the answer to the hook, on the beat.
 export const Logo: React.FC = () => {
   const look = useLook();
+  const brand = useBrand();
   return (
     <AbsoluteFill>
       <Backdrop />

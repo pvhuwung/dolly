@@ -170,6 +170,8 @@ export const Screen: React.FC<{
   children?: React.ReactNode;
 }> = ({width, height, frame = 'window', title, radius = frame === 'phone' ? 66 : 14, background = '#0d1117', shadow = 1, glare = 1, children}) => {
   const camera = useContext(CameraContext);
+  // The title bar's tint and text follow the window's background: light chrome on a light window.
+  const ink = isLight(background) ? '0,0,0' : '255,255,255';
   const bezel = frame === 'phone' ? 12 : 0;
   return (
     <div
@@ -194,14 +196,14 @@ export const Screen: React.FC<{
             alignItems: 'center',
             gap: 8,
             padding: '0 16px',
-            background: 'rgba(255,255,255,0.04)',
-            borderBottom: '1px solid rgba(255,255,255,0.07)',
+            background: `rgba(${ink},0.04)`,
+            borderBottom: `1px solid rgba(${ink},0.07)`,
           }}
         >
           {['#ff5f57', '#febc2e', '#28c840'].map((c) => (
             <div key={c} style={{width: 12, height: 12, borderRadius: 6, background: c}} />
           ))}
-          <div style={{position: 'absolute', left: 0, right: 0, textAlign: 'center', fontSize: 14, color: 'rgba(255,255,255,0.55)'}}>
+          <div style={{position: 'absolute', left: 0, right: 0, textAlign: 'center', fontSize: 14, color: `rgba(${ink},0.55)`}}>
             {title}
           </div>
         </div>
@@ -289,6 +291,15 @@ export const Clip: React.FC<{
     {children}
   </Screen>
 );
+
+/** Whether a #rgb or #rrggbb colour is light. Anything else (a gradient, a name) counts as dark. */
+const isLight = (color: string) => {
+  const h = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color)?.[1];
+  if (!h) return false;
+  const full = h.length === 3 ? [...h].map((c) => c + c).join('') : h;
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16));
+  return 0.299 * r + 0.587 * g + 0.114 * b > 150;
+};
 
 /** A grid floor that fades with distance. When the camera moves, it's what makes the move read as 3D. */
 export const Floor: React.FC<{y?: number; color?: string}> = ({y = 460, color = 'rgba(128,128,128,0.2)'}) => (
@@ -383,6 +394,9 @@ export const focusOn = ({
   const s = layer.scale ?? 1;
   const zoom = Math.min((fill * video.width) / (rect.width * s), (fill * (video.height - top - bottom)) / (rect.height * s));
   return {
+    // Square to the card: a framing is a whole pose, so moving to it also undoes any tilt.
+    yaw: 0,
+    pitch: 0,
     x: (layer.x ?? 0) + (rect.x + rect.width / 2 - size.width / 2) * s,
     // Aim off the rect's centre by half the difference of the bands, so it sits in the middle of what's left.
     y: (layer.y ?? 0) + (rect.y + rect.height / 2 - size.height / 2) * s - (top - bottom) / 2 / zoom,
@@ -418,7 +432,9 @@ export const moves = {
   /** Arrive from far back, turned and from above, and settle on `at`. The classic opener. */
   tiltIn: (at: Pose, {start = 0, frames = 60, yaw = -28, pitch = 14, back = 900} = {}): Key[] => [
     [start, plus(at, {yaw, pitch, dolly: -back})],
-    [start + frames, at, ease.out],
+    // Name yaw and pitch in the end key too: a framing from focusOn has neither, and a value no
+    // later key names would stay tilted.
+    [start + frames, {yaw: 0, pitch: 0, ...at}, ease.out],
   ],
   /** Hold on `from`, then push in to `to`: make one detail the subject. */
   zoomIn: (from: Pose, to: Pose, {start = 0, hold = 15, frames = 45} = {}): Key[] => [

@@ -13,13 +13,13 @@ The starter is a 41-second cut of [Termary](https://termary.com)'s launch video:
 
 ![Four frames from the starter: the hook, a captioned window, approving from the phone, the end card](docs/preview.jpg)
 
-## Seven styles
+## Eight styles
 
 The same scenes, restyled by one line in `brand.ts`. A style takes your brand colour and decides
 the page, the type, how the accent phrase is set, the backdrop, how words come in and how scenes
-change: editorial, midnight, bold, swiss, soft, terminal, cinema.
+change: editorial, midnight, bold, swiss, soft, terminal, cinema, paper.
 
-![One frame of the starter in each of the seven styles](docs/styles.jpg)
+![One frame of the starter in each of the eight styles](docs/styles.jpg)
 
 ## Every format
 
@@ -41,13 +41,17 @@ phone comes forward.
 Templates are whole scenes that take words: a statement, a metric, features, a quote, a before and
 after, steps, a logo reveal, an end card. Under them are the effects: kinetic type in nine
 entrances with seven ways to mark a phrase, 18 graphics (charts, counters, a cursor, keys,
-notifications, chat, confetti, a spotlight), 10 backdrops and 24 transitions. `Promo` is a sample
+notifications, chat, confetti, a spotlight), 13 illustrations drawn with code (watercolour
+flowers, a butterfly, a growing plant, embroidery, a topographic map), 10 backdrops and 24
+transitions. `Promo` is a sample
 cut made only of templates. `npm run gallery` renders every effect, labelled with the code that
 makes it:
 
 ![Templates in the soft style](docs/templates.jpg)
 
-![Graphics in the midnight style, vertical](docs/graphics.jpg)
+![Graphics in the midnight style](docs/graphics.jpg)
+
+![Drawings in the paper style](docs/drawings.jpg)
 
 ## How a video gets made
 

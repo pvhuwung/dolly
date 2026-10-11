@@ -1,6 +1,6 @@
 ---
 name: dolly
-description: Make polished product, launch, demo and social videos and motion graphics, written as code in Remotion — real screen recordings cut into floating windows with 3D camera moves, kinetic type, charts, transitions and ready-made scenes, in 7 styles and every format (16:9, 9:16 Reels/TikTok/Shorts, 1:1, 4:5). Use when asked to make, edit or improve a video, trailer, launch/demo/promo/explainer/social clip, Reel or Short, motion graphics, an animated logo or title card, or to turn screen recordings or a website into a video.
+description: Make polished product, launch, demo and social videos and motion graphics, written as code in Remotion — real screen recordings cut into floating windows with 3D camera moves, kinetic type, charts, transitions and ready-made scenes, in 8 styles and every format (16:9, 9:16 Reels/TikTok/Shorts, 1:1, 4:5). Use when asked to make, edit or improve a video, trailer, launch/demo/promo/explainer/social clip, Reel or Short, motion graphics, an animated logo or title card, or to turn screen recordings or a website into a video.
 ---
 
 # dolly: product videos and motion graphics in code
@@ -8,7 +8,7 @@ description: Make polished product, launch, demo and social videos and motion gr
 The video is a Remotion project: React components rendered frame by frame. `starter/` next to
 this file holds two working videos: `Video`, a 41-second cut of Termary's launch video made from
 real recordings, and `Promo`, a 25-second motion-graphics cut made only of templates. Both render
-in any of 7 styles and 4 formats. You turn them into the user's, keeping what makes them work. The
+in any of 8 styles and 4 formats. You turn them into the user's, keeping what makes them work. The
 pipeline:
 
 **plan → record takes (if the product has a UI) → build scenes → review the frames → render**
@@ -31,12 +31,12 @@ and `src/fx/`.
 | File | What's in it |
 |---|---|
 | `src/brand.ts` | The product: name, URL, logo (in `public/`), accent and alert colours, its style, its fonts if it has its own |
-| `src/look.tsx` | The 7 styles and 4 formats, and `useLook()`, which every part reads them through |
+| `src/look.tsx` | The 8 styles and 4 formats, and `useLook()`, which every part reads them through |
 | `src/Video.tsx` | The take-based video: its scenes in order with their lengths, and the sound cues |
 | `src/Promo.tsx` | The template-only video, the same way |
 | `src/scenes/` | The take-based scenes. `takes.ts` says where things are in the takes |
 | `src/templates.tsx` | Ready-made scenes: `Statement`, `Metric`, `Features`, `Quote`, `Compare`, `Steps`, `LogoReveal`, `EndCard` |
-| `src/fx/` | Effects: `text.tsx` (kinetic type), `graphics.tsx` (charts, cursors, toasts…), `backdrops.tsx`, `transitions.tsx` |
+| `src/fx/` | Effects: `text.tsx` (kinetic type), `graphics.tsx` (charts, cursors, toasts…), `drawings.tsx` (illustrations drawn with code), `backdrops.tsx`, `transitions.tsx` |
 | `src/parts.tsx` | What goes over a shot: `Caption`, `Tap`, `Callout`, `Speed`, `Pop` |
 | `src/kit.tsx` | The 3D kit and the camera moves (section 4) |
 | `public/takes/` | The recordings. Replace them with the user's own |
@@ -63,7 +63,8 @@ Read the product's website first, then settle these with the user, asking only w
 - **The style.** Render one frame in every style (`npm run styles`, add
   `--props='{"frame":420,"format":"vertical"}'` for another frame or format), show the user, and
   set `brand.style`. Suggest one from the brand: a dark developer tool → midnight or terminal, a
-  consumer app → soft or bold, a premium or calm product → editorial or swiss, a teaser → cinema.
+  consumer app → soft or bold, a premium or calm product → editorial or swiss, a teaser → cinema, a
+  creative or crafty product → paper.
 
   | Style | The look |
   |---|---|
@@ -74,6 +75,7 @@ Read the product's website first, then settle these with the user, asking only w
   | `soft` | A pastel tint of the accent, rounded type, the accent phrase on a pill, bouncy pops, round reveals |
   | `terminal` | Mono everything, headlines typed out with a cursor, scanlines, glitch cuts |
   | `cinema` | A trailer: near-black, a big quiet serif, film grain, slow fades through black |
+  | `paper` | Drawing with code: paper cards on a soft lavender page, a light serif with a bold accent, page turns |
 
 - **The one sentence** the viewer should remember, the real moment in the product that proves it,
   and **the ask** for the end card (a URL, a download, a waitlist).
@@ -207,12 +209,21 @@ zoom, text behind the product, a reflection, a turn-around reveal.
 - **Graphics** (`fx/graphics.tsx`): numbers and charts (`Stat`, `Ring`, `Bars`, `LineChart`,
   `Progress`, `Checklist`); pointing (`Arrow`, `Draw`, `Spotlight`); input (`Cursor`, `Keys`);
   product UI (`Toast`, `Chat`, `Badge`, `Icon`, `Marquee`); moments (`Burst` of confetti, `Shine`).
+- **Drawings** (`fx/drawings.tsx`): illustrations drawn with code that animate as they're drawn:
+  `Paper` cards to hold them, `Flower` (watercolour, blooming), `Stamps`, `HexField`, `Butterfly`,
+  `Plant` (growing), `Stitch` (embroidery), `Watercolor` (a wash behind a headline), `Doodles`
+  (hand-drawn marks), `Constellation`, `Contours` (a topographic map), `Ripple`, `Scribble`. They
+  tint themselves toward the brand colour; for a crafty, human feel, and in the `paper` style.
 - **Backdrops** (`fx/backdrops.tsx`): `Backdrop` draws the style's page: `plain`, `glow`, `grid`,
   `dots`, `blobs`, `scanlines`, `grain`, `aurora`, `beams`, `spotlight`.
 - **Transitions** (`fx/transitions.tsx`): `cut`, `fade`, `dip` (through the page colour), `slide`,
   `wipe`, `iris`, `clock`, `flip`, `zoom` (forward through), `whip` (a fast smear), `bars`,
   `flash`, `glitch`, `pushCut`, and WebGL shaders: `zoomBlur`, `crossZoom`, `dreamyZoom`,
   `filmBurn`, `crosswarp`, `ripple`, `swap`, `bookFlip`, `blurSlide`, `linearBlur`.
+
+**Several brands in one project** (variants for clients, or one video per product):
+`<LookProvider style="soft" brand={{name, url, logo, accent}}>` sets them for everything inside,
+and `useBrand()` reads the brand.
 
 **Every format.** Scenes read the frame from `useLook()`: `look.safe` (insets platforms cover
 with their own buttons: keep text inside), `look.band` (the caption band at the top), `look.aim`
@@ -257,6 +268,8 @@ What makes it look expensive, in any style:
   no CSS animations or transitions, no state. Remotion renders frames out of order.
 - Footage can't be pushed past its own pixels: keep the zoom at or below the take's pixels per
   point (2 for a Retina take). Lower `fill` if a close-up looks soft.
+- `AbsoluteFill` is 100% wide and tall, so `left`/`right` insets on it move it rather than shrink
+  it: inset a plain `position: absolute` div instead.
 - `focusOn`'s `size` is only a size. A region's own `x`/`y` are page coordinates, not where the
   card is on the stage: pass `size: {width, height}` and, if it moved, `layer`.
 - The shader transitions (`zoomBlur`, `filmBurn`, …) render in `remotion render` but show an error

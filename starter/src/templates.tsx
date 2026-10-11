@@ -1,11 +1,10 @@
 import React from 'react';
 import {AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {ArrowRight, BellRing, Check, Columns3, Smartphone, X, type LucideIcon} from 'lucide-react';
-import {brand} from './brand';
 import {Backdrop} from './fx/backdrops';
 import type {Demo} from './fx/demo';
 import {Counter, Kinetic} from './fx/text';
-import {Look, TextEffect, alpha, useLook} from './look';
+import {Look, TextEffect, alpha, useBrand, useLook} from './look';
 
 // Ready-made scenes for motion graphics, no takes needed: a statement, a metric, features, a quote,
 // a before/after, steps, a logo reveal and an end card. Each fills the frame in any format and
@@ -318,7 +317,7 @@ export const Steps: React.FC<{title?: string; accent?: string; steps: string[]}>
   return (
     <Page gap={Math.round(look.size * 0.8)}>
       {title ? <Kinetic text={title} accent={accent} start={4} align="center" style={{fontSize: Math.round(look.size * 0.95)}} /> : null}
-      <div style={{position: 'relative', display: 'flex', flexDirection: row ? 'row' : 'column', justifyContent: 'space-between', [row ? 'width' : 'height']: span, alignSelf: row ? 'center' : 'stretch'}}>
+      <div style={{position: 'relative', display: 'flex', flexDirection: row ? 'row' : 'column', justifyContent: 'space-between', [row ? 'width' : 'height']: span, alignSelf: 'center', minWidth: row ? undefined : Math.min(inner(look), 760)}}>
         {/* The line behind the dots, and its drawn part. */}
         <div style={{position: 'absolute', background: look.line, ...(row ? {left: dot / 2, right: dot / 2, top: dot / 2 - 2, height: 4} : {top: dot / 2, bottom: dot / 2, left: dot / 2 - 2, width: 4})}} />
         <div
@@ -381,10 +380,11 @@ export const LogoReveal: React.FC<{kind?: 'pop' | 'iris' | 'slide' | 'focus'; ta
   kind = 'pop',
   tagline,
   accent,
-  logo = brand.logo,
-  name = brand.name,
+  logo,
+  name,
 }) => {
   const look = useLook();
+  const b = useBrand();
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const size = look.tall ? 240 : 220;
@@ -405,10 +405,10 @@ export const LogoReveal: React.FC<{kind?: 'pop' | 'iris' | 'slide' | 'focus'; ta
         {ring > 0 && ring < 1 ? (
           <div style={{position: 'absolute', inset: -size * 0.4 * ring, borderRadius: '50%', border: `3px solid ${alpha(look.accent, 1 - ring)}`}} />
         ) : null}
-        <Img src={staticFile(logo)} style={{width: size, height: size, filter: 'drop-shadow(0 26px 40px rgba(0, 0, 0, 0.18))', ...logoStyle}} />
+        <Img src={staticFile(logo ?? b.logo)} style={{width: size, height: size, filter: 'drop-shadow(0 26px 40px rgba(0, 0, 0, 0.18))', ...logoStyle}} />
       </div>
       <div style={{...look.headline, fontFamily: look.fonts.body, fontWeight: 700, fontStyle: 'normal', letterSpacing: '-0.03em', fontSize: 112, opacity: nameIn, transform: `translateY(${(1 - nameIn) * 30}px)`}}>
-        {name}
+        {name ?? b.name}
       </div>
       {tagline ? <Kinetic text={tagline} accent={accent} start={34} stagger={4} align="center" style={{fontSize: Math.round(look.size * 0.72), color: look.dim, maxWidth: 1300}} /> : null}
     </Page>
@@ -416,8 +416,9 @@ export const LogoReveal: React.FC<{kind?: 'pop' | 'iris' | 'slide' | 'focus'; ta
 };
 
 /** The ask, big and held: the name, one line, a button and where to go. */
-export const EndCard: React.FC<{line?: string; accent?: string; button?: string; url?: string}> = ({line, accent, button = 'Get started', url = brand.url}) => {
+export const EndCard: React.FC<{line?: string; accent?: string; button?: string; url?: string}> = ({line, accent, button = 'Get started', url}) => {
   const look = useLook();
+  const b = useBrand();
   const frame = useCurrentFrame();
   const logo = useIn(0, 30);
   const press = useIn(56);
@@ -427,8 +428,8 @@ export const EndCard: React.FC<{line?: string; accent?: string; button?: string;
   return (
     <Page gap={34}>
       <div style={{display: 'flex', alignItems: 'center', gap: 24, opacity: logo, transform: `scale(${0.85 + 0.15 * logo})`}}>
-        <Img src={staticFile(brand.logo)} style={{width: 110, height: 110}} />
-        <div style={{...look.headline, fontFamily: look.fonts.body, fontWeight: 700, fontStyle: 'normal', letterSpacing: '-0.03em', fontSize: 96}}>{brand.name}</div>
+        <Img src={staticFile(b.logo)} style={{width: 110, height: 110}} />
+        <div style={{...look.headline, fontFamily: look.fonts.body, fontWeight: 700, fontStyle: 'normal', letterSpacing: '-0.03em', fontSize: 96}}>{b.name}</div>
       </div>
       {line ? (
         <div style={{width: '100%', maxWidth: 1500}}>
@@ -459,7 +460,7 @@ export const EndCard: React.FC<{line?: string; accent?: string; button?: string;
         <ArrowRight size={36} strokeWidth={2.6} />
         <div style={{position: 'absolute', top: 0, bottom: 0, left: `${glint}%`, width: '30%', background: 'linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent)'}} />
       </div>
-      <div style={{fontFamily: look.fonts.mono, fontSize: 38, color: look.dim, opacity: urlIn}}>{url}</div>
+      <div style={{fontFamily: look.fonts.mono, fontSize: 38, color: look.dim, opacity: urlIn}}>{url ?? b.url}</div>
     </Page>
   );
 };

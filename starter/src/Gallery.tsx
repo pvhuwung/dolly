@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, CalculateMetadataFunction, Freeze, Sequence, Series} from 'remotion';
 import {demos as backdrops} from './fx/backdrops';
+import {demos as drawings} from './fx/drawings';
 import type {Demo} from './fx/demo';
 import {demos as graphics} from './fx/graphics';
 import {demos as text} from './fx/text';
@@ -15,7 +16,7 @@ import {Backdrop} from './fx/backdrops';
 //   npx remotion render Gallery out/gallery.mp4 --props='{"style":"bold"}'
 //   npx remotion still GallerySheet out/gallery.png --props='{"only":"text","format":"vertical"}'
 
-const GROUPS = {templates, text, graphics, backdrops, transitions};
+const GROUPS = {templates, text, graphics, drawings, backdrops, transitions};
 export type GalleryProps = {style?: StyleName; only?: keyof typeof GROUPS; format?: FormatName};
 
 const FPS = 30;

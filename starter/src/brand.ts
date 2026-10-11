@@ -11,7 +11,7 @@ import type {Fonts, StyleName} from './look';
 //   ...  fonts: {headline: funnel},
 //
 // This starter is cut from Termary's launch video: the editorial style is termary.com's look.
-export const brand: {
+export type Brand = {
   name: string;
   url: string;
   /** In public/. */
@@ -20,10 +20,12 @@ export const brand: {
   accent: string;
   /** The colour of the moment the story turns on (here: an agent waiting for you), as #rrggbb. */
   alert: string;
-  /** editorial, midnight, bold, swiss, soft, terminal or cinema: see STYLES in look.tsx. */
+  /** editorial, midnight, bold, swiss, soft, terminal, cinema or paper: see STYLES in look.tsx. */
   style: StyleName;
   fonts: Partial<Fonts>;
-} = {
+};
+
+export const brand: Brand = {
   name: 'Termary',
   url: 'termary.com',
   logo: 'logo.png',

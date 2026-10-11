@@ -1,15 +1,15 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {brand} from '../brand';
 import {Backdrop} from '../fx/backdrops';
 import {Kinetic} from '../fx/text';
-import {useLook} from '../look';
+import {useBrand, useLook} from '../look';
 import {Pop} from '../parts';
 import {Icon, wordmark} from './Logo';
 
 // END: the ask, big and held: what it is, and where to get it.
 export const End: React.FC = () => {
   const look = useLook();
+  const brand = useBrand();
   return (
     <AbsoluteFill>
       <Backdrop />
