@@ -51,6 +51,25 @@ export const animate = <K extends string>(
   return out;
 };
 
+/**
+ * A shot's camera: keyed moves plus a slow drift ADDED on top over the whole shot, so the camera
+ * never stops dead and never stops and restarts.
+ *
+ *   const camera = useShot([[0, {dolly: -300}], [60, {dolly: 0}, ease.out]], {dolly: 60, yaw: 3});
+ */
+export const useShot = (
+  keys: readonly (readonly [frame: number, values: Partial<Camera>, ease?: Ease])[],
+  drift: Partial<Camera> = {},
+): Camera => {
+  const frame = useCurrentFrame();
+  const {durationInFrames} = useVideoConfig();
+  const keyed = {...REST, ...animate(frame, keys)};
+  const p = frame / durationInFrames;
+  const out = {...keyed};
+  for (const k of Object.keys(drift) as (keyof Camera)[]) out[k] = keyed[k] + (drift[k] ?? 0) * p;
+  return out;
+};
+
 // ---------------------------------------------------------------------------------------------
 // Stage and camera
 
@@ -134,8 +153,8 @@ export const Layer: React.FC<{
 /**
  * A desktop window, a phone, or a bare card, with a soft shadow and a glare that slides as the
  * camera turns. `width` and `height` are the OUTER size; the window's title bar is 40px tall and
- * the phone's bezel 14px. A recording of a real window already has its own title bar: show it in
- * `frame="none"`.
+ * the phone's bezel 12px. A recording of a real window already has its own title bar, so show it in
+ * `frame="none"`; a Simulator recording already has its Dynamic Island.
  */
 export const Screen: React.FC<{
   width: number;
@@ -149,9 +168,9 @@ export const Screen: React.FC<{
   /** 0 to 1. */
   glare?: number;
   children?: React.ReactNode;
-}> = ({width, height, frame = 'window', title, radius = frame === 'phone' ? 64 : 14, background = '#0d1117', shadow = 1, glare = 1, children}) => {
+}> = ({width, height, frame = 'window', title, radius = frame === 'phone' ? 66 : 14, background = '#0d1117', shadow = 1, glare = 1, children}) => {
   const camera = useContext(CameraContext);
-  const bezel = frame === 'phone' ? 14 : 0;
+  const bezel = frame === 'phone' ? 12 : 0;
   return (
     <div
       style={{
@@ -160,10 +179,10 @@ export const Screen: React.FC<{
         height,
         borderRadius: radius,
         overflow: 'hidden',
-        background: frame === 'phone' ? '#050505' : background,
+        background: frame === 'phone' ? '#1c1c1e' : background,
         boxShadow:
-          `0 ${50 * shadow}px ${140 * shadow}px rgba(0,0,0,${0.55 * shadow}), ` +
-          `0 ${12 * shadow}px ${30 * shadow}px rgba(0,0,0,${0.35 * shadow}), inset 0 0 0 1px rgba(255,255,255,0.1)`,
+          `0 ${30 * shadow}px ${80 * shadow}px rgba(20,19,16,${0.18 * shadow}), ` +
+          `0 ${8 * shadow}px ${22 * shadow}px rgba(20,19,16,${0.08 * shadow}), inset 0 0 0 1.5px rgba(255,255,255,0.12)`,
       }}
     >
       {frame === 'window' ? (
@@ -201,9 +220,6 @@ export const Screen: React.FC<{
       >
         {children}
       </div>
-      {frame === 'phone' ? (
-        <div style={{position: 'absolute', top: 28, left: '50%', width: 120, height: 34, marginLeft: -60, borderRadius: 17, background: '#000'}} />
-      ) : null}
       <div
         style={{
           position: 'absolute',
@@ -246,54 +262,8 @@ export const Footage: React.FC<{src: string; at?: number; speed?: number; crop?:
   );
 };
 
-/**
- * An image from public/ (a logo, an icon) with real thickness: `depth` copies stacked 1px apart,
- * the back ones darker, so its sides show as it turns. `shine` (-1 to 1) slides a highlight
- * across the front: tie it to the turn, like `shine={ry / 30}`.
- */
-export const Extrude: React.FC<{src: string; size: number; depth?: number; side?: number; shine?: number}> = ({
-  src,
-  size,
-  depth = 30,
-  side = 0.6,
-  shine = 0,
-}) => {
-  const mask = `url("${staticFile(src)}") center / contain no-repeat`;
-  return (
-    <div style={{position: 'relative', width: size, height: size, ...preserve3d}}>
-      {Array.from({length: depth}, (_, i) => (
-        <Img
-          key={i}
-          src={staticFile(src)}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: size,
-            height: size,
-            transform: `translateZ(${i - depth + 1}px)`,
-            // The sides get darker toward the back, which reads as light falling on a solid.
-            filter: i === depth - 1 ? undefined : `brightness(${side * (0.6 + (0.4 * i) / depth)})`,
-          }}
-        />
-      ))}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          mask,
-          WebkitMask: mask,
-          backgroundImage: 'linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.45) 50%, transparent 60%)',
-          backgroundSize: '300% 100%',
-          backgroundPosition: `${50 - shine * 50}% 0`,
-          mixBlendMode: 'soft-light',
-        }}
-      />
-    </div>
-  );
-};
-
 /** A grid floor that fades with distance. When the camera moves, it's what makes the move read as 3D. */
-export const Floor: React.FC<{y?: number; color?: string}> = ({y = 460, color = 'rgba(255,255,255,0.07)'}) => (
+export const Floor: React.FC<{y?: number; color?: string}> = ({y = 460, color = 'rgba(128,128,128,0.2)'}) => (
   <Layer y={y} rx={90}>
     <div
       style={{
@@ -311,22 +281,25 @@ export const Floor: React.FC<{y?: number; color?: string}> = ({y = 460, color = 
 
 /**
  * Kinetic type: each word swings up out of the page, `stagger` frames apart, starting at `start`.
- * `exit` is the frame they start to leave. Keep a line to 2-6 words.
+ * `exit` is the frame they start to leave. `wordStyle` applies to each word (an italic accent).
+ * Keep a line to 2-6 words.
  */
-export const Words: React.FC<{text: string; start?: number; stagger?: number; exit?: number; style?: React.CSSProperties}> = ({
-  text,
-  start = 0,
-  stagger = 4,
-  exit,
-  style,
-}) => {
+export const Words: React.FC<{
+  text: string;
+  start?: number;
+  stagger?: number;
+  exit?: number;
+  style?: React.CSSProperties;
+  wordStyle?: React.CSSProperties;
+}> = ({text, start = 0, stagger = 6, exit, style, wordStyle}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   return (
     <div style={{display: 'flex', gap: '0.28em', perspective: 900, ...style}}>
       {text.split(' ').map((word, i) => {
-        const t = spring({frame: frame - start - i * stagger, fps, config: {damping: 200}, durationInFrames: 24});
-        const out = exit === undefined ? 0 : spring({frame: frame - exit - i * 2, fps, config: {damping: 200}, durationInFrames: 14});
+        const t = spring({frame: frame - start - i * stagger, fps, config: {damping: 200}, durationInFrames: 32});
+        const out =
+          exit === undefined ? 0 : spring({frame: frame - exit - i * Math.ceil(stagger / 2), fps, config: {damping: 200}, durationInFrames: 14});
         return (
           <span
             key={i}
@@ -335,6 +308,7 @@ export const Words: React.FC<{text: string; start?: number; stagger?: number; ex
               transformOrigin: '50% 100%',
               transform: `translateY(${(1 - t) * 0.35 - out * 0.2}em) rotateX(${(t - 1) * 80 + out * 60}deg)`,
               opacity: Math.max(0, t - out),
+              ...wordStyle,
             }}
           >
             {word}
@@ -353,8 +327,8 @@ export type Rect = {x: number; y: number; width: number; height: number};
 /**
  * The camera values that push in on `rect` (px from the screen's outer top-left, title bar
  * included) until it fills `fill` of the video. `screen` is the screen's size plus its Layer's
- * x, y, z and scale. Exact while the camera faces the screen square, which is the rule for
- * reading anyway. Footage softens past its own pixels: capture at 2x for close-ups.
+ * x, y, z and scale. `top` keeps that many px at the top of the frame free (for a caption) and
+ * centres the rect in the space below. Exact while the camera faces the screen square.
  */
 export const focusOn = ({
   rect,
@@ -362,18 +336,21 @@ export const focusOn = ({
   video,
   lens,
   fill = 0.8,
+  top = 0,
 }: {
   rect: Rect;
   screen: {width: number; height: number; x?: number; y?: number; z?: number; scale?: number};
   video: {width: number; height: number};
   lens: number;
   fill?: number;
+  top?: number;
 }) => {
   const s = screen.scale ?? 1;
-  const zoom = Math.min((fill * video.width) / (rect.width * s), (fill * video.height) / (rect.height * s));
+  const zoom = Math.min((fill * video.width) / (rect.width * s), (fill * (video.height - top)) / (rect.height * s));
   return {
     x: (screen.x ?? 0) + (rect.x + rect.width / 2 - screen.width / 2) * s,
-    y: (screen.y ?? 0) + (rect.y + rect.height / 2 - screen.height / 2) * s,
+    // Aim above the rect's centre by half the band, so the rect sits in the middle of what's left.
+    y: (screen.y ?? 0) + (rect.y + rect.height / 2 - screen.height / 2) * s - top / 2 / zoom,
     z: screen.z ?? 0,
     // Something at the target's depth looks lens / (lens - dolly) times bigger: solve for zoom.
     dolly: lens * (1 - 1 / zoom),

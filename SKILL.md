@@ -1,12 +1,14 @@
 ---
 name: dolly
-description: Make polished product, launch and demo videos with 3D motion, written as code in Remotion — camera moves through space, floating screens, parallax, push-ins on UI, kinetic type, a 3D logo — from screen recordings you take yourself. Use when asked to make, edit or improve a video, trailer, launch/demo/promo/explainer/social clip, motion graphics, an animated logo or title card, or to turn screen recordings into a video.
+description: Make polished product, launch and demo videos with 3D motion, written as code in Remotion — real screen recordings cut into floating windows, push-ins on UI, a Mac and phone in sync, kinetic headlines, sound cues — from takes you record yourself. Use when asked to make, edit or improve a video, trailer, launch/demo/promo/explainer/social clip, motion graphics, an animated logo or title card, or to turn screen recordings into a video.
 ---
 
 # dolly: 3D motion videos in code
 
 The video is a Remotion project: React components rendered frame by frame. `starter/` next to
-this file is a working 22-second video; you turn it into theirs. The pipeline:
+this file is a working 41-second video, cut from Termary's launch video with its real takes: a
+hook, the logo, an agent that needs you, approving it from the phone, the end card. You turn it
+into theirs, keeping what makes it work (section 4). The pipeline:
 
 **plan → record takes → build shots → review the frames → render**
 
@@ -22,11 +24,13 @@ npx remotion studio            # optional: the user can scrub it at localhost:30
 
 | File | What's in it |
 |---|---|
-| `src/brand.ts` | Name, tagline, colours, font. The logo is `public/logo.svg` |
-| `src/Video.tsx` | The scenes, in order, with their lengths in seconds |
-| `src/scenes/` | One file per shot. `DemoApp` is a stand-in until you have real takes |
-| `src/kit.tsx` | The 3D kit (section 4). For an existing Remotion 4.0.320+ project, copy just this file |
-| `scripts/take.sh` | Records takes |
+| `src/brand.ts` | The product's look: name, URL, colours, fonts. The logo is `public/logo.png` |
+| `src/Video.tsx` | The scenes in order with their lengths in seconds, and the sound cues |
+| `src/scenes/` | One file per scene. `takes.ts` says where things are in the takes |
+| `src/parts.tsx` | The 2D layer in the brand's look: `Caption`, `Tap`, `Callout`, `Speed`, `Pop` |
+| `src/kit.tsx` | The 3D kit (section 5). For an existing Remotion 4.0.320+ project, copy this file |
+| `public/takes/` | The recordings. Replace them with the user's own |
+| `scripts/take.sh`, `scripts/ting.mjs` | Record a take; generate the notification sound |
 
 Remotion is free for individuals and companies of up to 3 people; bigger companies need a
 company license (remotion.pro). Tell the user once if that applies.
@@ -39,8 +43,9 @@ Settle these with the user, asking only what you can't infer:
 - **The one sentence** the viewer should remember, and the real moment in the product that proves it.
 - **The ask** for the end card: a URL, a download, a waitlist.
 
-Then write the scenes in `src/Video.tsx`: a hook (the outcome, not the logo), one scene per
-capability, the end card. At most 7 words on screen at once, held 1 s + 0.3 s per word.
+Then write the scenes in `src/Video.tsx` in the starter's order: **the pain** (the hook, never the
+logo), **the product** (the logo on a beat), **the proof** (the real moment, in one or two scenes),
+**the ask** (the end card). At most 7 words on screen at once, held 1 s + 0.3 s per word.
 
 ## 3. Record takes
 
@@ -83,21 +88,43 @@ The window in the take has its own title bar, so use `frame="none"`. `width`/`he
 in the world; use the crop's size or anything with the same aspect ratio. The phone take goes in
 `<Screen frame="phone" width={392} height={852}>` with no crop.
 
-## 4. Shots
+## 4. The look
+
+What made the Termary video look expensive. Keep all of it when you rebrand:
+
+- **The product's own look.** Colours and fonts from its website, in `brand.ts`. Solid colours,
+  no gradients. A light page colour if the site is light.
+- **A headline on every shot.** `Caption` in the band at the top: an eyebrow, a serif title, and
+  an italic accent phrase in the brand colour ("Approve it *from your phone.*"). The footage is
+  framed below the band: `focusOn({..., top: SAFE_TOP})`.
+- **Real takes, cut close.** Whole windows, single panes as floating cards, the phone beside the
+  Mac. A scene is often two or three cuts (`<Series>` inside the scene), and the caption changes
+  with the cut.
+- **A nearly flat camera.** Push-ins and a slow drift, not tilts. 3D is for depth (the phone in
+  front of the Mac) and for moving in on what matters, square to the screen.
+- **Show the input.** `Tap` where something is tapped, `Callout` around what matters, a
+  `Speed` chip ("7× speed") whenever footage is sped up.
+- **Sound on every turn.** A short chime (`public/ting.wav`) on each moment the story turns on,
+  listed in `Video.tsx`. Music under it if the user has a track.
+
+## 5. Shots
+
+A shot from the starter: the window framed under its caption, creeping in.
 
 ```tsx
-const camera = animate(frame, [
-  [0, {yaw: -34, pitch: 18, dolly: -1100}],         // far back, high, turned
-  [75, {yaw: -6, pitch: 6, dolly: 0}, ease.out],    // arrive and settle
-]);
-<Stage camera={camera} background={brand.background} font={fontFamily}>
-  <Floor />
-  <Layer y={70} scale={0.85}>
-    <Screen frame="none" width={WINDOW.width} height={WINDOW.height}>
-      <Footage src="takes/A-mac.mov" at={3} crop={WINDOW} />
-    </Screen>
-  </Layer>
-</Stage>
+const video = useVideoConfig();
+const whole = focusOn({rect: {x: 0, y: 0, ...MAC}, screen: MAC, video, lens: 1800, fill: 0.94, top: SAFE_TOP});
+const camera = useShot([[0, whole]], {dolly: 40});   // hold the framing, drift 40px closer
+<AbsoluteFill style={{background: brand.background}}>
+  <Stage camera={camera} lens={1800} background={brand.background} font={fontFamily}>
+    <Layer>
+      <Screen frame="none" width={MAC.width} height={MAC.height}>
+        <Footage src={MAC.src} at={25.5} />
+      </Screen>
+    </Layer>
+  </Stage>
+  <Caption eyebrow="Needs you" title="One stops and asks." accent="Its pane lights up." />
+</AbsoluteFill>
 ```
 
 | Piece | What it does |
@@ -106,22 +133,22 @@ const camera = animate(frame, [
 | `Layer x y z rx ry rz scale` | Puts its child's centre at a point in the world. `ry` + faces right; `rx` 90 lies flat |
 | `Screen` | `frame="window"`, `"phone"` or `"none"`, with a shadow and a glare that follows the camera |
 | `Footage` | A take or an image from `public/`: `at` (seconds in), `speed`, `crop` |
-| `Words` | Kinetic type, word by word: `start`, `stagger`, `exit` |
-| `Extrude` | A logo with real thickness that catches the light as it turns |
-| `Floor` | A grid floor: it makes camera moves read as moving through space |
+| `Words` | Kinetic type, word by word: `start`, `stagger`, `exit`, `wordStyle` |
+| `Floor` | A grid floor: it makes big camera moves read as moving through space |
 | `animate(frame, keys)` | Keyframes `[frame, {values}, ease]`; a key sets only the values it names |
-| `focusOn(...)` | The camera values that push in until a rect of a screen fills the frame |
+| `useShot(keys, drift)` | A shot's camera: `animate` plus a slow drift added over the whole shot |
+| `focusOn(...)` | The camera values that frame a rect of a screen, below the caption band with `top` |
 
-The starter scenes are the core moves: `Hero` (tilt-in), `Orbit` (parallax), `Focus` (push-in on
-a detail, then push through), `End` (3D logo). `references/recipes.md` has more: a fly-past with
-motion blur, a dolly zoom, text behind the product, a reflection, a turn-around reveal, cutting
-from 3D to full-frame footage.
+The starter scenes show the core shots: `Hook` (pane cards cut from a take), `NeedsYou` (the
+window framed under a caption, then the phone close up), `Approve` (Mac and phone in sync, the
+camera moving in for the tap and back out). `references/recipes.md` has bigger moves: a fly-past
+with motion blur, a dolly zoom, text behind the product, a reflection, a turn-around reveal.
 
 **Rules of motion.** Check every shot against them.
 1. **Move the camera, not the objects.** One camera path per shot; depth gives the parallax.
 2. **One move per shot**, with a reason: reveal, follow, or push toward what matters.
-3. **Tilt to arrive, flat to read.** While there's text to read: yaw within ±20°, pitch within
-   ±12°, and nearly still.
+3. **Flat to read.** While there's text to read, the screen faces the camera (yaw and pitch
+   within a few degrees) and moves slowly. Bigger angles only while arriving.
 4. **Ease everything.** `ease.out` to arrive, `ease.in` to leave (faster), `ease.inOut` between
    holds. Bounce only on logos.
 5. **Never stop dead.** Add a slow drift on top of the keyed move, as `Hero` does.
@@ -136,7 +163,7 @@ from 3D to full-frame footage.
   no CSS animations or transitions, no state. Remotion renders frames out of order.
 - Footage can't be pushed past its own pixels. Takes from the Retina screen give you 2×.
 
-## 5. Review
+## 6. Review
 
 ```sh
 npx remotion still Sheet out/sheet.png                                          # the video, 1 frame/s
@@ -155,7 +182,7 @@ Read every PNG. Check that:
 Stills can't show speed. Render a draft (`npx remotion render Video out/draft.mp4 --scale=0.5`)
 and ask the user specific questions ("is the push-in at 0:12 too fast?").
 
-## 6. Render
+## 7. Render
 
 ```sh
 npx remotion render Video out/video.mp4 --crf=16                  # 1080p

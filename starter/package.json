@@ -2,7 +2,7 @@
   "name": "dolly-starter",
   "private": true,
   "version": "1.0.0",
-  "description": "A Remotion project for 3D motion videos: camera, layers, screens, kinetic type",
+  "description": "A Remotion project for product videos made from real screen recordings, with 3D camera moves",
   "scripts": {
     "studio": "remotion studio",
     "sheet": "remotion still Sheet out/sheet.png",

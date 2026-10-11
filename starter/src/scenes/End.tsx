@@ -1,31 +1,29 @@
 import React from 'react';
-import {spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {brand, fontFamily} from '../brand';
-import {Extrude, Layer, Stage, Words} from '../kit';
+import {AbsoluteFill} from 'remotion';
+import {brand, fontFamily, serifFamily} from '../brand';
+import {Words} from '../kit';
+import {Pop} from '../parts';
+import {Icon} from './Logo';
 
-// END CARD. The logo swings in with real thickness and keeps turning gently, so light keeps moving
-// across it. The name and the call to action sit flat underneath, where they read clearly.
-export const End: React.FC = () => {
-  const frame = useCurrentFrame();
-  const {fps, durationInFrames} = useVideoConfig();
-  const swing = spring({frame, fps, config: {damping: 14}, durationInFrames: 50}); // a little bounce: logos only
-  const ry = (1 - swing) * -75 + Math.sin(frame / 22) * 18;
-  const rx = (1 - swing) * 20 + Math.sin(frame / 31) * 6;
-
-  return (
-    <Stage camera={{dolly: (frame / durationInFrames) * 120, pitch: 3}} background={brand.background} font={fontFamily}>
-      <Layer z={-300} y={-120}>
-        <div style={{width: 1400, height: 1000, background: `radial-gradient(closest-side, ${brand.accent}44, transparent)`}} />
-      </Layer>
-      <Layer y={-120} rx={rx} ry={ry}>
-        <Extrude src={brand.logo} size={400} depth={40} shine={ry / 30} />
-      </Layer>
-      <Layer y={190}>
-        <Words text={brand.name} start={30} style={{fontSize: 92, fontWeight: 800, color: brand.ink, letterSpacing: -2}} />
-      </Layer>
-      <Layer y={285}>
-        <Words text={brand.tagline} start={44} stagger={3} style={{fontSize: 38, color: brand.dim}} />
-      </Layer>
-    </Stage>
-  );
-};
+// END: the ask, big and held: what it is, and where to get it.
+export const End: React.FC = () => (
+  <AbsoluteFill style={{background: brand.background, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 26}}>
+    <div style={{display: 'flex', alignItems: 'center', gap: 26}}>
+      <Icon size={120} land={0} />
+      <Words text={brand.name} start={10} style={{fontFamily, fontSize: 100, fontWeight: 700, color: brand.ink, letterSpacing: -3}} />
+    </div>
+    <div style={{display: 'flex', gap: 14}}>
+      <Words text="Your agents keep working." start={24} stagger={4} style={{fontFamily: serifFamily, fontSize: 52, fontWeight: 600, color: brand.ink, letterSpacing: -1}} />
+      <Words
+        text="Even when you walk away."
+        start={44}
+        stagger={4}
+        style={{fontFamily: serifFamily, fontSize: 52, fontWeight: 600, letterSpacing: -1}}
+        wordStyle={{fontStyle: 'italic', color: brand.accent}}
+      />
+    </div>
+    <Pop at={70} style={{marginTop: 18, padding: '18px 34px', borderRadius: 999, background: brand.accentSoft, fontFamily, fontSize: 38, fontWeight: 700, color: brand.accentDeep}}>
+      Free beta · {brand.url}
+    </Pop>
+  </AbsoluteFill>
+);

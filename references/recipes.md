@@ -1,11 +1,11 @@
 # Shot recipes
 
-More moves for the kit in `starter/src/kit.tsx`, each rendered and checked. Frames assume 30 fps.
-Coordinates are px; y points down, z toward the viewer. `content` stands for whatever goes in the
-screen: `<Footage ... />` or the starter's `<DemoApp />`.
+Bigger moves for the kit in `starter/src/kit.tsx`, each rendered and checked. Frames assume 30
+fps. Coordinates are px; y points down, z toward the viewer. `content` stands for whatever goes in
+the screen, usually `<Footage src={MAC.src} at={...} />`.
 
-The starter's own scenes cover the core moves: `Hero` (tilt-in with drift), `Orbit` (two screens
-with parallax), `Focus` (push-in on a detail, then push through), `End` (3D logo card).
+The starter's scenes cover the everyday shots: a window framed under its caption, pane cards, the
+phone close up, the Mac and phone in sync. Use these sparingly: one showy move per 10 s at most.
 
 ## From 3D to full-frame footage
 
@@ -78,7 +78,7 @@ const {lens} = animate(frame, [[0, {lens: 3200}], [90, {lens: 900}, ease.inOut]]
 <Stage lens={lens}>
   <Floor y={300} />
   <Layer z={-1500} y={-300}>
-    <div style={{fontSize: 320, fontWeight: 800, color: 'rgba(255,255,255,0.12)'}}>EVERYTHING ELSE</div>
+    <div style={{fontSize: 320, fontWeight: 800, color: brand.ink, opacity: 0.12}}>EVERYTHING ELSE</div>
   </Layer>
   <Layer scale={0.55}><Screen width={1280} height={800}>{content}</Screen></Layer>
 </Stage>
@@ -93,7 +93,7 @@ Big type sits deep behind the product, so as the camera moves, the product slide
 
 ```tsx
 <Layer z={-600} y={-40}>
-  <div style={{fontSize: 260, fontWeight: 800, color: 'rgba(255,255,255,0.08)'}}>AGENTS</div>
+  <div style={{fontSize: 260, fontWeight: 800, color: brand.ink, opacity: 0.08}}>AGENTS</div>
 </Layer>
 <Layer z={150} x={380}><Screen frame="phone" width={340} height={700}>{content}</Screen></Layer>
 ```
@@ -119,7 +119,8 @@ const H = 800;
 
 The copy sits at the screen's `y + height × scale + gap`, with the same `x`, `z` and `scale`, and
 shows the same footage at the same `at`, so the two play in sync. It only reads on bright content:
-a dark UI's reflection disappears into a dark background. Drop the `Floor` with it.
+a dark UI's reflection disappears into a dark background, and on a light page it reads as grey
+haze. Use it on a dark stage. Drop the `Floor` with it.
 
 ## Turn-around reveal
 

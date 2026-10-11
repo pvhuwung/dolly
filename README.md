@@ -2,12 +2,14 @@
 
 **Ask your coding agent for a launch video. It records your app and edits it in 3D.**
 
-dolly is an agent skill for product, launch and demo videos with real camera moves: screens that
-tilt in from depth, orbits with parallax, push-ins on the one detail that matters, a 3D logo on the
-end card. The agent records takes of your app, writes the video as code in
-[Remotion](https://www.remotion.dev), and checks its own frames before you see anything.
+dolly is an agent skill for product, launch and demo videos made from real screen recordings:
+windows and panes cut from your takes, headlines in your brand's type, the camera pushing in on
+the moment that matters, your Mac and phone in sync. The agent records the takes, writes the video
+as code in [Remotion](https://www.remotion.dev), and checks its own frames before you see anything.
 
-![Four frames from the starter video: a tilt-in, an orbit with a phone, a push-in, the logo card](docs/preview.jpg)
+It's how we made [Termary](https://termary.com)'s launch video. The starter is a 41-second cut of it:
+
+![Four frames from the starter: the hook, a captioned window, approving from the phone, the end card](docs/preview.jpg)
 
 ## How a video gets made
 
@@ -16,8 +18,8 @@ end card. The agent records takes of your app, writes the video as code in
 2. **Record.** `scripts/take.sh` records your Mac's screen, and the iOS Simulator if it's
    running. With [observee](https://github.com/gettermary/observee) installed, the agent drives
    your app itself while it records.
-3. **Build shots.** Windows are cut out of the takes and placed in 3D, then the camera moves
-   through them.
+3. **Build shots.** Windows and panes are cut out of the takes and placed in 3D under a headline,
+   and the camera pushes in on what matters.
 4. **Review.** The agent renders contact sheets (many frames on one image) and reads them.
 5. **Render.** 1080p or 4K MP4, plus a poster frame.
 
@@ -48,8 +50,9 @@ needs Screen Recording permission, plus Accessibility for observee.
 | | |
 |---|---|
 | `SKILL.md` | The pipeline the agent follows, and the rules of motion |
-| `starter/` | A working 22-second Remotion video to start from |
-| `starter/src/kit.tsx` | The 3D kit, in one file: `Stage` (camera and lens), `Layer`, `Screen`, `Footage`, `Words`, `Extrude`, `Floor`, `animate`, `focusOn` |
+| `starter/` | A working 41-second Remotion video to start from, with its takes |
+| `starter/src/kit.tsx` | The 3D kit, in one file: `Stage` (camera and lens), `Layer`, `Screen`, `Footage`, `Words`, `Floor`, `animate`, `useShot`, `focusOn` |
+| `starter/src/parts.tsx` | Headlines (`Caption`), tap dots, callouts and speed chips, in the brand's look |
 | `starter/scripts/take.sh` | Records a take: screen and Simulator at once |
 | `references/recipes.md` | More moves: fly-past with motion blur, dolly zoom, reflection, turn-around reveal |
 
@@ -70,9 +73,12 @@ npx remotion render Video out/video.mp4              # render it
 
 ## License
 
-dolly is MIT licensed (see [LICENSE](LICENSE)). It builds on Remotion, which has its own license:
-free for individuals and companies of up to 3 people, while larger companies need a
-[company license](https://www.remotion.pro).
+dolly's code and docs are MIT licensed (see [LICENSE](LICENSE)). The example recordings and the
+logo in `starter/public/` are Termary's, included so the starter renders a real result: replace
+them with your own, and don't reuse them.
+
+dolly builds on Remotion, which has its own license: free for individuals and companies of up to 3
+people, while larger companies need a [company license](https://www.remotion.pro).
 
 Made by the team behind [Termary](https://termary.com). Contributions are welcome; see
 [CONTRIBUTING.md](CONTRIBUTING.md).
