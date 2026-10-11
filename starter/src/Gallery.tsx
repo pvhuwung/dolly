@@ -7,6 +7,7 @@ import {demos as graphics} from './fx/graphics';
 import {demos as text} from './fx/text';
 import {demos as templates} from './templates';
 import {demos as transitions} from './fx/transitions';
+import {demos as voice} from './fx/voice';
 import {FORMATS, FormatName, LookProvider, StyleName, useLook} from './look';
 import {Backdrop} from './fx/backdrops';
 
@@ -16,7 +17,7 @@ import {Backdrop} from './fx/backdrops';
 //   npx remotion render Gallery out/gallery.mp4 --props='{"style":"bold"}'
 //   npx remotion still GallerySheet out/gallery.png --props='{"only":"text","format":"vertical"}'
 
-const GROUPS = {templates, text, graphics, drawings, backdrops, transitions};
+const GROUPS = {templates, text, graphics, drawings, voice, backdrops, transitions};
 export type GalleryProps = {style?: StyleName; only?: keyof typeof GROUPS; format?: FormatName};
 
 const FPS = 30;

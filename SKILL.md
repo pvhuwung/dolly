@@ -35,12 +35,12 @@ and `src/fx/`.
 | `src/Video.tsx` | The take-based video: its scenes in order with their lengths, and the sound cues |
 | `src/Promo.tsx` | The template-only video, the same way |
 | `src/scenes/` | The take-based scenes. `takes.ts` says where things are in the takes |
-| `src/templates.tsx` | Ready-made scenes: `Statement`, `Metric`, `Features`, `Quote`, `Compare`, `Steps`, `LogoReveal`, `EndCard` |
+| `src/templates.tsx` | Ready-made scenes: `Statement`, `Metric`, `Features`, `Quote`, `Compare`, `Steps`, `LogoReveal`, `EndCard`, and for other agendas `Announcement`, `Lineup`, `Agenda`, `Countdown`, `Changelog`, `Timeline`, `List` |
 | `src/fx/` | Effects: `text.tsx` (kinetic type), `graphics.tsx` (charts, cursors, toasts…), `drawings.tsx` (illustrations drawn with code), `backdrops.tsx`, `transitions.tsx` |
 | `src/parts.tsx` | What goes over a shot: `Caption`, `Tap`, `Callout`, `Speed`, `Pop` |
 | `src/kit.tsx` | The 3D kit and the camera moves (section 4) |
 | `public/takes/` | The recordings. Replace them with the user's own |
-| `scripts/` | `take.sh` records a take; `sfx.mjs` and `music.mjs` generate sound |
+| `scripts/` | `take.sh` records a take; `sfx.mjs` and `music.mjs` generate sound; `voice.mjs` turns a script into a voiceover |
 
 Remotion is free for individuals and companies of up to 3 people; bigger companies need a
 company license (remotion.pro). Tell the user once if that applies.
@@ -84,7 +84,19 @@ Read the product's website first, then settle these with the user, asking only w
 
 Then write the scenes in order: **the pain** (the hook, never the logo), **the product** (the logo
 on a beat), **the proof** (the real moment, or features, a metric, a before/after), **the ask** (the
-end card). At most 7 words on screen at once, held 1 s + 0.3 s per word. Put the brief in a comment
+end card). Other agendas keep the shape, hook → subject → proof → ask, with their own middle:
+
+| Agenda | The middle |
+|---|---|
+| Event | `Lineup` of speakers, `Agenda`, `Countdown` to the day |
+| Hiring | What the team does, a `List` of roles, the people (`Lineup`) |
+| Changelog | `Changelog`, then the one or two changes worth showing in the UI |
+| Funding news | `Announcement`, why it matters, a `Timeline`, what's next |
+| Year in review | `Metric`s, `Bars` by month, a `Timeline` of milestones, a share card |
+| Tutorial | The steps on the real UI with a `Cursor`, a voiceover and `Captions` |
+| Podcast clip | The cover with a `Waveform`, the best 20 seconds of voice, `Captions` |
+| Data story | A question, one chart, the surprising number, the source |
+| A shop or venue | The place, drawn; a `List` menu, hours, a map, a `Countdown` to opening | At most 7 words on screen at once, held 1 s + 0.3 s per word. Put the brief in a comment
 at the top of `Video.tsx`.
 
 ## 3. Record takes
@@ -155,6 +167,13 @@ for the format:
 | `Steps` | How it works, numbered, joined by a line that draws |
 | `LogoReveal` | The logo arriving: `kind` `pop`, `iris`, `slide`, `focus` |
 | `EndCard` | The ask: name, line, button, URL |
+| `Announcement` | Big news, with a punch and a drawn stroke: funding, a milestone, a launch date |
+| `Lineup` | People as cards: speakers, a team, hosts |
+| `Agenda` | A schedule, row by row, one row highlighted |
+| `Countdown` | Days, hours, minutes and seconds ticking down to a date |
+| `Changelog` | A version and what's new, improved and fixed |
+| `Timeline` | Milestones on a line that draws: company history, a year in review |
+| `List` | Labels with dotted leaders to values: a menu, open roles, prices |
 
 **Shots from takes** are built with the 3D kit: the camera moves, the things stay put.
 
@@ -214,6 +233,12 @@ zoom, text behind the product, a reflection, a turn-around reveal.
   `Plant` (growing), `Stitch` (embroidery), `Watercolor` (a wash behind a headline), `Doodles`
   (hand-drawn marks), `Constellation`, `Contours` (a topographic map), `Ripple`, `Scribble`. They
   tint themselves toward the brand colour; for a crafty, human feel, and in the `paper` style.
+- **Voice** (`fx/voice.tsx`): `npm run voice -- script.txt name` speaks a script with macOS `say`
+  (or use recorded WAVs) into `public/voice/name/` and `src/voice/name.ts`. `Voiceover` plays it,
+  `voiceTiming`/`voiceEnd` time scenes to it, `Captions` show the words in sync (`karaoke`, `pop`,
+  `line`), and `Waveform` moves with the voice (`bars`, `line`, a `circle` round a face). Feeds
+  play muted: a narrated video still needs its captions. `say` voices are for drafts; for a
+  published video, record a person or use a voice the user has the rights to.
 - **Backdrops** (`fx/backdrops.tsx`): `Backdrop` draws the style's page: `plain`, `glow`, `grid`,
   `dots`, `blobs`, `scanlines`, `grain`, `aurora`, `beams`, `spotlight`.
 - **Transitions** (`fx/transitions.tsx`): `cut`, `fade`, `dip` (through the page colour), `slide`,

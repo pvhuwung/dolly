@@ -39,9 +39,11 @@ phone comes forward.
 ## Motion graphics
 
 Templates are whole scenes that take words: a statement, a metric, features, a quote, a before and
-after, steps, a logo reveal, an end card. Under them are the effects: kinetic type in nine
+after, steps, a logo reveal, an end card, and for videos that aren't launches, an announcement, a
+lineup of people, an agenda, a countdown, a changelog, a timeline and a priced list. Under them are the effects: kinetic type in nine
 entrances with seven ways to mark a phrase, 18 graphics (charts, counters, a cursor, keys,
-notifications, chat, confetti, a spotlight), 13 illustrations drawn with code (watercolour
+notifications, chat, confetti, a spotlight), a voiceover with captions in sync and a waveform,
+13 illustrations drawn with code (watercolour
 flowers, a butterfly, a growing plant, embroidery, a topographic map), 10 backdrops and 24
 transitions. `Promo` is a sample
 cut made only of templates. `npm run gallery` renders every effect, labelled with the code that

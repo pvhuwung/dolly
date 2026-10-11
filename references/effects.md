@@ -7,7 +7,7 @@ takes colours or fonts. Times are frames from the start of the scene it's in.
 See them all: `npm run gallery` (one still each), or `npx remotion render Gallery out/gallery.mp4`
 (each playing, labelled with its code). Narrow either with
 `--props='{"only":"text","style":"bold","format":"vertical"}'`; `only` is `templates`, `text`,
-`graphics`, `drawings`, `backdrops` or `transitions`.
+`graphics`, `drawings`, `voice`, `backdrops` or `transitions`.
 
 ## Templates: whole scenes (`templates.tsx`)
 
@@ -21,6 +21,13 @@ See them all: `npm run gallery` (one still each), or `npx remotion render Galler
 | `<Steps title? accent? steps={[...]} />` | Numbered steps joined by a line that draws |
 | `<LogoReveal kind? tagline? accent? />` | The logo arriving: `pop`, `iris`, `slide`, `focus` |
 | `<EndCard line? accent? button? url? />` | Name, one line, a button with a glint, the URL |
+| `<Announcement eyebrow? text accent? detail? />` | Big news landing with a punch, a glint and a drawn stroke |
+| `<Lineup title? people={[{name, role?, initials?, image?}]} />` | People as cards, 2–8; compact rows in a tall frame |
+| `<Agenda title? date? items={[{time, title, who?}]} highlight? />` | A schedule landing row by row, a highlight sliding to one row |
+| `<Countdown title? to from={{days, hours, minutes, seconds}} />` | Tiles counting down in real time, each changed digit rolling |
+| `<Changelog version title? items={[{tag: 'New' \| 'Improved' \| 'Fixed', text}]} />` | A version badge and tagged entries |
+| `<Timeline title? items={[{when, what}]} />` | Milestones on a line that draws: across wide, down tall |
+| `<List title? items={[{label, detail?, value?}]} />` | Dotted leaders to right-aligned values: a menu, roles, prices |
 
 Icons are [lucide](https://lucide.dev/icons) components: `import {Columns3} from 'lucide-react'`.
 
@@ -86,6 +93,23 @@ tinted toward the brand colour; `palette` overrides them.
 | `<Contours width height levels? />` | Topographic lines drawing on, level by level: a map |
 | `<Ripple width height drops? />` | Ink drops landing and rippling out |
 | `<Scribble width height />` | A marker scribble filling in behind a word |
+
+## Voice (`fx/voice.tsx`, `scripts/voice.mjs`)
+
+`npm run voice -- script.txt name` (one line of speech per line, or a JSON array of
+`{text, voice?, rate?}`) speaks it with macOS `say`, preferring the "Ava (Premium)" voice, and
+writes `public/voice/name/line-NN.wav` plus `src/voice/name.ts`: each line's text, file, length
+and where its speech starts and ends. Recorded WAVs with the same `.ts` work the same anywhere.
+
+| | |
+|---|---|
+| `<Voiceover lines start? gap? />` | Plays the lines one after another |
+| `voiceTiming(lines, {start, gap, fps})`, `voiceEnd(...)` | When each line plays, in frames: time scenes and cuts to the voice |
+| `<Captions lines start? variant? position? />` | Words in sync, 2–5 at a time: `karaoke` (a box on the word being said), `pop`, `line` |
+| `<Waveform lines \| src variant? />` | Moves with the voice: `bars`, `line`, `circle` round an avatar or cover |
+
+Word timing spreads each line's speech over its words by length, so it can drift a few frames on a
+long line. `say` voices are for drafts: publish with a recorded voice, or one the user has rights to.
 
 ## Backdrops (`fx/backdrops.tsx`)
 

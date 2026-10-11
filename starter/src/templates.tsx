@@ -7,7 +7,8 @@ import {Counter, Kinetic} from './fx/text';
 import {Look, TextEffect, alpha, useBrand, useLook} from './look';
 
 // Ready-made scenes for motion graphics, no takes needed: a statement, a metric, features, a quote,
-// a before/after, steps, a logo reveal and an end card. Each fills the frame in any format and
+// a before/after, steps, a logo reveal and an end card; and for other agendas, a lineup of people,
+// an agenda, a countdown, a changelog, a timeline, a priced list and an announcement. Each fills the frame in any format and
 // style and takes its words as props, so a scene list can be all templates, all takes, or both:
 //
 //   {name: 'Metric', seconds: 4, component: () => <Metric value={12} label="agents in one window" />},
@@ -466,6 +467,691 @@ export const EndCard: React.FC<{line?: string; accent?: string; button?: string;
 };
 
 // ---------------------------------------------------------------------------------------------
+// Use cases beyond a launch: an event, a team, a release, funding news, a menu.
+
+/** An eyebrow and a title, centred: the head of most templates. */
+const Heading: React.FC<{eyebrow?: string; title?: string; accent?: string; scale?: number}> = ({eyebrow, title, accent, scale = 0.95}) => {
+  const look = useLook();
+  if (!title && !eyebrow) return null;
+  return (
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, width: '100%'}}>
+      <Eyebrow text={eyebrow} />
+      {title ? <Kinetic text={title} accent={accent} start={4} align="center" style={{fontSize: Math.round(look.size * scale)}} /> : null}
+    </div>
+  );
+};
+
+/** About how tall a Heading is, to share the rest of the safe area between rows. */
+const headingHeight = (look: Look, title?: string, eyebrow?: string) =>
+  (title ? look.size * 0.95 * 1.15 * (look.tall ? 2 : 1) : 0) + (eyebrow ? look.size * 0.34 * 1.4 + 14 : 0) + (title || eyebrow ? look.size * 0.6 : 0);
+
+/** Springs for items coming in one after another, from `first`, `every` frames apart. */
+const useStagger = () => {
+  const look = useLook();
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  return (at: number, frames = 24) => spring({frame: frame - at, fps, config: look.spring, durationInFrames: Math.round(frames * look.pace)});
+};
+
+const initialsOf = (name: string) =>
+  name
+    .split(' ')
+    .map((w) => w[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
+/**
+ * People: speakers at an event, the team, the hosts. Portrait cards with an initials avatar (or an
+ * `image` from public/), coming in one after another. 2 to 8 people; tall frames with more than 4
+ * list them in rows instead.
+ *
+ *   <Lineup title="Meet the" accent="speakers." people={[{name: 'Ada Okafor', role: 'Design lead'}, ...]} />
+ */
+export const Lineup: React.FC<{eyebrow?: string; title?: string; accent?: string; people: {name: string; role?: string; initials?: string; image?: string}[]}> = ({
+  eyebrow,
+  title,
+  accent,
+  people,
+}) => {
+  const look = useLook();
+  const pop = useStagger();
+  const n = people.length;
+  const rows = look.format === 'vertical' && n > 4;
+  const cols = rows ? (n > 6 ? 2 : 1) : look.format === 'landscape' ? (n > 4 ? Math.ceil(n / 2) : n) : look.format === 'vertical' ? 2 : n > 4 ? 3 : 2;
+  const lines = Math.ceil(n / cols);
+  const gap = look.format === 'landscape' ? 28 : 22;
+  const cw = Math.min((Math.min(inner(look), 1640) - gap * (cols - 1)) / cols, rows ? 9999 : 400);
+  const availH = look.height - look.safe.top - look.safe.bottom - headingHeight(look, title, eyebrow);
+  const ch = (availH - gap * (lines - 1)) / lines;
+  const nameSize = rows ? 38 : 40;
+  const roleSize = rows ? 30 : 32;
+  const pad = rows ? 18 : 26;
+  const text = nameSize * 1.25 + roleSize * 1.3 + 14;
+  const avatar = Math.round(rows ? Math.min(ch - pad * 2, 96) : Math.max(72, Math.min(cw * 0.62, ch - text - pad * 2, look.format === 'landscape' ? 200 : 160)));
+  return (
+    <Page gap={Math.round(look.size * 0.6)}>
+      <Heading eyebrow={eyebrow} title={title} accent={accent} />
+      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap, width: '100%'}}>
+        {people.map((p, i) => {
+          const t = pop(22 + i * Math.round(6 * look.pace), 26);
+          return (
+            <div
+              key={p.name}
+              style={{
+                width: cw,
+                display: 'flex',
+                flexDirection: rows ? 'row' : 'column',
+                alignItems: 'center',
+                gap: rows ? 22 : 16,
+                padding: rows ? `${pad}px 24px` : `${pad + 4}px ${pad}px ${pad}px`,
+                borderRadius: look.radius,
+                background: look.surface,
+                boxShadow: look.shadow,
+                opacity: Math.min(1, t * 1.4),
+                transform: `translateY(${(1 - t) * 36}px) scale(${0.95 + 0.05 * t})`,
+              }}
+            >
+              <div
+                style={{
+                  width: avatar,
+                  height: avatar,
+                  flexShrink: 0,
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  background: look.accentSoft,
+                  color: look.accentText,
+                  boxShadow: `0 0 0 ${Math.max(3, avatar * 0.03)}px ${alpha(look.accent, 0.25)}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontFamily: look.fonts.body,
+                  fontSize: Math.round(avatar * 0.36),
+                  fontWeight: 700,
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                {p.image ? <Img src={staticFile(p.image)} style={{width: '100%', height: '100%', objectFit: 'cover'}} /> : (p.initials ?? initialsOf(p.name))}
+              </div>
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: rows ? 'flex-start' : 'center', gap: 4, textAlign: rows ? 'left' : 'center', minWidth: 0}}>
+                <div style={{fontFamily: look.fonts.body, fontSize: nameSize, fontWeight: 700, color: look.ink, lineHeight: 1.2, letterSpacing: '-0.01em'}}>{p.name}</div>
+                {p.role ? <div style={{fontFamily: look.fonts.body, fontSize: roleSize, color: look.dim, lineHeight: 1.25}}>{p.role}</div> : null}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Page>
+  );
+};
+
+/**
+ * A schedule: times and what happens, row by row, then a highlight slides to the featured row
+ * (`highlight`, an index). For an event, a launch day, a workshop. Keep titles to one short line.
+ *
+ *   <Agenda title="Day one" date="Thu · Oct 24" items={[{time: '09:30', title: 'Keynote', who: 'Ravi Menon'}, ...]} highlight={1} />
+ */
+export const Agenda: React.FC<{eyebrow?: string; title?: string; accent?: string; date?: string; items: {time: string; title: string; who?: string}[]; highlight?: number}> = ({
+  eyebrow,
+  title,
+  accent,
+  date,
+  items,
+  highlight,
+}) => {
+  const look = useLook();
+  const pop = useStagger();
+  const wide = look.format === 'landscape';
+  const width = wide ? Math.min(inner(look), 1300) : inner(look);
+  const anyWho = items.some((i) => i.who);
+  const pad = wide ? 20 : 16;
+  const rowH = Math.round(wide ? 40 * 1.25 + pad * 2 : 40 * 1.25 + (anyWho ? 32 * 1.3 + 4 : 0) + pad * 2);
+  const every = Math.round(8 * look.pace);
+  const first = 22;
+  const landed = first + every * items.length + 16;
+  const dateIn = pop(14, 20);
+  // The highlight arrives on the first row, then slides down to the featured one.
+  const showH = highlight === undefined ? 0 : pop(landed, 20);
+  const slide = highlight === undefined ? 0 : pop(landed + 14, 26) * highlight;
+  return (
+    <Page gap={Math.round(look.size * 0.5)}>
+      <Heading eyebrow={eyebrow} title={title} accent={accent} />
+      {date ? (
+        <div
+          style={{
+            fontFamily: look.fonts.mono,
+            fontSize: 30,
+            color: look.ink,
+            padding: '8px 22px',
+            borderRadius: 999,
+            background: look.surface,
+            boxShadow: `0 0 0 1px ${look.line}`,
+            opacity: dateIn,
+            transform: `translateY(${(1 - dateIn) * 12}px)`,
+          }}
+        >
+          {date}
+        </div>
+      ) : null}
+      <div style={{position: 'relative', width}}>
+        {highlight !== undefined ? (
+          <div
+            style={{
+              position: 'absolute',
+              left: -12,
+              right: -12,
+              top: slide * rowH,
+              height: rowH,
+              borderRadius: Math.min(look.radius, 16),
+              background: look.accentSoft,
+              boxShadow: `inset 6px 0 0 ${look.accent}`,
+              opacity: showH,
+            }}
+          />
+        ) : null}
+        {items.map((item, i) => {
+          const t = pop(first + i * every, 22);
+          const on = highlight === i ? pop(landed + 30, 16) : 0;
+          return (
+            <div
+              key={item.time + item.title}
+              style={{
+                position: 'relative',
+                height: rowH,
+                display: 'flex',
+                alignItems: 'center',
+                gap: wide ? 40 : 26,
+                padding: `0 ${wide ? 24 : 16}px`,
+                borderBottom: i < items.length - 1 ? `1px solid ${look.line}` : 'none',
+                opacity: t,
+                transform: `translateX(${(1 - t) * 30}px)`,
+              }}
+            >
+              <div style={{fontFamily: look.fonts.mono, fontSize: 34, fontWeight: 600, color: look.accentText, width: wide ? 150 : 128, flexShrink: 0, fontVariantNumeric: 'tabular-nums'}}>
+                {item.time}
+              </div>
+              <div style={{display: 'flex', flexDirection: wide ? 'row' : 'column', alignItems: wide ? 'baseline' : 'flex-start', justifyContent: 'space-between', gap: wide ? 24 : 4, flex: 1, minWidth: 0}}>
+                <div
+                  style={{
+                    fontFamily: look.fonts.body,
+                    fontSize: 40,
+                    fontWeight: 600 + Math.round(on) * 100,
+                    color: look.ink,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '100%',
+                  }}
+                >
+                  {item.title}
+                </div>
+                {item.who ? <div style={{fontFamily: look.fonts.body, fontSize: 32, color: look.dim, whiteSpace: 'nowrap', flexShrink: 0}}>{item.who}</div> : null}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Page>
+  );
+};
+
+/**
+ * A countdown to a date: days, hours, minutes and seconds ticking down for real while the scene
+ * plays, each digit rolling as it changes. For a launch, an event, a sale ending.
+ *
+ *   <Countdown title="Doors open" accent="soon." to="Oct 24 · 9:00 AM" from={{days: 12, hours: 4, minutes: 32, seconds: 9}} />
+ */
+export const Countdown: React.FC<{eyebrow?: string; title?: string; accent?: string; to: string; from: {days: number; hours: number; minutes: number; seconds: number}}> = ({
+  eyebrow,
+  title,
+  accent,
+  to,
+  from,
+}) => {
+  const look = useLook();
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const pop = useStagger();
+  const total = from.days * 86400 + from.hours * 3600 + from.minutes * 60 + from.seconds;
+  const split = (sec: number) => {
+    const s = Math.max(0, sec);
+    return [Math.floor(s / 86400), Math.floor((s % 86400) / 3600), Math.floor((s % 3600) / 60), s % 60];
+  };
+  const tick = Math.floor(frame / fps);
+  const now = split(total - tick);
+  const before = split(total - tick + 1);
+  // Each change rolls in over the first frames of its second.
+  const roll = interpolate(frame % fps, [0, 9], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: (t) => 1 - (1 - t) ** 3});
+  // One row of four where the frame is wide enough (16:9, 1:1), two by two in tall ones.
+  const grid = look.tall ? 2 : 4;
+  const gap = look.format === 'landscape' ? 28 : 22;
+  const tw = Math.floor(Math.min((Math.min(inner(look), 1400) - gap * (grid - 1)) / grid, grid === 4 ? 300 : 400));
+  const th = Math.round(tw * (grid === 4 ? 1.05 : 0.8));
+  const digits = Math.round(th * 0.56);
+  const labels = ['Days', 'Hours', 'Min', 'Sec'];
+  const toIn = pop(46, 22);
+  return (
+    <Page gap={Math.round(look.size * 0.55)}>
+      <Heading eyebrow={eyebrow} title={title} accent={accent} />
+      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap, width: grid === 2 ? tw * 2 + gap : undefined}}>
+        {now.map((v, i) => {
+          const t = pop(16 + i * Math.round(5 * look.pace), 24);
+          const changed = tick > 0 && v !== before[i];
+          const show = (n: number) => String(n).padStart(2, '0');
+          const digit: React.CSSProperties = {
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            top: '50%',
+            lineHeight: 1,
+            fontFamily: look.fonts.headline,
+            fontSize: digits,
+            fontWeight: look.headline.fontWeight,
+            letterSpacing: '-0.02em',
+            fontVariantNumeric: 'tabular-nums',
+            color: i === 3 ? look.accentText : look.ink,
+          };
+          return (
+            <div
+              key={labels[i]}
+              style={{
+                width: tw,
+                height: th,
+                position: 'relative',
+                borderRadius: look.radius,
+                background: look.surface,
+                boxShadow: look.shadow,
+                overflow: 'hidden',
+                opacity: t,
+                transform: `translateY(${(1 - t) * 30}px)`,
+              }}
+            >
+              <div style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: th * 0.2, overflow: 'hidden'}}>
+                {changed ? <div style={{...digit, transform: `translateY(${-50 - roll * 110}%)`, opacity: 1 - roll}}>{show(before[i])}</div> : null}
+                <div style={{...digit, transform: `translateY(${-50 + (changed ? (1 - roll) * 110 : 0)}%)`, opacity: changed ? roll : 1}}>{show(v)}</div>
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  bottom: th * 0.08,
+                  textAlign: 'center',
+                  fontFamily: look.fonts.body,
+                  fontSize: Math.round(Math.max(26, th * 0.1)),
+                  fontWeight: 600,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: look.dim,
+                }}
+              >
+                {labels[i]}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{fontFamily: look.fonts.mono, fontSize: 34, color: look.dim, opacity: toIn, transform: `translateY(${(1 - toIn) * 12}px)`}}>{to}</div>
+    </Page>
+  );
+};
+
+/**
+ * What's new in a release: a version badge, then the changes landing one by one, tagged New,
+ * Improved or Fixed. For a changelog post, a product update, release notes.
+ *
+ *   <Changelog version="v2.4" title="What's" accent="new." items={[{tag: 'New', text: 'Offline mode'}, ...]} />
+ */
+export const Changelog: React.FC<{version: string; title?: string; accent?: string; items: {tag: 'New' | 'Improved' | 'Fixed'; text: string}[]}> = ({
+  version,
+  title,
+  accent,
+  items,
+}) => {
+  const look = useLook();
+  const pop = useStagger();
+  const wide = look.format === 'landscape';
+  const width = wide ? Math.min(inner(look), 1250) : inner(look);
+  const badge = pop(0, 18);
+  const tags = {
+    New: {background: look.accent, color: look.onAccent},
+    Improved: {background: alpha(look.ink, 0.09), color: look.ink},
+    // On the surface rather than a tint, so the alert colour reads on any page (bold's is the brand colour).
+    Fixed: {background: look.surface, color: look.alert, boxShadow: `inset 0 0 0 2px ${alpha(look.alert, 0.45)}`},
+  };
+  return (
+    <Page gap={Math.round(look.size * 0.45)}>
+      <div
+        style={{
+          fontFamily: look.fonts.mono,
+          fontSize: 36,
+          fontWeight: 600,
+          padding: '8px 24px',
+          borderRadius: 999,
+          background: look.accent,
+          color: look.onAccent,
+          transform: `scale(${0.6 + 0.4 * badge})`,
+          opacity: badge,
+        }}
+      >
+        {version}
+      </div>
+      {title ? <Kinetic text={title} accent={accent} start={6} align="center" style={{fontSize: Math.round(look.size * 0.95)}} /> : null}
+      <div style={{display: 'flex', flexDirection: 'column', width, marginTop: 8}}>
+        {items.map((item, i) => {
+          const t = pop(24 + i * Math.round(9 * look.pace), 22);
+          const tag = pop(30 + i * Math.round(9 * look.pace), 16);
+          return (
+            <div
+              key={item.text}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: wide ? 30 : 22,
+                padding: `${wide ? 22 : 20}px 4px`,
+                borderBottom: i < items.length - 1 ? `1px solid ${look.line}` : 'none',
+                opacity: t,
+                transform: `translateX(${(1 - t) * 40}px)`,
+              }}
+            >
+              <div
+                style={{
+                  ...tags[item.tag],
+                  width: wide ? 180 : 168,
+                  flexShrink: 0,
+                  textAlign: 'center',
+                  padding: '7px 0',
+                  borderRadius: look.radius === 0 ? 0 : 999,
+                  fontFamily: look.fonts.body,
+                  fontSize: 28,
+                  fontWeight: 700,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  transform: `scale(${0.7 + 0.3 * tag})`,
+                }}
+              >
+                {item.tag}
+              </div>
+              <div style={{fontFamily: look.fonts.body, fontSize: 40, fontWeight: 500, color: look.ink, lineHeight: 1.25}}>{item.text}</div>
+            </div>
+          );
+        })}
+      </div>
+    </Page>
+  );
+};
+
+/**
+ * Milestones on a line that draws from one to the next, each dot popping as the line reaches it,
+ * the last one marked. Across in a wide frame, down in a tall one. For funding news, a company's
+ * story, a year in review.
+ *
+ *   <Timeline title="How we" accent="got here." items={[{when: '2023', what: 'Two people, one idea'}, ...]} />
+ */
+export const Timeline: React.FC<{eyebrow?: string; title?: string; accent?: string; items: {when: string; what: string}[]}> = ({eyebrow, title, accent, items}) => {
+  const look = useLook();
+  const frame = useCurrentFrame();
+  const pop = useStagger();
+  const across = look.format === 'landscape';
+  const n = items.length;
+  const every = Math.round(18 * look.pace);
+  const first = 22;
+  const progress = interpolate(frame, [first, first + every * (n - 1)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const pulse = interpolate(frame, [first + every * (n - 1) + 6, first + every * (n - 1) + 36], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const dot = (i: number) => (i === n - 1 ? 38 : 24);
+
+  if (across) {
+    const span = Math.min(inner(look), 1640);
+    const col = span / n;
+    const lineY = 120;
+    return (
+      <Page gap={Math.round(look.size * 0.9)}>
+        <Heading eyebrow={eyebrow} title={title} accent={accent} />
+        <div style={{position: 'relative', width: span, height: lineY + 200}}>
+          <div style={{position: 'absolute', left: col / 2, width: span - col, top: lineY - 2, height: 4, background: look.line}} />
+          <div style={{position: 'absolute', left: col / 2, width: (span - col) * progress, top: lineY - 2, height: 4, background: look.accent}} />
+          {items.map((item, i) => {
+            const t = pop(first + i * every, 18);
+            const last = i === n - 1;
+            const cx = col * (i + 0.5);
+            return (
+              <React.Fragment key={item.when}>
+                {last && pulse > 0 && pulse < 1 ? (
+                  <div style={{position: 'absolute', left: cx - 30, top: lineY - 30, width: 60, height: 60, borderRadius: 30, border: `3px solid ${alpha(look.accent, 1 - pulse)}`, transform: `scale(${1 + pulse * 1.4})`}} />
+                ) : null}
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: cx - dot(i) / 2,
+                    top: lineY - dot(i) / 2,
+                    width: dot(i),
+                    height: dot(i),
+                    borderRadius: '50%',
+                    background: last ? look.accent : look.surface,
+                    boxShadow: `0 0 0 ${last ? 8 : 4}px ${last ? alpha(look.accent, 0.22) : look.accent}`,
+                    transform: `scale(${t})`,
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: cx - col / 2 + 10,
+                    width: col - 20,
+                    top: lineY - 34,
+                    textAlign: 'center',
+                    fontFamily: look.fonts.headline,
+                    fontSize: last ? 54 : 44,
+                    fontWeight: look.headline.fontWeight,
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1,
+                    color: last ? look.accentText : look.ink,
+                    opacity: t,
+                    transform: `translateY(calc(-100% + ${(1 - t) * 14}px))`,
+                  }}
+                >
+                  {item.when}
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: cx - col / 2 + 10,
+                    width: col - 20,
+                    top: lineY + 42,
+                    textAlign: 'center',
+                    fontFamily: look.fonts.body,
+                    fontSize: last ? 38 : 34,
+                    fontWeight: last ? 700 : 500,
+                    lineHeight: 1.25,
+                    color: last ? look.ink : look.dim,
+                    opacity: t,
+                    transform: `translateY(${(1 - t) * -10}px)`,
+                  }}
+                >
+                  {item.what}
+                </div>
+              </React.Fragment>
+            );
+          })}
+        </div>
+      </Page>
+    );
+  }
+
+  const availH = look.height - look.safe.top - look.safe.bottom - headingHeight(look, title, eyebrow);
+  const rowH = Math.min(availH / n, 170);
+  const width = Math.min(inner(look), 820);
+  const x = 30;
+  return (
+    <Page gap={Math.round(look.size * 0.6)}>
+      <Heading eyebrow={eyebrow} title={title} accent={accent} />
+      <div style={{position: 'relative', width, height: rowH * n}}>
+        <div style={{position: 'absolute', left: x - 2, top: rowH / 2, height: rowH * (n - 1), width: 4, background: look.line}} />
+        <div style={{position: 'absolute', left: x - 2, top: rowH / 2, height: rowH * (n - 1) * progress, width: 4, background: look.accent}} />
+        {items.map((item, i) => {
+          const t = pop(first + i * every, 18);
+          const last = i === n - 1;
+          const cy = rowH * (i + 0.5);
+          return (
+            <React.Fragment key={item.when}>
+              {last && pulse > 0 && pulse < 1 ? (
+                <div style={{position: 'absolute', left: x - 30, top: cy - 30, width: 60, height: 60, borderRadius: 30, border: `3px solid ${alpha(look.accent, 1 - pulse)}`, transform: `scale(${1 + pulse * 1.4})`}} />
+              ) : null}
+              <div
+                style={{
+                  position: 'absolute',
+                  left: x - dot(i) / 2,
+                  top: cy - dot(i) / 2,
+                  width: dot(i),
+                  height: dot(i),
+                  borderRadius: '50%',
+                  background: last ? look.accent : look.surface,
+                  boxShadow: `0 0 0 ${last ? 8 : 4}px ${last ? alpha(look.accent, 0.22) : look.accent}`,
+                  transform: `scale(${t})`,
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  left: x + 54,
+                  right: 0,
+                  top: cy,
+                  transform: `translateY(-50%) translateX(${(1 - t) * 24}px)`,
+                  opacity: t,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                }}
+              >
+                <div style={{fontFamily: look.fonts.headline, fontSize: last ? 50 : 42, fontWeight: look.headline.fontWeight, letterSpacing: '-0.02em', color: last ? look.accentText : look.ink, lineHeight: 1.1}}>
+                  {item.when}
+                </div>
+                <div style={{fontFamily: look.fonts.body, fontSize: last ? 38 : 34, fontWeight: last ? 700 : 500, color: last ? look.ink : look.dim, lineHeight: 1.25}}>{item.what}</div>
+              </div>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </Page>
+  );
+};
+
+/**
+ * A list with values: each label runs a dotted leader to its value on the right, and an optional
+ * detail sits under it. A menu with prices, open roles with locations, plans with prices.
+ *
+ *   <List title="Today's" accent="menu." items={[{label: 'Flat white', detail: 'Oat or whole', value: '$4.50'}, ...]} />
+ */
+export const List: React.FC<{eyebrow?: string; title?: string; accent?: string; items: {label: string; detail?: string; value?: string}[]}> = ({
+  eyebrow,
+  title,
+  accent,
+  items,
+}) => {
+  const look = useLook();
+  const pop = useStagger();
+  const wide = look.format === 'landscape';
+  const width = wide ? Math.min(inner(look), 1150) : inner(look);
+  return (
+    <Page gap={Math.round(look.size * 0.6)}>
+      <Heading eyebrow={eyebrow} title={title} accent={accent} />
+      <div style={{display: 'flex', flexDirection: 'column', gap: wide ? 26 : 30, width}}>
+        {items.map((item, i) => {
+          const t = pop(22 + i * Math.round(8 * look.pace), 22);
+          const leader = pop(30 + i * Math.round(8 * look.pace), 26);
+          return (
+            <div key={item.label} style={{display: 'flex', flexDirection: 'column', gap: 4, opacity: t, transform: `translateY(${(1 - t) * 20}px)`}}>
+              <div style={{display: 'flex', alignItems: 'baseline', gap: 18}}>
+                <div style={{fontFamily: look.fonts.body, fontSize: 42, fontWeight: 600, color: look.ink, lineHeight: 1.2}}>{item.label}</div>
+                {item.value ? (
+                  <>
+                    <div style={{flex: 1, alignSelf: 'flex-end', marginBottom: 12, height: 0, borderBottom: `4px dotted ${alpha(look.ink, 0.28)}`, transformOrigin: '0 50%', transform: `scaleX(${leader})`}} />
+                    <div style={{fontFamily: look.fonts.body, fontSize: 42, fontWeight: 700, color: look.accentText, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap'}}>{item.value}</div>
+                  </>
+                ) : null}
+              </div>
+              {item.detail ? <div style={{fontFamily: look.fonts.body, fontSize: 32, color: look.dim, lineHeight: 1.3}}>{item.detail}</div> : null}
+            </div>
+          );
+        })}
+      </div>
+    </Page>
+  );
+};
+
+/**
+ * Big news: the headline lands, a glint runs across it and a stroke draws under it, then a line of
+ * detail. For funding, a milestone, a launch date, a partnership.
+ *
+ *   <Announcement eyebrow="Big news" text="We raised $18M" accent="to build what's next." detail="Series A" />
+ */
+export const Announcement: React.FC<{eyebrow?: string; text: string; accent?: string; detail?: string}> = ({eyebrow, text, accent, detail}) => {
+  const look = useLook();
+  const frame = useCurrentFrame();
+  const pop = useStagger();
+  const words = `${text} ${accent ?? ''}`.trim().split(/\s+/).length;
+  const landed = 10 + words * Math.round(5 * look.pace) + 16;
+  const punch = interpolate(frame, [landed, landed + 6, landed + 16], [1, 1.035, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const glint = interpolate(frame, [landed + 2, landed + 30], [-0.4, 1.4], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const underline = interpolate(frame, [landed + 4, landed + 26], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: (t) => 1 - (1 - t) ** 3});
+  const detailIn = pop(landed + 18, 22);
+  const maxWidth = look.tall ? inner(look) : 1500;
+  return (
+    <Page gap={Math.round(look.size * 0.45)}>
+      <Eyebrow text={eyebrow} />
+      <div style={{position: 'relative', display: 'inline-block', maxWidth, transform: `scale(${punch})`}}>
+        <Kinetic text={text} accent={accent} start={6} align="center" style={{fontSize: Math.round(look.size * (look.tall ? 1.2 : 1.5))}} />
+        {/* The glint: a soft band of light crossing the words, clipped to their box. */}
+        <div style={{position: 'absolute', inset: '-10% 0', overflow: 'hidden', pointerEvents: 'none'}}>
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              width: '28%',
+              left: `${glint * 100 - 14}%`,
+              transform: 'skewX(-18deg)',
+              background: `linear-gradient(90deg, transparent, ${look.dark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.65)'}, transparent)`,
+              opacity: glint > -0.4 && glint < 1.4 ? 1 : 0,
+            }}
+          />
+        </div>
+        {/* A stroke under the headline, narrower than it: a flourish, whatever the line breaks. */}
+        <svg width="56%" height={36} viewBox="0 0 1000 36" preserveAspectRatio="none" style={{display: 'block', overflow: 'visible', margin: '14px auto 0'}}>
+          <path
+            d="M 8 24 C 240 10, 520 32, 760 16 S 960 18, 992 14"
+            pathLength={1}
+            fill="none"
+            stroke={look.accent}
+            strokeWidth={7}
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+            strokeDasharray="1"
+            strokeDashoffset={1 - underline}
+            opacity={underline > 0.002 ? 1 : 0}
+          />
+        </svg>
+      </div>
+      {detail ? (
+        <div
+          style={{
+            fontFamily: look.fonts.body,
+            fontSize: Math.round(look.size * 0.6),
+            color: look.dim,
+            textAlign: 'center',
+            maxWidth,
+            opacity: detailIn,
+            transform: `translateY(${(1 - detailIn) * 16}px)`,
+          }}
+        >
+          {detail}
+        </div>
+      ) : null}
+    </Page>
+  );
+};
+
+// ---------------------------------------------------------------------------------------------
 // Samples for the gallery. The copy is placeholder: write the product's own.
 
 const FEATURES = [
@@ -481,8 +1167,15 @@ export const demos: Demo[] = [
   {name: 'Quote', code: '<Quote quote="…" accent="…" name="…" role="…" />', seconds: 4.5, hero: 110, backdrop: false, Component: () => <Quote quote="I stopped tabbing through terminals." accent="Now they come to me." name="Your Customer" role="Their role, their company" />},
   {name: 'Compare', code: '<Compare before={{title, items}} after={{title, items}} />', seconds: 5, hero: 130, backdrop: false, Component: () => <Compare title="Stop checking" accent="every tab." before={{title: 'Before', items: ['Tab through every terminal', 'Miss the prompt that waits']}} after={{title: 'With Termary', items: ['Every agent in one view', 'The waiting one lights up']}} />},
   {name: 'Steps', code: '<Steps title="How it works" steps={[...]} />', seconds: 4, hero: 95, backdrop: false, Component: () => <Steps title="How it" accent="works." steps={['Open a group', 'Start your agents', 'Get pinged when one asks']} />},
-  {name: 'LogoReveal pop', code: '<LogoReveal kind="pop" tagline="…" />', seconds: 3, hero: 70, backdrop: false, Component: () => <LogoReveal kind="pop" tagline="Run agents in parallel." accent="All in one place." />},
+  {name: 'LogoReveal pop', code: '<LogoReveal kind="pop" tagline="…" />', seconds: 3, hero: 86, backdrop: false, Component: () => <LogoReveal kind="pop" tagline="Run agents in parallel." accent="All in one place." />},
   {name: 'LogoReveal iris', code: '<LogoReveal kind="iris" />', seconds: 3, hero: 86, backdrop: false, Component: () => <LogoReveal kind="iris" tagline="Run agents in parallel." accent="All in one place." />},
   {name: 'LogoReveal focus', code: '<LogoReveal kind="focus" />', seconds: 3, hero: 60, backdrop: false, Component: () => <LogoReveal kind="focus" />},
   {name: 'EndCard', code: '<EndCard line="…" accent="…" button="Download free" />', seconds: 4, hero: 100, backdrop: false, Component: () => <EndCard line="Your agents keep working." accent="Even when you walk away." button="Download free" />},
+  {name: 'Lineup', code: '<Lineup title="Meet the" accent="speakers." people={[{name, role}, ...]} />', seconds: 4, hero: 100, backdrop: false, Component: () => <Lineup eyebrow="Fieldwork 2027" title="Meet the" accent="speakers." people={[{name: 'Ada Okafor', role: 'Design lead'}, {name: 'Ravi Menon', role: 'Founder'}, {name: 'Lena Varga', role: 'Staff engineer'}, {name: 'Tom Iwasaki', role: 'Product'}]} />},
+  {name: 'Agenda', code: '<Agenda title="Day one" date="Thu · Oct 24" items={[{time, title, who}, ...]} highlight={1} />', seconds: 5, hero: 140, backdrop: false, Component: () => <Agenda title="Day one" accent="agenda." date="Thu · Oct 24" highlight={1} items={[{time: '09:00', title: 'Doors open'}, {time: '09:30', title: 'Keynote', who: 'Ravi Menon'}, {time: '11:00', title: 'Workshops', who: 'Three rooms'}, {time: '13:00', title: 'Lunch on the terrace'}, {time: '15:00', title: 'Demos and drinks'}]} />},
+  {name: 'Countdown', code: '<Countdown title="Doors open" to="Oct 24 · 9:00 AM" from={{days, hours, minutes, seconds}} />', seconds: 4, hero: 96, backdrop: false, Component: () => <Countdown title="Doors open" accent="soon." to="Oct 24 · 9:00 AM" from={{days: 12, hours: 4, minutes: 32, seconds: 9}} />},
+  {name: 'Changelog', code: '<Changelog version="v2.4" title="What\'s" accent="new." items={[{tag: \'New\', text}, ...]} />', seconds: 4.5, hero: 110, backdrop: false, Component: () => <Changelog version="v2.4" title="What’s" accent="new." items={[{tag: 'New', text: 'Offline mode for every note'}, {tag: 'Improved', text: 'Search is three times faster'}, {tag: 'New', text: 'Share a stack with one link'}, {tag: 'Fixed', text: 'Sync on flaky connections'}]} />},
+  {name: 'Timeline', code: '<Timeline title="How we" accent="got here." items={[{when, what}, ...]} />', seconds: 4.5, hero: 120, backdrop: false, Component: () => <Timeline title="How we" accent="got here." items={[{when: '2023', what: 'Two people, one idea'}, {when: '2024', what: 'First 1,000 users'}, {when: '2025', what: 'Seed round'}, {when: '2026', what: 'Series A'}]} />},
+  {name: 'List', code: '<List title="Today\'s" accent="menu." items={[{label, detail, value}, ...]} />', seconds: 4, hero: 100, backdrop: false, Component: () => <List title="Today’s" accent="menu." items={[{label: 'Flat white', detail: 'Double shot, oat or whole milk', value: '$4.50'}, {label: 'Cardamom bun', detail: 'Baked this morning', value: '$3.80'}, {label: 'Cold brew', detail: 'Steeped for 18 hours', value: '$5.00'}, {label: 'Sourdough toast', detail: 'Butter and sea salt', value: '$6.00'}]} />},
+  {name: 'Announcement', code: '<Announcement eyebrow="Big news" text="We raised $18M" accent="…" detail="…" />', seconds: 4, hero: 100, backdrop: false, Component: () => <Announcement eyebrow="Big news" text="We raised $18M" accent="to build what’s next." detail="Series A, with thanks to our customers and team" />},
 ];

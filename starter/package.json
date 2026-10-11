@@ -17,11 +17,13 @@
     "gallery": "remotion still GallerySheet out/gallery.png",
     "moves": "remotion render Moves out/moves.mp4",
     "music": "node scripts/music.mjs public/music.wav",
+    "voice": "node scripts/voice.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@remotion/cli": "4.0.528",
     "@remotion/google-fonts": "4.0.528",
+    "@remotion/media-utils": "4.0.528",
     "@remotion/transitions": "4.0.528",
     "lucide-react": "1.48.0",
     "react": "18.3.1",
