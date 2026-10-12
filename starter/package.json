@@ -20,6 +20,7 @@
     "music": "node scripts/music.mjs public/music.wav",
     "voice": "node scripts/voice.mjs",
     "library": "node scripts/library.mjs",
+    "samples": "node scripts/samples.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

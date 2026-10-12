@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, CalculateMetadataFunction, Freeze, Sequence, Series} from 'remotion';
 import {Backdrop} from './backdrop';
-import {DEMOS} from './library';
+import {DEMOS, ITEM_DEMOS} from './library';
 import type {Demo} from './library/types';
 import {FORMATS, FormatName, LookProvider, StyleName, useLook} from './look';
 
@@ -46,11 +46,11 @@ const Label: React.FC<{demo: Demo}> = ({demo}) => {
   );
 };
 
-const Sample: React.FC<{demo: Demo}> = ({demo}) => (
+const Sample: React.FC<{demo: Demo; label?: boolean}> = ({demo, label = true}) => (
   <AbsoluteFill>
     {demo.backdrop === false ? null : <Backdrop />}
     <demo.Component />
-    <Label demo={demo} />
+    {label ? <Label demo={demo} /> : null}
   </AbsoluteFill>
 );
 
@@ -111,3 +111,42 @@ export const GallerySheet: React.FC<GalleryProps> = (props) => {
     </LookProvider>
   );
 };
+
+// One item's sample on its own, without its label: what the showreel's library page plays.
+//
+//   npx remotion render Item out/stat.mp4 --props='{"id":"graphics/stat"}'
+//   npm run samples          # every item's samples, as clips and posters (scripts/samples.mjs)
+
+export type ItemProps = {id: string; index?: number; style?: StyleName; format?: FormatName; label?: boolean};
+
+const demoOf = ({id, index = 0}: ItemProps): Demo => {
+  const demo = ITEM_DEMOS[id]?.[index];
+  if (!demo) throw new Error(`No sample ${index} for library item "${id}"`);
+  return demo;
+};
+
+export const itemMetadata: CalculateMetadataFunction<ItemProps> = ({props}) => {
+  const f = FORMATS[props.format ?? 'landscape'];
+  return {width: f.width, height: f.height, durationInFrames: Math.round(demoOf(props).seconds * FPS)};
+};
+
+export const Item: React.FC<ItemProps> = (props) => (
+  <LookProvider style={props.style}>
+    <Sample demo={demoOf(props)} label={props.label ?? false} />
+  </LookProvider>
+);
+
+// Every item's samples as a list (name, code, length, best frame), for scripts/samples.mjs: it
+// reads them from this composition's props instead of running the library itself.
+export type ItemListProps = {items?: {id: string; index: number; name: string; code: string; seconds: number; hero: number}[]};
+
+export const itemListMetadata: CalculateMetadataFunction<ItemListProps> = () => ({
+  durationInFrames: 1,
+  props: {
+    items: Object.entries(ITEM_DEMOS).flatMap(([id, demos]) =>
+      demos.map((d, index) => ({id, index, name: d.name, code: d.code, seconds: d.seconds, hero: d.hero})),
+    ),
+  },
+});
+
+export const ItemList: React.FC<ItemListProps> = () => null;

@@ -128,7 +128,7 @@ const camera = useShot(moves.zoomIn(wide, card), {dolly: 40});
 | `starter/src/look.tsx` | The styles and formats, read through `useLook()` |
 | `starter/src/kit.tsx` | The 3D kit, in one file: `Stage`, `Layer`, `Screen`, `Clip`, `Footage`, `Floor`, `animate`, `useShot`, `focusOn`, `moves` |
 | `starter/src/library/` | The component library: 87 items (templates, kinetic type, graphics, drawings, voice, backdrops, transitions), one folder each with its component, its sample and an `item.json`. [`CATALOG.md`](starter/src/library/CATALOG.md) indexes them; each category has its own catalog with the props, and a preview |
-| `starter/scripts/` | `take.sh` records a take (screen and Simulator at once); `scan.mjs` reads recordings nobody has described (holds, changes, sound, a sheet of frames); `sfx.mjs` generates a chime, a whoosh and a click; `music.mjs` an original soundtrack of any length; `library.mjs` rebuilds the library's index, catalogs and previews |
+| `starter/scripts/` | `take.sh` records a take (screen and Simulator at once); `scan.mjs` reads recordings nobody has described (holds, changes, sound, a sheet of frames); `sfx.mjs` generates a chime, a whoosh and a click; `music.mjs` an original soundtrack of any length; `library.mjs` rebuilds the library's index, catalogs and previews; `samples.mjs` renders every item as a clip for the library page |
 | `references/` | Guides the agent reads only when the job needs them: recording on a Mac or elsewhere, the user's own footage, the camera kit, other agendas, the gotchas, bigger camera moves |
 
 Every scene, style, format and effect is rendered and checked against the versions pinned in

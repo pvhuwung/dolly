@@ -7,7 +7,8 @@
 //                                        name, and every gallery sample (don't edit it)
 //   src/library/CATALOG.md               the index: every item in a line, by category
 //   src/library/<category>/CATALOG.md    each item in full: how to use it, its props, its needs
-//   src/library/catalog.json             all of it as data, for tools and the showreel site
+//   src/library/catalog.json             all of it as data ({categories, items}), for tools and
+//                                        the showreel site's library page
 //
 //   npm run library                      after adding, removing or changing an item
 //   npm run library -- --previews        also renders src/library/<category>/preview.jpg: the
@@ -200,6 +201,9 @@ for (const category of order) {
   index += `  ${category}: [${list.map((i) => `...${ident(i)}${i.demoFile ? '_demo' : ''}.demos`).join(', ')}],\n`;
 }
 index += '};\n';
+index += `\n/** Each item's gallery samples, by its id (\`graphics/stat\`): what the Item composition renders. */\nexport const ITEM_DEMOS: Record<string, Demo[]> = {\n`;
+for (const item of items) index += `  '${item.id}': ${ident(item)}${item.demoFile ? '_demo' : ''}.demos,\n`;
+index += '};\n';
 
 // ---- Write the catalog: an index, and each category in full ----
 
@@ -247,7 +251,7 @@ const catalog = items.map(({id, category, name, summary, usage, tags, values, ty
 Object.assign(outputs, {
   [path.join(lib, 'index.ts')]: index,
   [path.join(lib, 'CATALOG.md')]: md,
-  [path.join(lib, 'catalog.json')]: `${JSON.stringify(catalog, null, 2)}\n`,
+  [path.join(lib, 'catalog.json')]: `${JSON.stringify({categories: order.filter((c) => items.some((i) => i.category === c)).map((c) => [c, CATEGORIES[c]]), items: catalog}, null, 2)}\n`,
 });
 let stale = 0;
 for (const [file, text] of Object.entries(outputs)) {

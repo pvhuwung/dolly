@@ -44,7 +44,9 @@ an item.
    read from the TypeScript types. `npm run library -- --previews` also re-renders each category's
    `preview.jpg`, then run `npm run library` once more. Commit them all.
 5. **Render it** in every style and in a tall format: `npx remotion still GallerySheet out/g.png
-   --props='{"only":"graphics","format":"vertical"}'`.
+   --props='{"only":"graphics","format":"vertical"}'`, and on its own with `npx remotion render Item
+   out/it.mp4 --props='{"id":"graphics/stat"}'`. `npm run samples` renders every item's clip and
+   poster for the showreel's library page (`scripts/build-library.mjs` in the site brings them in).
 
 ## The one rule
 

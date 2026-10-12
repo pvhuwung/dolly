@@ -1,6 +1,6 @@
 import React from 'react';
 import {Composition} from 'remotion';
-import {Gallery, GallerySheet, galleryMetadata, gallerySheetMetadata} from './Gallery';
+import {Gallery, GallerySheet, Item, ItemList, galleryMetadata, gallerySheetMetadata, itemListMetadata, itemMetadata} from './Gallery';
 import {FORMATS} from './look';
 import {Moves, MOVES_FRAMES} from './Moves';
 import {Promo, promoMetadata} from './Promo';
@@ -39,6 +39,8 @@ export const Root: React.FC = () => (
     <Composition id="Moves" component={Moves} durationInFrames={MOVES_FRAMES} fps={FPS} width={WIDTH} height={HEIGHT} />
     <Composition id="Gallery" component={Gallery} calculateMetadata={galleryMetadata} {...sized} />
     <Composition id="GallerySheet" component={GallerySheet} calculateMetadata={gallerySheetMetadata} {...sized} />
+    <Composition id="Item" component={Item} calculateMetadata={itemMetadata} {...sized} defaultProps={{id: 'graphics/stat'}} />
+    <Composition id="ItemList" component={ItemList} calculateMetadata={itemListMetadata} {...sized} />
     <Composition id="Styles" component={Styles} calculateMetadata={stylesMetadata} {...sized} />
     <Composition id="Formats" component={Formats} calculateMetadata={formatsMetadata} {...sized} />
     <Composition id="Sheet" component={Sheet} calculateMetadata={sheetMetadata} {...sized} defaultProps={{every: FPS}} />
