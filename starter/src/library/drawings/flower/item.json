@@ -1,0 +1,12 @@
+{
+  "name": "Flower",
+  "summary": "A watercolour flower whose stem draws up, leaves unfurl and petals open from a bud.",
+  "usage": "<Flower size={320} petals={6} start={10} />",
+  "tags": [
+    "flower",
+    "watercolour",
+    "botanical",
+    "growth"
+  ],
+  "order": 2
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Kinetic",
+  "summary": "A headline that comes in word by word or letter by letter the style's way, with its accent phrase marked as it lands.",
+  "usage": "<Kinetic text=\"Approve it\" accent=\"from your phone.\" start={10} exit={80} />",
+  "tags": [
+    "headline",
+    "type",
+    "kinetic",
+    "accent",
+    "mark"
+  ],
+  "order": 1
+}

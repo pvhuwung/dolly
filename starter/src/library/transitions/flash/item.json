@@ -1,0 +1,11 @@
+{
+  "name": "flash",
+  "summary": "A cut hidden in a bright flash, with a little punch-in on the next scene.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'flash'}",
+  "tags": [
+    "bright",
+    "punch",
+    "energy"
+  ],
+  "order": 12
+}

@@ -1,0 +1,11 @@
+{
+  "name": "grid",
+  "summary": "A swiss column grid inside the safe margins, with a + at every other crossing.",
+  "usage": "<Backdrop kind=\"grid\" />",
+  "tags": [
+    "grid",
+    "swiss",
+    "structure"
+  ],
+  "order": 3
+}

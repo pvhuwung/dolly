@@ -1,0 +1,12 @@
+{
+  "name": "Announcement",
+  "summary": "Big news: the headline lands with a glint and a drawn stroke under it, then a line of detail.",
+  "usage": "<Announcement eyebrow=\"Big news\" text=\"We raised $18M\" accent=\"to build what's next.\" detail=\"Series A\" />",
+  "tags": [
+    "news",
+    "funding",
+    "milestone",
+    "headline"
+  ],
+  "order": 15
+}

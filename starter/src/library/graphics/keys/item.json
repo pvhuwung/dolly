@@ -1,0 +1,12 @@
+{
+  "name": "Keys",
+  "summary": "Keyboard keys that pop in and press down one after another: a shortcut.",
+  "usage": "<Keys keys={['⌘', 'K']} at={6} />",
+  "tags": [
+    "keyboard",
+    "shortcut",
+    "keys",
+    "input"
+  ],
+  "order": 12
+}

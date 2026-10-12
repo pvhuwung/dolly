@@ -1,0 +1,12 @@
+{
+  "name": "Agenda",
+  "summary": "A schedule row by row with times, then a highlight slides to the featured row: an event or a launch day.",
+  "usage": "<Agenda title=\"Day one\" date=\"Thu · Oct 24\" items={[{time: '09:30', title: 'Keynote', who: 'Ravi Menon'}]} highlight={0} />",
+  "tags": [
+    "schedule",
+    "event",
+    "times",
+    "agenda"
+  ],
+  "order": 10
+}

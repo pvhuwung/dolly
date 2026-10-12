@@ -1,0 +1,12 @@
+{
+  "name": "Chat",
+  "summary": "A conversation: bubbles arriving one by one, theirs after typing dots, earlier ones pushed up.",
+  "usage": "<Chat messages={[{from: 'them', text: 'Can you ship it tonight?', at: 20}, {from: 'me', text: 'Already merged.', at: 46}]} />",
+  "tags": [
+    "chat",
+    "messages",
+    "conversation",
+    "ui"
+  ],
+  "order": 15
+}

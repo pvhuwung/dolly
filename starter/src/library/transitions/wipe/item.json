@@ -1,0 +1,11 @@
+{
+  "name": "wipe",
+  "summary": "A hard edge sweeps across from the right, revealing the next scene.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'wipe'}",
+  "tags": [
+    "hard",
+    "edge",
+    "swiss"
+  ],
+  "order": 5
+}

@@ -1,0 +1,12 @@
+{
+  "name": "List",
+  "summary": "Labels with dotted leaders to values and an optional detail line: a menu, open roles, prices.",
+  "usage": "<List title=\"Today's\" accent=\"menu.\" items={[{label: 'Flat white', detail: 'Oat or whole', value: '$4.50'}]} />",
+  "tags": [
+    "list",
+    "menu",
+    "prices",
+    "roles"
+  ],
+  "order": 14
+}

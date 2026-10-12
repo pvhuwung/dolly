@@ -1,0 +1,10 @@
+{
+  "name": "plain",
+  "summary": "Just the style's page colour.",
+  "usage": "<Backdrop kind=\"plain\" />",
+  "tags": [
+    "flat",
+    "quiet"
+  ],
+  "order": 1
+}

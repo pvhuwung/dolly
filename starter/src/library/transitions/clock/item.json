@@ -1,0 +1,11 @@
+{
+  "name": "clock",
+  "summary": "A hand sweeps round like a clock, revealing the next scene.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'clock'}",
+  "tags": [
+    "round",
+    "reveal",
+    "time"
+  ],
+  "order": 7
+}

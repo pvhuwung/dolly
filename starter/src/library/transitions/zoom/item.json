@@ -1,0 +1,11 @@
+{
+  "name": "zoom",
+  "summary": "Forward through the cut: this scene rushes past the camera and blurs, the next settles in.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'zoom'}",
+  "tags": [
+    "motion",
+    "forward",
+    "energy"
+  ],
+  "order": 9
+}

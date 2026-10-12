@@ -1,0 +1,11 @@
+{
+  "name": "pushCut",
+  "summary": "A push cut with a flash in the accent at the join.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'pushCut'}",
+  "tags": [
+    "punch",
+    "flash",
+    "energy"
+  ],
+  "order": 24
+}

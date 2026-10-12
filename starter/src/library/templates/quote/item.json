@@ -1,0 +1,12 @@
+{
+  "name": "Quote",
+  "summary": "A testimonial with who said it, an initials avatar and their role; real quotes only, with permission.",
+  "usage": "<Quote quote=\"I stopped tabbing through terminals.\" accent=\"Now they come to me.\" name=\"Ada Okafor\" role=\"Design lead\" />",
+  "tags": [
+    "testimonial",
+    "quote",
+    "social proof",
+    "person"
+  ],
+  "order": 4
+}

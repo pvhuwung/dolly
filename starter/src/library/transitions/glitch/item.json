@@ -1,0 +1,11 @@
+{
+  "name": "glitch",
+  "summary": "A few frames of digital breakup: torn slices and split colour channels.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'glitch'}",
+  "tags": [
+    "digital",
+    "terminal",
+    "retro"
+  ],
+  "order": 13
+}

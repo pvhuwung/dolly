@@ -1,0 +1,12 @@
+{
+  "name": "Butterfly",
+  "summary": "A butterfly that flutters in along a curve and hovers with beating wings.",
+  "usage": "<Butterfly size={300} start={6} />",
+  "tags": [
+    "butterfly",
+    "nature",
+    "light",
+    "transformation"
+  ],
+  "order": 5
+}

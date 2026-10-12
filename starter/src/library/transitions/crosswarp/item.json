@@ -1,0 +1,11 @@
+{
+  "name": "crosswarp",
+  "summary": "The scenes warp sideways into each other. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'crosswarp'}",
+  "tags": [
+    "shader",
+    "warp",
+    "motion"
+  ],
+  "order": 18
+}

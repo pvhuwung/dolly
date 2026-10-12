@@ -1,0 +1,12 @@
+{
+  "name": "Stat",
+  "summary": "A big number counting up, its label under it, with an optional delta chip.",
+  "usage": "<Stat value={12400} label=\"teams shipping\" start={6} />",
+  "tags": [
+    "number",
+    "metric",
+    "counter",
+    "kpi"
+  ],
+  "order": 6
+}

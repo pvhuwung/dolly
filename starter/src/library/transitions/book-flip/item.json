@@ -1,0 +1,11 @@
+{
+  "name": "bookFlip",
+  "summary": "A page turns like a book onto the next scene. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'bookFlip'}",
+  "tags": [
+    "shader",
+    "page",
+    "paper"
+  ],
+  "order": 21
+}

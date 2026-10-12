@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Kinetic} from './fx/text';
+import {Kinetic} from './library';
 import {alpha, useLook} from './look';
 
 // The 2D pieces laid over the shots, in the look's style and inside the format's safe area.

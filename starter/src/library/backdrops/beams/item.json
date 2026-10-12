@@ -1,0 +1,11 @@
+{
+  "name": "beams",
+  "summary": "Light falling from above in slow-swaying beams.",
+  "usage": "<Backdrop kind=\"beams\" />",
+  "tags": [
+    "light",
+    "stage",
+    "dramatic"
+  ],
+  "order": 9
+}

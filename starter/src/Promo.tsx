@@ -2,9 +2,9 @@ import React from 'react';
 import {Audio, CalculateMetadataFunction, Sequence, staticFile} from 'remotion';
 import {BellRing, Columns3, Smartphone} from 'lucide-react';
 import {brand} from './brand';
-import {Scene, Scenes, sceneStarts, scenesLength} from './fx/transitions';
+import {Scene, Scenes, sceneStarts, scenesLength} from './sequence';
 import {FORMATS, FormatName, LookProvider, StyleName, makeLook} from './look';
-import {Compare, EndCard, Features, LogoReveal, Statement, Steps} from './templates';
+import {Compare, EndCard, Features, LogoReveal, Statement, Steps} from './library';
 
 // A second sample: a motion-graphics cut made only of templates, with no takes. It's the shape of
 // a teaser for social: a hook, the product, what it does, why it's better, how it works, the ask.

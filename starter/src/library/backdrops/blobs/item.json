@@ -1,0 +1,11 @@
+{
+  "name": "blobs",
+  "summary": "Pastel cousins of the accent, drifting and changing shape.",
+  "usage": "<Backdrop kind=\"blobs\" />",
+  "tags": [
+    "soft",
+    "pastel",
+    "organic"
+  ],
+  "order": 5
+}

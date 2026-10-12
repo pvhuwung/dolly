@@ -1,0 +1,12 @@
+{
+  "name": "Voiceover",
+  "summary": "Plays a voiceover's lines one after another, and times scenes to them with voiceTiming and voiceEnd.",
+  "usage": "<Voiceover lines={tutorial} start={15} />",
+  "tags": [
+    "voice",
+    "audio",
+    "narration",
+    "timing"
+  ],
+  "order": 1
+}

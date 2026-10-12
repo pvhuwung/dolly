@@ -1,0 +1,12 @@
+{
+  "name": "LogoReveal",
+  "summary": "The logo arriving (pop, iris, slide or focus), then the name and a tagline under it.",
+  "usage": "<LogoReveal kind=\"pop\" tagline=\"Run agents in parallel.\" accent=\"All in one place.\" />",
+  "tags": [
+    "logo",
+    "brand",
+    "reveal",
+    "intro"
+  ],
+  "order": 7
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Counter",
+  "summary": "A number counting up or down with easing, thousands separators and tabular figures, at a fixed width.",
+  "usage": "<Counter to={12480} suffix=\"+\" start={20} />",
+  "tags": [
+    "number",
+    "count",
+    "metric",
+    "stat"
+  ],
+  "order": 4
+}

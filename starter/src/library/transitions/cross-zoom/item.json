@@ -1,0 +1,11 @@
+{
+  "name": "crossZoom",
+  "summary": "Both scenes zoom and blur into each other. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'crossZoom'}",
+  "tags": [
+    "shader",
+    "zoom",
+    "blur"
+  ],
+  "order": 15
+}

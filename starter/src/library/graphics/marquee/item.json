@@ -1,0 +1,12 @@
+{
+  "name": "Marquee",
+  "summary": "A row of words or logos sliding past for ever, its ends fading out.",
+  "usage": "<Marquee items={['Fast', 'Private', 'Native', 'Open source']} />",
+  "tags": [
+    "ticker",
+    "logos",
+    "scroll",
+    "loop"
+  ],
+  "order": 18
+}

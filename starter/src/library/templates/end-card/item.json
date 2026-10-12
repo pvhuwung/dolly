@@ -1,0 +1,12 @@
+{
+  "name": "EndCard",
+  "summary": "The ask, big and held: logo and name, one line, a button with a glint and the URL.",
+  "usage": "<EndCard line=\"Your agents keep working.\" accent=\"Even when you walk away.\" button=\"Download free\" url=\"example.com\" />",
+  "tags": [
+    "call to action",
+    "ending",
+    "button",
+    "url"
+  ],
+  "order": 8
+}

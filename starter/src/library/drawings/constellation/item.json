@@ -1,0 +1,12 @@
+{
+  "name": "Constellation",
+  "summary": "Stars appearing one by one and joining up with fine lines into a constellation.",
+  "usage": "<Constellation width={800} height={460} count={14} start={4} />",
+  "tags": [
+    "stars",
+    "network",
+    "connections",
+    "night"
+  ],
+  "order": 10
+}

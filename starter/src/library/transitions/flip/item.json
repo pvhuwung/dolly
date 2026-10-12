@@ -1,0 +1,11 @@
+{
+  "name": "flip",
+  "summary": "The frame turns over like a card in 3D to show the next scene.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'flip'}",
+  "tags": [
+    "3d",
+    "card",
+    "paper"
+  ],
+  "order": 8
+}

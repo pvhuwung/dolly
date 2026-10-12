@@ -1,0 +1,12 @@
+{
+  "name": "Metric",
+  "summary": "A number that counts up with what it counts under it; real numbers only.",
+  "usage": "<Metric value={12} label=\"agents in one window\" note=\"and counting\" />",
+  "tags": [
+    "number",
+    "counter",
+    "stat",
+    "proof"
+  ],
+  "order": 2
+}

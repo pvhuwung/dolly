@@ -1,0 +1,12 @@
+{
+  "name": "Compare",
+  "summary": "Before and after: the old way struck through, the product's way ticked, side by side or stacked.",
+  "usage": "<Compare title=\"Stop checking\" accent=\"every tab.\" before={{title: 'Before', items: ['Tab through every terminal']}} after={{title: 'After', items: ['Every agent in one view']}} />",
+  "tags": [
+    "before after",
+    "comparison",
+    "checklist",
+    "versus"
+  ],
+  "order": 5
+}

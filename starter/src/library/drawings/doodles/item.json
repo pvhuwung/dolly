@@ -1,0 +1,12 @@
+{
+  "name": "Doodles",
+  "summary": "A hand-drawn mark in a wobbly pen line: underline, circle, arrow, star, heart and more.",
+  "usage": "<Doodles kind=\"circle\" width={300} height={140} start={20} />",
+  "tags": [
+    "doodle",
+    "hand-drawn",
+    "emphasis",
+    "pen"
+  ],
+  "order": 9
+}

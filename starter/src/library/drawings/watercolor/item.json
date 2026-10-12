@@ -1,0 +1,12 @@
+{
+  "name": "Watercolor",
+  "summary": "A watercolour wash painted behind content, as a brushstroke or a spreading pool.",
+  "usage": "<Watercolor width={760} height={170} start={4}><h1>Drawn with code.</h1></Watercolor>",
+  "tags": [
+    "watercolour",
+    "wash",
+    "headline",
+    "paint"
+  ],
+  "order": 8
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Steps",
+  "summary": "Numbered steps joined by a line that draws from one to the next: how it works.",
+  "usage": "<Steps title=\"How it\" accent=\"works.\" steps={['Open a group', 'Start your agents', 'Get pinged when one asks']} />",
+  "tags": [
+    "how it works",
+    "steps",
+    "process",
+    "sequence"
+  ],
+  "order": 6
+}

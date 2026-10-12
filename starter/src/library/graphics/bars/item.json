@@ -1,0 +1,12 @@
+{
+  "name": "Bars",
+  "summary": "A bar chart whose bars grow in one after another, values counting up, one bar highlighted.",
+  "usage": "<Bars data={[{label: 'Jan', value: 12}, {label: 'Feb', value: 19}]} highlight={1} start={6} />",
+  "tags": [
+    "chart",
+    "bars",
+    "data",
+    "comparison"
+  ],
+  "order": 4
+}

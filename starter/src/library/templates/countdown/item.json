@@ -1,0 +1,12 @@
+{
+  "name": "Countdown",
+  "summary": "Days, hours, minutes and seconds ticking down for real, each digit rolling: a launch, an event, a sale ending.",
+  "usage": "<Countdown title=\"Doors open\" accent=\"soon.\" to=\"Oct 24 · 9:00 AM\" from={{days: 12, hours: 4, minutes: 32, seconds: 9}} />",
+  "tags": [
+    "countdown",
+    "timer",
+    "event",
+    "launch"
+  ],
+  "order": 11
+}

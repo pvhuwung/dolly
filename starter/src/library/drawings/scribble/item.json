@@ -1,0 +1,12 @@
+{
+  "name": "Scribble",
+  "summary": "A marker scribbling back and forth to fill a shape behind a word or number.",
+  "usage": "<Scribble width={320} height={140} start={10} />",
+  "tags": [
+    "marker",
+    "highlight",
+    "emphasis",
+    "hand-drawn"
+  ],
+  "order": 13
+}

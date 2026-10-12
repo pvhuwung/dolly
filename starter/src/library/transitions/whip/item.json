@@ -1,0 +1,11 @@
+{
+  "name": "whip",
+  "summary": "A very fast push sideways with a motion smear at its peak.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'whip'}",
+  "tags": [
+    "fast",
+    "motion",
+    "smear"
+  ],
+  "order": 10
+}

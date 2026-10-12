@@ -1,0 +1,12 @@
+{
+  "name": "Ring",
+  "summary": "A ring that fills to a percentage, the number counting up in its middle.",
+  "usage": "<Ring value={87} label=\"tests passing\" start={8} />",
+  "tags": [
+    "chart",
+    "percent",
+    "score",
+    "number"
+  ],
+  "order": 3
+}

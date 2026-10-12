@@ -1,0 +1,12 @@
+{
+  "name": "Stitch",
+  "summary": "Embroidery: a sun, circle, heart or leaf filled with satin stitches that appear as if sewn.",
+  "usage": "<Stitch size={380} shape=\"sun\" start={6} />",
+  "tags": [
+    "embroidery",
+    "stitch",
+    "craft",
+    "textile"
+  ],
+  "order": 7
+}

@@ -1,0 +1,11 @@
+{
+  "name": "swap",
+  "summary": "The two scenes swap places in perspective. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'swap'}",
+  "tags": [
+    "shader",
+    "3d",
+    "swap"
+  ],
+  "order": 20
+}

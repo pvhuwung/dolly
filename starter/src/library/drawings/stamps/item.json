@@ -1,0 +1,12 @@
+{
+  "name": "Stamps",
+  "summary": "A field of stamped motifs landing one after another in speckled ink.",
+  "usage": "<Stamps width={700} height={500} motif=\"flower\" start={6} />",
+  "tags": [
+    "pattern",
+    "stamp",
+    "print",
+    "craft"
+  ],
+  "order": 3
+}

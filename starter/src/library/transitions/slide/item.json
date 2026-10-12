@@ -1,0 +1,11 @@
+{
+  "name": "slide",
+  "summary": "The next scene slides in from the right on a spring, pushing this one out.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'slide'}",
+  "tags": [
+    "motion",
+    "spring",
+    "bold"
+  ],
+  "order": 4
+}

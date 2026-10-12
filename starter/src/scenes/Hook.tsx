@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Backdrop} from '../fx/backdrops';
-import {Kinetic} from '../fx/text';
+import {Backdrop} from '../backdrop';
+import {Kinetic} from '../library';
 import {Footage, Rect} from '../kit';
 import {alpha, byShape, useLook} from '../look';
 import {MAC, PANE, crop} from './takes';

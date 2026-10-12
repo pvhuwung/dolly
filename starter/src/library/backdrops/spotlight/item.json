@@ -1,0 +1,11 @@
+{
+  "name": "spotlight",
+  "summary": "One soft breathing light from above, the corners in shadow.",
+  "usage": "<Backdrop kind=\"spotlight\" />",
+  "tags": [
+    "light",
+    "focus",
+    "stage"
+  ],
+  "order": 10
+}

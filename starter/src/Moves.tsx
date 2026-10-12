@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Series, useVideoConfig} from 'remotion';
-import {Backdrop} from './fx/backdrops';
+import {Backdrop} from './backdrop';
 import {Footage, Layer, Screen, Stage, focusOn, moves, useShot, whole} from './kit';
 import {useLook} from './look';
 import {MAC, PANE, PHONE} from './scenes/takes';

@@ -1,0 +1,12 @@
+{
+  "name": "Cursor",
+  "summary": "A macOS pointer gliding through points, with a press and a ripple on clicks.",
+  "usage": "<Cursor points={[{x: 1300, y: 760, at: 0}, {x: 900, y: 430, at: 30, click: true}]} />",
+  "tags": [
+    "pointer",
+    "click",
+    "input",
+    "mouse"
+  ],
+  "order": 11
+}

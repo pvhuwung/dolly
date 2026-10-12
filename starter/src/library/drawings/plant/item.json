@@ -1,0 +1,12 @@
+{
+  "name": "Plant",
+  "summary": "A plant growing from the bottom of its box: the stem draws up, branches fork, leaves unfurl and tips bloom.",
+  "usage": "<Plant width={420} height={560} start={4} />",
+  "tags": [
+    "plant",
+    "growth",
+    "botanical",
+    "nature"
+  ],
+  "order": 6
+}

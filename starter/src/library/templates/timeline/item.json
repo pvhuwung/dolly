@@ -1,0 +1,12 @@
+{
+  "name": "Timeline",
+  "summary": "Milestones on a line that draws from one to the next, the last one marked: company history or a year in review.",
+  "usage": "<Timeline title=\"How we\" accent=\"got here.\" items={[{when: '2023', what: 'Two people, one idea'}, {when: '2026', what: 'Series A'}]} />",
+  "tags": [
+    "milestones",
+    "history",
+    "timeline",
+    "story"
+  ],
+  "order": 13
+}

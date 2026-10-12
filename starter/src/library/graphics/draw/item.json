@@ -1,0 +1,12 @@
+{
+  "name": "Draw",
+  "summary": "An SVG path that draws itself on, and off again: a hand-drawn underline, a scribble, a route.",
+  "usage": "<Draw d=\"M6 26 C 110 10, 250 8, 414 20\" width={420} height={40} start={10} />",
+  "tags": [
+    "line",
+    "underline",
+    "path",
+    "handdrawn"
+  ],
+  "order": 1
+}

@@ -17,10 +17,28 @@ npm run styles && npm run formats                       # if you touched a style
 npx remotion still GallerySheet out/g.png --props='{"only":"text","format":"vertical"}'   # an effect, in another format
 ```
 
-A new effect or template goes in `src/fx/` or `src/templates.tsx` with a `demos` entry, reads
-everything from `useLook()`, and must look right in every style and format.
-
 Copy the files you changed back into `starter/` when you're done.
+
+## Add to the library
+
+Every template, text effect, graphic, drawing, voice part, backdrop and transition is an item: a
+folder in `starter/src/library/<category>/<name>/` holding `<name>.tsx` and `item.json`. A video
+that invents something reusable (a layout, a chip, a way in) gives it back as an item.
+
+1. **The component**, in `<name>.tsx`. It reads everything from `useLook()` (never a colour or a
+   font of its own), takes `at` for the frame it starts and `exit` for the frame it leaves, and
+   lays itself out for every format. Core imports are `../../../look`, `../../../kit`,
+   `../../../backdrop`; another item is `../../<category>/<name>/<name>`; helpers several items
+   in a category share go in that category's `_shared.tsx`. A backdrop exports `backdrop` and a
+   transition exports `transition` (see the others); everything else exports its component by name.
+2. **Its sample**, exported as `demos: Demo[]`: a few seconds of it on its own, labelled with the
+   line of code that makes it. It's what `npm run gallery` and the catalog show.
+3. **`item.json`**: its `name` (the export), a one-sentence `summary`, a `usage` line that works as
+   written, a few `tags`, and its `order` in the gallery.
+4. **`npm run library`** rewrites `src/library/index.ts` and the catalog (`CATALOG.md`,
+   `catalog.json`) from the folders, with the props read from the TypeScript types. Commit them.
+5. **Render it** in every style and in a tall format: `npx remotion still GallerySheet out/g.png
+   --props='{"only":"graphics","format":"vertical"}'`.
 
 ## The one rule
 

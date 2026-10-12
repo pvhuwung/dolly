@@ -1,0 +1,11 @@
+{
+  "name": "cut",
+  "summary": "A hard cut: the next scene replaces this one with no overlap.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'cut'}",
+  "tags": [
+    "hard",
+    "instant",
+    "editorial"
+  ],
+  "order": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Statement",
+  "summary": "One big line filling the frame, with an optional eyebrow: a hook, a punchline or a turn in the story.",
+  "usage": "<Statement eyebrow=\"Agents everywhere\" text=\"Five agents running.\" accent=\"One needs you.\" />",
+  "tags": [
+    "headline",
+    "hook",
+    "text",
+    "punchline"
+  ],
+  "order": 1
+}

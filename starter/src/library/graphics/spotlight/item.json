@@ -1,0 +1,12 @@
+{
+  "name": "Spotlight",
+  "summary": "Dims the whole frame except one rectangle, the hole tightening onto it.",
+  "usage": "<Spotlight rect={{x: 700, y: 300, width: 520, height: 260}} at={15} />",
+  "tags": [
+    "focus",
+    "dim",
+    "highlight",
+    "callout"
+  ],
+  "order": 13
+}

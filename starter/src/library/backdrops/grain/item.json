@@ -1,0 +1,11 @@
+{
+  "name": "grain",
+  "summary": "Film grain that dances every frame, with a vignette.",
+  "usage": "<Backdrop kind=\"grain\" />",
+  "tags": [
+    "film",
+    "cinema",
+    "texture"
+  ],
+  "order": 7
+}

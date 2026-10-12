@@ -1,0 +1,12 @@
+{
+  "name": "Arrow",
+  "summary": "A curved, hand-drawn arrow that draws itself from one point to another, its head landing last.",
+  "usage": "<Arrow from={{x: 620, y: 360}} to={{x: 1180, y: 560}} start={10} />",
+  "tags": [
+    "arrow",
+    "pointing",
+    "callout",
+    "handdrawn"
+  ],
+  "order": 2
+}

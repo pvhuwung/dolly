@@ -1,0 +1,12 @@
+{
+  "name": "Features",
+  "summary": "Three to six features as cards with icons, coming in one after another: what the product does.",
+  "usage": "<Features title=\"Everything in\" accent=\"one window.\" items={[{icon: Columns3, title: 'Split panes', text: 'Grouped by project'}]} />",
+  "tags": [
+    "features",
+    "cards",
+    "icons",
+    "grid"
+  ],
+  "order": 3
+}

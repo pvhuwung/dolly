@@ -1,0 +1,10 @@
+{
+  "name": "fade",
+  "summary": "A cross-fade between the two scenes.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'fade'}",
+  "tags": [
+    "soft",
+    "classic"
+  ],
+  "order": 2
+}

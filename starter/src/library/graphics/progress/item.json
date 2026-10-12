@@ -1,0 +1,12 @@
+{
+  "name": "Progress",
+  "summary": "A progress bar filling to a percentage, with its label and percentage above it.",
+  "usage": "<Progress value={72} label=\"Indexing repository\" start={6} />",
+  "tags": [
+    "progress",
+    "loading",
+    "bar",
+    "status"
+  ],
+  "order": 7
+}

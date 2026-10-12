@@ -1,0 +1,11 @@
+{
+  "name": "linearBlur",
+  "summary": "A directional blur carries one scene into the next. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'linearBlur'}",
+  "tags": [
+    "shader",
+    "blur",
+    "motion"
+  ],
+  "order": 23
+}

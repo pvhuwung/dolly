@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {Backdrop} from '../fx/backdrops';
-import {Kinetic} from '../fx/text';
+import {Backdrop} from '../backdrop';
+import {Kinetic} from '../library';
 import {useBrand, useLook} from '../look';
 import {Pop} from '../parts';
 import {Icon, wordmark} from './Logo';

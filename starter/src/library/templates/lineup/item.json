@@ -1,0 +1,12 @@
+{
+  "name": "Lineup",
+  "summary": "People as portrait cards with initials or photos, coming in one after another: speakers, a team, hosts.",
+  "usage": "<Lineup title=\"Meet the\" accent=\"speakers.\" people={[{name: 'Ada Okafor', role: 'Design lead'}, {name: 'Ravi Menon', role: 'Founder'}]} />",
+  "tags": [
+    "people",
+    "team",
+    "speakers",
+    "event"
+  ],
+  "order": 9
+}

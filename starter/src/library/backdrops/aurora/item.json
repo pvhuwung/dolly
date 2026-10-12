@@ -1,0 +1,11 @@
+{
+  "name": "aurora",
+  "summary": "Ribbons of light in the accent swaying over a hairline grid.",
+  "usage": "<Backdrop kind=\"aurora\" />",
+  "tags": [
+    "light",
+    "ribbons",
+    "dark"
+  ],
+  "order": 8
+}

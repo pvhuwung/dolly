@@ -1,0 +1,12 @@
+{
+  "name": "Ripple",
+  "summary": "Drops of ink landing one after another and rippling out in wobbly rings.",
+  "usage": "<Ripple width={700} height={460} drops={6} start={4} />",
+  "tags": [
+    "ink",
+    "ripple",
+    "drops",
+    "signal"
+  ],
+  "order": 12
+}

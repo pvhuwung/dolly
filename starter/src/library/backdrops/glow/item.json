@@ -1,0 +1,11 @@
+{
+  "name": "glow",
+  "summary": "Soft lights in the accent drifting over faint hairlines.",
+  "usage": "<Backdrop kind=\"glow\" />",
+  "tags": [
+    "light",
+    "accent",
+    "dark"
+  ],
+  "order": 2
+}

@@ -1,0 +1,12 @@
+{
+  "name": "LineChart",
+  "summary": "A line chart that draws across, its area filling in and a dot riding the head with the current value.",
+  "usage": "<LineChart values={[12, 18, 15, 26, 31, 29, 44, 58]} start={6} />",
+  "tags": [
+    "chart",
+    "line",
+    "growth",
+    "data"
+  ],
+  "order": 5
+}

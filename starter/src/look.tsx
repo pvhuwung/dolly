@@ -29,13 +29,13 @@ import {Brand, brand} from './brand';
 export type StyleName = 'editorial' | 'midnight' | 'bold' | 'swiss' | 'soft' | 'terminal' | 'cinema' | 'paper';
 export type FormatName = 'landscape' | 'vertical' | 'square' | 'portrait';
 
-/** How words come in. Implemented by `Kinetic` (fx/text.tsx). */
+/** How words come in. Implemented by `Kinetic` (library/text/kinetic). */
 export type TextEffect = 'rise' | 'reveal' | 'blur' | 'pop' | 'type' | 'letters' | 'slide' | 'scramble' | 'fade';
-/** What's drawn behind the accent phrase. Implemented by `Kinetic` and `Mark` (fx/text.tsx). */
+/** What's drawn behind the accent phrase. Implemented by `Kinetic` and `Mark` (library/text/). */
 export type MarkKind = 'none' | 'marker' | 'block' | 'pill' | 'underline' | 'circle' | 'strike' | 'box';
-/** The page behind the shots. Implemented by `Backdrop` (fx/backdrops.tsx). */
+/** The page behind the shots. One item each in library/backdrops/, drawn by `Backdrop` (backdrop.tsx). */
 export type BackdropKind = 'plain' | 'glow' | 'grid' | 'dots' | 'blobs' | 'scanlines' | 'grain' | 'aurora' | 'beams' | 'spotlight';
-/** How one scene gives way to the next. Implemented by `Scenes` (fx/transitions.tsx). */
+/** How one scene gives way to the next. One item each in library/transitions/, played by `Scenes` (sequence.tsx). */
 export type TransitionName =
   | 'cut'
   | 'fade'

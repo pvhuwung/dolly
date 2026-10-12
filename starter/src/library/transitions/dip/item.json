@@ -1,0 +1,11 @@
+{
+  "name": "dip",
+  "summary": "The scene fades to the page colour, then the next one fades in from it.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'dip'}",
+  "tags": [
+    "soft",
+    "calm",
+    "page"
+  ],
+  "order": 3
+}

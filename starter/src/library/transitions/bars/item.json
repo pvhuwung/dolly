@@ -1,0 +1,11 @@
+{
+  "name": "bars",
+  "summary": "Bars of the accent sweep in, cover the scene, then uncover the next one.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'bars'}",
+  "tags": [
+    "accent",
+    "graphic",
+    "bold"
+  ],
+  "order": 11
+}

@@ -1,23 +1,17 @@
 import React from 'react';
 import {AbsoluteFill, CalculateMetadataFunction, Freeze, Sequence, Series} from 'remotion';
-import {demos as backdrops} from './fx/backdrops';
-import {demos as drawings} from './fx/drawings';
-import type {Demo} from './fx/demo';
-import {demos as graphics} from './fx/graphics';
-import {demos as text} from './fx/text';
-import {demos as templates} from './templates';
-import {demos as transitions} from './fx/transitions';
-import {demos as voice} from './fx/voice';
+import {Backdrop} from './backdrop';
+import {DEMOS} from './library';
+import type {Demo} from './library/types';
 import {FORMATS, FormatName, LookProvider, StyleName, useLook} from './look';
-import {Backdrop} from './fx/backdrops';
 
-// Every effect in fx/, a few seconds each over the style's backdrop, labelled with the code that
+// Every item in the library, a few seconds each over the style's backdrop, labelled with the code that
 // makes it. The sheet puts each one's best frame on one image:
 //
 //   npx remotion render Gallery out/gallery.mp4 --props='{"style":"bold"}'
 //   npx remotion still GallerySheet out/gallery.png --props='{"only":"text","format":"vertical"}'
 
-const GROUPS = {templates, text, graphics, drawings, voice, backdrops, transitions};
+const GROUPS = DEMOS;
 export type GalleryProps = {style?: StyleName; only?: keyof typeof GROUPS; format?: FormatName};
 
 const FPS = 30;

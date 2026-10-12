@@ -1,0 +1,12 @@
+{
+  "name": "Cycle",
+  "summary": "One slot in a line whose word changes every few frames, sliding the old word out and the new one in.",
+  "usage": "<Cycle words={['fast.', 'polished.', 'yours.']} start={30} />",
+  "tags": [
+    "rotate",
+    "words",
+    "headline",
+    "swap"
+  ],
+  "order": 3
+}

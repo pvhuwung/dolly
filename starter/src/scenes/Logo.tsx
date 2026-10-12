@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Img, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Backdrop} from '../fx/backdrops';
-import {Kinetic} from '../fx/text';
+import {Backdrop} from '../backdrop';
+import {Kinetic} from '../library';
 import {useBrand, useLook} from '../look';
 
 /** The app icon, landing with the only bounce in the video. */

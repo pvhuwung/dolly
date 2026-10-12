@@ -18,6 +18,7 @@
     "moves": "remotion render Moves out/moves.mp4",
     "music": "node scripts/music.mjs public/music.wav",
     "voice": "node scripts/voice.mjs",
+    "library": "node scripts/library.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

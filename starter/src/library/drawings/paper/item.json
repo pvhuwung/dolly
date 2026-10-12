@@ -1,0 +1,12 @@
+{
+  "name": "Paper",
+  "summary": "A card of warm paper with grain, fibres and an uneven edge that slides in and holds a drawing.",
+  "usage": "<Paper width={560} height={700} rotate={-3}><Flower /></Paper>",
+  "tags": [
+    "paper",
+    "card",
+    "texture",
+    "craft"
+  ],
+  "order": 1
+}

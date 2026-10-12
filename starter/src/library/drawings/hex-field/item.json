@@ -1,0 +1,12 @@
+{
+  "name": "HexField",
+  "summary": "A board of hexagons warming from pale to deep around a hot spot, spreading in a wave.",
+  "usage": "<HexField width={700} height={520} origin={{x: 0.6, y: 0.55}} start={8} />",
+  "tags": [
+    "heatmap",
+    "hexagon",
+    "data",
+    "spread"
+  ],
+  "order": 4
+}

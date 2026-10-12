@@ -1,0 +1,3966 @@
+[
+  {
+    "id": "templates/statement",
+    "category": "templates",
+    "name": "Statement",
+    "summary": "One big line filling the frame, with an optional eyebrow: a hook, a punchline or a turn in the story.",
+    "usage": "<Statement eyebrow=\"Agents everywhere\" text=\"Five agents running.\" accent=\"One needs you.\" />",
+    "tags": [
+      "headline",
+      "hook",
+      "text",
+      "punchline"
+    ],
+    "exports": [
+      "Statement"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "effect",
+        "type": "TextEffect",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/metric",
+    "category": "templates",
+    "name": "Metric",
+    "summary": "A number that counts up with what it counts under it; real numbers only.",
+    "usage": "<Metric value={12} label=\"agents in one window\" note=\"and counting\" />",
+    "tags": [
+      "number",
+      "counter",
+      "stat",
+      "proof"
+    ],
+    "exports": [
+      "Metric"
+    ],
+    "needs": [
+      "text/counter",
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "prefix",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "decimals",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "note",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/features",
+    "category": "templates",
+    "name": "Features",
+    "summary": "Three to six features as cards with icons, coming in one after another: what the product does.",
+    "usage": "<Features title=\"Everything in\" accent=\"one window.\" items={[{icon: Columns3, title: 'Split panes', text: 'Grouped by project'}]} />",
+    "tags": [
+      "features",
+      "cards",
+      "icons",
+      "grid"
+    ],
+    "exports": [
+      "Features"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "items",
+        "type": "{ icon: LucideIcon; title: string; text?: string; }[]",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/quote",
+    "category": "templates",
+    "name": "Quote",
+    "summary": "A testimonial with who said it, an initials avatar and their role; real quotes only, with permission.",
+    "usage": "<Quote quote=\"I stopped tabbing through terminals.\" accent=\"Now they come to me.\" name=\"Ada Okafor\" role=\"Design lead\" />",
+    "tags": [
+      "testimonial",
+      "quote",
+      "social proof",
+      "person"
+    ],
+    "exports": [
+      "Quote"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "quote",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/compare",
+    "category": "templates",
+    "name": "Compare",
+    "summary": "Before and after: the old way struck through, the product's way ticked, side by side or stacked.",
+    "usage": "<Compare title=\"Stop checking\" accent=\"every tab.\" before={{title: 'Before', items: ['Tab through every terminal']}} after={{title: 'After', items: ['Every agent in one view']}} />",
+    "tags": [
+      "before after",
+      "comparison",
+      "checklist",
+      "versus"
+    ],
+    "exports": [
+      "Compare"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "before",
+        "type": "{ title: string; items: string[]; }",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "after",
+        "type": "{ title: string; items: string[]; }",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/steps",
+    "category": "templates",
+    "name": "Steps",
+    "summary": "Numbered steps joined by a line that draws from one to the next: how it works.",
+    "usage": "<Steps title=\"How it\" accent=\"works.\" steps={['Open a group', 'Start your agents', 'Get pinged when one asks']} />",
+    "tags": [
+      "how it works",
+      "steps",
+      "process",
+      "sequence"
+    ],
+    "exports": [
+      "Steps"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "steps",
+        "type": "string[]",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/logo-reveal",
+    "category": "templates",
+    "name": "LogoReveal",
+    "summary": "The logo arriving (pop, iris, slide or focus), then the name and a tagline under it.",
+    "usage": "<LogoReveal kind=\"pop\" tagline=\"Run agents in parallel.\" accent=\"All in one place.\" />",
+    "tags": [
+      "logo",
+      "brand",
+      "reveal",
+      "intro"
+    ],
+    "exports": [
+      "LogoReveal"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "kind",
+        "type": "'pop' | 'slide' | 'iris' | 'focus'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "tagline",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "logo",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/end-card",
+    "category": "templates",
+    "name": "EndCard",
+    "summary": "The ask, big and held: logo and name, one line, a button with a glint and the URL.",
+    "usage": "<EndCard line=\"Your agents keep working.\" accent=\"Even when you walk away.\" button=\"Download free\" url=\"example.com\" />",
+    "tags": [
+      "call to action",
+      "ending",
+      "button",
+      "url"
+    ],
+    "exports": [
+      "EndCard"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "line",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "button",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/lineup",
+    "category": "templates",
+    "name": "Lineup",
+    "summary": "People as portrait cards with initials or photos, coming in one after another: speakers, a team, hosts.",
+    "usage": "<Lineup title=\"Meet the\" accent=\"speakers.\" people={[{name: 'Ada Okafor', role: 'Design lead'}, {name: 'Ravi Menon', role: 'Founder'}]} />",
+    "tags": [
+      "people",
+      "team",
+      "speakers",
+      "event"
+    ],
+    "exports": [
+      "Lineup"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "people",
+        "type": "{ name: string; role?: string; initials?: string; image?: string; }[]",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/agenda",
+    "category": "templates",
+    "name": "Agenda",
+    "summary": "A schedule row by row with times, then a highlight slides to the featured row: an event or a launch day.",
+    "usage": "<Agenda title=\"Day one\" date=\"Thu · Oct 24\" items={[{time: '09:30', title: 'Keynote', who: 'Ravi Menon'}]} highlight={0} />",
+    "tags": [
+      "schedule",
+      "event",
+      "times",
+      "agenda"
+    ],
+    "exports": [
+      "Agenda"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "items",
+        "type": "{ time: string; title: string; who?: string; }[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "highlight",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/countdown",
+    "category": "templates",
+    "name": "Countdown",
+    "summary": "Days, hours, minutes and seconds ticking down for real, each digit rolling: a launch, an event, a sale ending.",
+    "usage": "<Countdown title=\"Doors open\" accent=\"soon.\" to=\"Oct 24 · 9:00 AM\" from={{days: 12, hours: 4, minutes: 32, seconds: 9}} />",
+    "tags": [
+      "countdown",
+      "timer",
+      "event",
+      "launch"
+    ],
+    "exports": [
+      "Countdown"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "to",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "from",
+        "type": "{ days: number; hours: number; minutes: number; seconds: number; }",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/changelog",
+    "category": "templates",
+    "name": "Changelog",
+    "summary": "A version badge, then the changes landing one by one tagged New, Improved or Fixed: release notes.",
+    "usage": "<Changelog version=\"v2.4\" title=\"What's\" accent=\"new.\" items={[{tag: 'New', text: 'Offline mode'}, {tag: 'Fixed', text: 'Sync on flaky connections'}]} />",
+    "tags": [
+      "release",
+      "changelog",
+      "update",
+      "version"
+    ],
+    "exports": [
+      "Changelog"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "version",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "items",
+        "type": "{ tag: 'New' | 'Improved' | 'Fixed'; text: string; }[]",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/timeline",
+    "category": "templates",
+    "name": "Timeline",
+    "summary": "Milestones on a line that draws from one to the next, the last one marked: company history or a year in review.",
+    "usage": "<Timeline title=\"How we\" accent=\"got here.\" items={[{when: '2023', what: 'Two people, one idea'}, {when: '2026', what: 'Series A'}]} />",
+    "tags": [
+      "milestones",
+      "history",
+      "timeline",
+      "story"
+    ],
+    "exports": [
+      "Timeline"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "items",
+        "type": "{ when: string; what: string; }[]",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/list",
+    "category": "templates",
+    "name": "List",
+    "summary": "Labels with dotted leaders to values and an optional detail line: a menu, open roles, prices.",
+    "usage": "<List title=\"Today's\" accent=\"menu.\" items={[{label: 'Flat white', detail: 'Oat or whole', value: '$4.50'}]} />",
+    "tags": [
+      "list",
+      "menu",
+      "prices",
+      "roles"
+    ],
+    "exports": [
+      "List"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "items",
+        "type": "{ label: string; detail?: string; value?: string; }[]",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "templates/announcement",
+    "category": "templates",
+    "name": "Announcement",
+    "summary": "Big news: the headline lands with a glint and a drawn stroke under it, then a line of detail.",
+    "usage": "<Announcement eyebrow=\"Big news\" text=\"We raised $18M\" accent=\"to build what's next.\" detail=\"Series A\" />",
+    "tags": [
+      "news",
+      "funding",
+      "milestone",
+      "headline"
+    ],
+    "exports": [
+      "Announcement"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "detail",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "text/kinetic",
+    "category": "text",
+    "name": "Kinetic",
+    "summary": "A headline that comes in word by word or letter by letter the style's way, with its accent phrase marked as it lands.",
+    "usage": "<Kinetic text=\"Approve it\" accent=\"from your phone.\" start={10} exit={80} />",
+    "tags": [
+      "headline",
+      "type",
+      "kinetic",
+      "accent",
+      "mark"
+    ],
+    "exports": [
+      "Kinetic"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "effect",
+        "type": "TextEffect",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "mark",
+        "type": "MarkKind",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "align",
+        "type": "'left' | 'center'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "text/mark",
+    "category": "text",
+    "name": "Mark",
+    "summary": "Draws a highlighter, block, pill, underline, circle, strike or box on any inline words at a given frame.",
+    "usage": "<Mark kind=\"circle\" at={40}>3×</Mark>",
+    "tags": [
+      "highlight",
+      "underline",
+      "circle",
+      "emphasis"
+    ],
+    "exports": [
+      "Mark"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "kind",
+        "type": "MarkKind",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "at",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "text/cycle",
+    "category": "text",
+    "name": "Cycle",
+    "summary": "One slot in a line whose word changes every few frames, sliding the old word out and the new one in.",
+    "usage": "<Cycle words={['fast.', 'polished.', 'yours.']} start={30} />",
+    "tags": [
+      "rotate",
+      "words",
+      "headline",
+      "swap"
+    ],
+    "exports": [
+      "Cycle"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "words",
+        "type": "string[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "every",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "text/counter",
+    "category": "text",
+    "name": "Counter",
+    "summary": "A number counting up or down with easing, thousands separators and tabular figures, at a fixed width.",
+    "usage": "<Counter to={12480} suffix=\"+\" start={20} />",
+    "tags": [
+      "number",
+      "count",
+      "metric",
+      "stat"
+    ],
+    "exports": [
+      "Counter"
+    ],
+    "needs": [
+      "text/kinetic"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "to",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "from",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "decimals",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "prefix",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/draw",
+    "category": "graphics",
+    "name": "Draw",
+    "summary": "An SVG path that draws itself on, and off again: a hand-drawn underline, a scribble, a route.",
+    "usage": "<Draw d=\"M6 26 C 110 10, 250 8, 414 20\" width={420} height={40} start={10} />",
+    "tags": [
+      "line",
+      "underline",
+      "path",
+      "handdrawn"
+    ],
+    "exports": [
+      "Draw"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "d",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "strokeWidth",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "stretch",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/arrow",
+    "category": "graphics",
+    "name": "Arrow",
+    "summary": "A curved, hand-drawn arrow that draws itself from one point to another, its head landing last.",
+    "usage": "<Arrow from={{x: 620, y: 360}} to={{x: 1180, y: 560}} start={10} />",
+    "tags": [
+      "arrow",
+      "pointing",
+      "callout",
+      "handdrawn"
+    ],
+    "exports": [
+      "Arrow"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "from",
+        "type": "Pt",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "to",
+        "type": "Pt",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "bend",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "strokeWidth",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "head",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/ring",
+    "category": "graphics",
+    "name": "Ring",
+    "summary": "A ring that fills to a percentage, the number counting up in its middle.",
+    "usage": "<Ring value={87} label=\"tests passing\" start={8} />",
+    "tags": [
+      "chart",
+      "percent",
+      "score",
+      "number"
+    ],
+    "exports": [
+      "Ring"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "thickness",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/bars",
+    "category": "graphics",
+    "name": "Bars",
+    "summary": "A bar chart whose bars grow in one after another, values counting up, one bar highlighted.",
+    "usage": "<Bars data={[{label: 'Jan', value: 12}, {label: 'Feb', value: 19}]} highlight={1} start={6} />",
+    "tags": [
+      "chart",
+      "bars",
+      "data",
+      "comparison"
+    ],
+    "exports": [
+      "Bars"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label: string; value: number; }[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "highlight",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "across",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "format",
+        "type": "(n: number) => string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/line-chart",
+    "category": "graphics",
+    "name": "LineChart",
+    "summary": "A line chart that draws across, its area filling in and a dot riding the head with the current value.",
+    "usage": "<LineChart values={[12, 18, 15, 26, 31, 29, 44, 58]} start={6} />",
+    "tags": [
+      "chart",
+      "line",
+      "growth",
+      "data"
+    ],
+    "exports": [
+      "LineChart"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "values",
+        "type": "number[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "labels",
+        "type": "string[]",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "format",
+        "type": "(n: number) => string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/stat",
+    "category": "graphics",
+    "name": "Stat",
+    "summary": "A big number counting up, its label under it, with an optional delta chip.",
+    "usage": "<Stat value={12400} label=\"teams shipping\" start={6} />",
+    "tags": [
+      "number",
+      "metric",
+      "counter",
+      "kpi"
+    ],
+    "exports": [
+      "Stat"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "prefix",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "decimals",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "delta",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "align",
+        "type": "'left' | 'center'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/progress",
+    "category": "graphics",
+    "name": "Progress",
+    "summary": "A progress bar filling to a percentage, with its label and percentage above it.",
+    "usage": "<Progress value={72} label=\"Indexing repository\" start={6} />",
+    "tags": [
+      "progress",
+      "loading",
+      "bar",
+      "status"
+    ],
+    "exports": [
+      "Progress"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "thickness",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/checklist",
+    "category": "graphics",
+    "name": "Checklist",
+    "summary": "Items ticking off one by one: each box fills and its check draws in.",
+    "usage": "<Checklist items={['Tests pass', 'Preview deployed', 'Ready to merge']} start={6} />",
+    "tags": [
+      "list",
+      "checks",
+      "done",
+      "steps"
+    ],
+    "exports": [
+      "Checklist"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "items",
+        "type": "string[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/burst",
+    "category": "graphics",
+    "name": "Burst",
+    "summary": "Confetti bursting from a point and falling away under gravity: a success moment.",
+    "usage": "<Burst x={960} y={500} at={14} />",
+    "tags": [
+      "confetti",
+      "celebration",
+      "success",
+      "moment"
+    ],
+    "exports": [
+      "Burst"
+    ],
+    "needs": [
+      "graphics/icon"
+    ],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "x",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "y",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "at",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "power",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/shine",
+    "category": "graphics",
+    "name": "Shine",
+    "summary": "A glint of light sweeping across its children, once or on a loop.",
+    "usage": "<Shine at={20} every={50}><div>Get early access</div></Shine>",
+    "tags": [
+      "glint",
+      "button",
+      "highlight",
+      "shimmer"
+    ],
+    "exports": [
+      "Shine"
+    ],
+    "needs": [],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "at",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "every",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "optional": false,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/cursor",
+    "category": "graphics",
+    "name": "Cursor",
+    "summary": "A macOS pointer gliding through points, with a press and a ripple on clicks.",
+    "usage": "<Cursor points={[{x: 1300, y: 760, at: 0}, {x: 900, y: 430, at: 30, click: true}]} />",
+    "tags": [
+      "pointer",
+      "click",
+      "input",
+      "mouse"
+    ],
+    "exports": [
+      "Cursor",
+      "CursorPoint"
+    ],
+    "needs": [],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "points",
+        "type": "CursorPoint[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "travel",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "light",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/keys",
+    "category": "graphics",
+    "name": "Keys",
+    "summary": "Keyboard keys that pop in and press down one after another: a shortcut.",
+    "usage": "<Keys keys={['⌘', 'K']} at={6} />",
+    "tags": [
+      "keyboard",
+      "shortcut",
+      "keys",
+      "input"
+    ],
+    "exports": [
+      "Keys"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "keys",
+        "type": "string[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "at",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "hold",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/spotlight",
+    "category": "graphics",
+    "name": "Spotlight",
+    "summary": "Dims the whole frame except one rectangle, the hole tightening onto it.",
+    "usage": "<Spotlight rect={{x: 700, y: 300, width: 520, height: 260}} at={15} />",
+    "tags": [
+      "focus",
+      "dim",
+      "highlight",
+      "callout"
+    ],
+    "exports": [
+      "Spotlight"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "rect",
+        "type": "{ x: number; y: number; width: number; height: number; }",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "at",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "dim",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "pad",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "ring",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/toast",
+    "category": "graphics",
+    "name": "Toast",
+    "summary": "A notification sliding in like macOS or iOS: app icon, name, time, title and body.",
+    "usage": "<Toast title=\"Build passed\" body=\"All 214 checks green on main\" at={8} />",
+    "tags": [
+      "notification",
+      "alert",
+      "ui",
+      "ios"
+    ],
+    "exports": [
+      "Toast"
+    ],
+    "needs": [],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "app",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "time",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "icon",
+        "type": "LucideIcon",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "logo",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "at",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "from",
+        "type": "'top' | 'right'",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/chat",
+    "category": "graphics",
+    "name": "Chat",
+    "summary": "A conversation: bubbles arriving one by one, theirs after typing dots, earlier ones pushed up.",
+    "usage": "<Chat messages={[{from: 'them', text: 'Can you ship it tonight?', at: 20}, {from: 'me', text: 'Already merged.', at: 46}]} />",
+    "tags": [
+      "chat",
+      "messages",
+      "conversation",
+      "ui"
+    ],
+    "exports": [
+      "Chat",
+      "ChatMessage"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "messages",
+        "type": "ChatMessage[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "typing",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/badge",
+    "category": "graphics",
+    "name": "Badge",
+    "summary": "A pill label that pops in with an icon or a live dot: New, Beta, Live.",
+    "usage": "<Badge icon={Sparkles} text=\"New in 2.0\" at={10} />",
+    "tags": [
+      "label",
+      "pill",
+      "tag",
+      "badge"
+    ],
+    "exports": [
+      "Badge"
+    ],
+    "needs": [],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "icon",
+        "type": "LucideIcon",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "at",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "tone",
+        "type": "'accent' | 'soft' | 'card' | 'alert'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "pulse",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/icon",
+    "category": "graphics",
+    "name": "Icon",
+    "summary": "A lucide icon in a tinted tile that pops in, for feature grids.",
+    "usage": "<Icon icon={Zap} at={8} />",
+    "tags": [
+      "icon",
+      "feature",
+      "tile",
+      "lucide"
+    ],
+    "exports": [
+      "Icon"
+    ],
+    "needs": [],
+    "packages": [
+      "lucide-react"
+    ],
+    "props": [
+      {
+        "name": "icon",
+        "type": "LucideIcon",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "at",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "exit",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "tone",
+        "type": "'accent' | 'soft' | 'card'",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "graphics/marquee",
+    "category": "graphics",
+    "name": "Marquee",
+    "summary": "A row of words or logos sliding past for ever, its ends fading out.",
+    "usage": "<Marquee items={['Fast', 'Private', 'Native', 'Open source']} />",
+    "tags": [
+      "ticker",
+      "logos",
+      "scroll",
+      "loop"
+    ],
+    "exports": [
+      "Marquee"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "items",
+        "type": "React.ReactNode[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "loop",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "reverse",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "separator",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "string | number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/paper",
+    "category": "drawings",
+    "name": "Paper",
+    "summary": "A card of warm paper with grain, fibres and an uneven edge that slides in and holds a drawing.",
+    "usage": "<Paper width={560} height={700} rotate={-3}><Flower /></Paper>",
+    "tags": [
+      "paper",
+      "card",
+      "texture",
+      "craft"
+    ],
+    "exports": [
+      "Paper",
+      "noise",
+      "Palette"
+    ],
+    "needs": [
+      "drawings/flower",
+      "drawings/hex-field",
+      "drawings/stamps"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "rotate",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "padding",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "children",
+        "type": "string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/flower",
+    "category": "drawings",
+    "name": "Flower",
+    "summary": "A watercolour flower whose stem draws up, leaves unfurl and petals open from a bud.",
+    "usage": "<Flower size={320} petals={6} start={10} />",
+    "tags": [
+      "flower",
+      "watercolour",
+      "botanical",
+      "growth"
+    ],
+    "exports": [
+      "Flower"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "petals",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "stem",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/stamps",
+    "category": "drawings",
+    "name": "Stamps",
+    "summary": "A field of stamped motifs landing one after another in speckled ink.",
+    "usage": "<Stamps width={700} height={500} motif=\"flower\" start={6} />",
+    "tags": [
+      "pattern",
+      "stamp",
+      "print",
+      "craft"
+    ],
+    "exports": [
+      "Stamps"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "motif",
+        "type": "Motif",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/hex-field",
+    "category": "drawings",
+    "name": "HexField",
+    "summary": "A board of hexagons warming from pale to deep around a hot spot, spreading in a wave.",
+    "usage": "<HexField width={700} height={520} origin={{x: 0.6, y: 0.55}} start={8} />",
+    "tags": [
+      "heatmap",
+      "hexagon",
+      "data",
+      "spread"
+    ],
+    "exports": [
+      "HexField"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "origin",
+        "type": "Pt",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/butterfly",
+    "category": "drawings",
+    "name": "Butterfly",
+    "summary": "A butterfly that flutters in along a curve and hovers with beating wings.",
+    "usage": "<Butterfly size={300} start={6} />",
+    "tags": [
+      "butterfly",
+      "nature",
+      "light",
+      "transformation"
+    ],
+    "exports": [
+      "Butterfly"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "flap",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "arrive",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/plant",
+    "category": "drawings",
+    "name": "Plant",
+    "summary": "A plant growing from the bottom of its box: the stem draws up, branches fork, leaves unfurl and tips bloom.",
+    "usage": "<Plant width={420} height={560} start={4} />",
+    "tags": [
+      "plant",
+      "growth",
+      "botanical",
+      "nature"
+    ],
+    "exports": [
+      "Plant"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "depth",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "blooms",
+        "type": "boolean",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/stitch",
+    "category": "drawings",
+    "name": "Stitch",
+    "summary": "Embroidery: a sun, circle, heart or leaf filled with satin stitches that appear as if sewn.",
+    "usage": "<Stitch size={380} shape=\"sun\" start={6} />",
+    "tags": [
+      "embroidery",
+      "stitch",
+      "craft",
+      "textile"
+    ],
+    "exports": [
+      "Stitch"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "shape",
+        "type": "'circle' | 'sun' | 'leaf' | 'heart'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/watercolor",
+    "category": "drawings",
+    "name": "Watercolor",
+    "summary": "A watercolour wash painted behind content, as a brushstroke or a spreading pool.",
+    "usage": "<Watercolor width={760} height={170} start={4}><h1>Drawn with code.</h1></Watercolor>",
+    "tags": [
+      "watercolour",
+      "wash",
+      "headline",
+      "paint"
+    ],
+    "exports": [
+      "Watercolor"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "kind",
+        "type": "'stroke' | 'pool'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "children",
+        "type": "string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/doodles",
+    "category": "drawings",
+    "name": "Doodles",
+    "summary": "A hand-drawn mark in a wobbly pen line: underline, circle, arrow, star, heart and more.",
+    "usage": "<Doodles kind=\"circle\" width={300} height={140} start={20} />",
+    "tags": [
+      "doodle",
+      "hand-drawn",
+      "emphasis",
+      "pen"
+    ],
+    "exports": [
+      "Doodles",
+      "DoodleKind"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "kind",
+        "type": "DoodleKind",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "strokeWidth",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/constellation",
+    "category": "drawings",
+    "name": "Constellation",
+    "summary": "Stars appearing one by one and joining up with fine lines into a constellation.",
+    "usage": "<Constellation width={800} height={460} count={14} start={4} />",
+    "tags": [
+      "stars",
+      "network",
+      "connections",
+      "night"
+    ],
+    "exports": [
+      "Constellation"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/contours",
+    "category": "drawings",
+    "name": "Contours",
+    "summary": "Topographic contour lines of a made-up landscape, drawing on level by level.",
+    "usage": "<Contours width={800} height={520} levels={10} start={4} />",
+    "tags": [
+      "topographic",
+      "map",
+      "terrain",
+      "texture"
+    ],
+    "exports": [
+      "Contours"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "levels",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/ripple",
+    "category": "drawings",
+    "name": "Ripple",
+    "summary": "Drops of ink landing one after another and rippling out in wobbly rings.",
+    "usage": "<Ripple width={700} height={460} drops={6} start={4} />",
+    "tags": [
+      "ink",
+      "ripple",
+      "drops",
+      "signal"
+    ],
+    "exports": [
+      "Ripple"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "drops",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "every",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "drawings/scribble",
+    "category": "drawings",
+    "name": "Scribble",
+    "summary": "A marker scribbling back and forth to fill a shape behind a word or number.",
+    "usage": "<Scribble width={320} height={140} start={10} />",
+    "tags": [
+      "marker",
+      "highlight",
+      "emphasis",
+      "hand-drawn"
+    ],
+    "exports": [
+      "Scribble"
+    ],
+    "needs": [
+      "drawings/paper"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "shape",
+        "type": "'circle' | 'blob'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "density",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "frames",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "strokeWidth",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "palette",
+        "type": "Partial<Palette>",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "voice/voiceover",
+    "category": "voice",
+    "name": "Voiceover",
+    "summary": "Plays a voiceover's lines one after another, and times scenes to them with voiceTiming and voiceEnd.",
+    "usage": "<Voiceover lines={tutorial} start={15} />",
+    "tags": [
+      "voice",
+      "audio",
+      "narration",
+      "timing"
+    ],
+    "exports": [
+      "voiceTiming",
+      "voiceEnd",
+      "Voiceover",
+      "voiceWords",
+      "VoiceLine",
+      "Word"
+    ],
+    "needs": [],
+    "packages": [],
+    "props": [
+      {
+        "name": "lines",
+        "type": "VoiceLine[]",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "voice/captions",
+    "category": "voice",
+    "name": "Captions",
+    "summary": "Reels-style captions a few words at a time, timed to a voiceover, with the spoken word marked.",
+    "usage": "<Captions lines={tutorial} start={15} variant=\"karaoke\" />",
+    "tags": [
+      "captions",
+      "subtitles",
+      "voice",
+      "karaoke"
+    ],
+    "exports": [
+      "Captions"
+    ],
+    "needs": [
+      "voice/voiceover"
+    ],
+    "packages": [],
+    "props": [
+      {
+        "name": "lines",
+        "type": "VoiceLine[]",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "only",
+        "type": "number[]",
+        "optional": true,
+        "doc": "The indices of the lines this waveform follows; the others leave it flat. Default: all."
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seconds",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "words",
+        "type": "Word[]",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "variant",
+        "type": "'pop' | 'karaoke' | 'line'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "optional": true,
+        "doc": "The most words on screen at once."
+      },
+      {
+        "name": "position",
+        "type": "'bottom' | 'middle'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "plate",
+        "type": "boolean",
+        "optional": true,
+        "doc": "A plate behind the words: the default on light styles."
+      }
+    ]
+  },
+  {
+    "id": "voice/waveform",
+    "category": "voice",
+    "name": "Waveform",
+    "summary": "A waveform that moves with a voice: centred bars, a line, or bars around a ring with a face inside.",
+    "usage": "<Waveform lines={tutorial} start={15} variant=\"circle\">{face}</Waveform>",
+    "tags": [
+      "audio",
+      "waveform",
+      "podcast",
+      "voice"
+    ],
+    "exports": [
+      "Waveform"
+    ],
+    "needs": [
+      "voice/captions",
+      "voice/voiceover"
+    ],
+    "packages": [
+      "@remotion/media-utils"
+    ],
+    "props": [
+      {
+        "name": "lines",
+        "type": "VoiceLine[]",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "only",
+        "type": "number[]",
+        "optional": true,
+        "doc": "The indices of the lines this waveform follows; the others leave it flat. Default: all."
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "start",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "variant",
+        "type": "'circle' | 'line' | 'bars'",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "optional": true,
+        "doc": "The circle's diameter."
+      },
+      {
+        "name": "bars",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "optional": true,
+        "doc": ""
+      },
+      {
+        "name": "children",
+        "type": "string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…",
+        "optional": true,
+        "doc": ""
+      }
+    ]
+  },
+  {
+    "id": "backdrops/plain",
+    "category": "backdrops",
+    "name": "plain",
+    "summary": "Just the style's page colour.",
+    "usage": "<Backdrop kind=\"plain\" />",
+    "tags": [
+      "flat",
+      "quiet"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/glow",
+    "category": "backdrops",
+    "name": "glow",
+    "summary": "Soft lights in the accent drifting over faint hairlines.",
+    "usage": "<Backdrop kind=\"glow\" />",
+    "tags": [
+      "light",
+      "accent",
+      "dark"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/grid",
+    "category": "backdrops",
+    "name": "grid",
+    "summary": "A swiss column grid inside the safe margins, with a + at every other crossing.",
+    "usage": "<Backdrop kind=\"grid\" />",
+    "tags": [
+      "grid",
+      "swiss",
+      "structure"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/dots",
+    "category": "backdrops",
+    "name": "dots",
+    "summary": "A dot grid that drifts slowly and fades at the edges.",
+    "usage": "<Backdrop kind=\"dots\" />",
+    "tags": [
+      "pattern",
+      "dots"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/blobs",
+    "category": "backdrops",
+    "name": "blobs",
+    "summary": "Pastel cousins of the accent, drifting and changing shape.",
+    "usage": "<Backdrop kind=\"blobs\" />",
+    "tags": [
+      "soft",
+      "pastel",
+      "organic"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/scanlines",
+    "category": "backdrops",
+    "name": "scanlines",
+    "summary": "A CRT: scanlines, a rolling band and dark corners.",
+    "usage": "<Backdrop kind=\"scanlines\" />",
+    "tags": [
+      "retro",
+      "terminal",
+      "crt"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/grain",
+    "category": "backdrops",
+    "name": "grain",
+    "summary": "Film grain that dances every frame, with a vignette.",
+    "usage": "<Backdrop kind=\"grain\" />",
+    "tags": [
+      "film",
+      "cinema",
+      "texture"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/aurora",
+    "category": "backdrops",
+    "name": "aurora",
+    "summary": "Ribbons of light in the accent swaying over a hairline grid.",
+    "usage": "<Backdrop kind=\"aurora\" />",
+    "tags": [
+      "light",
+      "ribbons",
+      "dark"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/beams",
+    "category": "backdrops",
+    "name": "beams",
+    "summary": "Light falling from above in slow-swaying beams.",
+    "usage": "<Backdrop kind=\"beams\" />",
+    "tags": [
+      "light",
+      "stage",
+      "dramatic"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "backdrops/spotlight",
+    "category": "backdrops",
+    "name": "spotlight",
+    "summary": "One soft breathing light from above, the corners in shadow.",
+    "usage": "<Backdrop kind=\"spotlight\" />",
+    "tags": [
+      "light",
+      "focus",
+      "stage"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [],
+    "props": []
+  },
+  {
+    "id": "transitions/cut",
+    "category": "transitions",
+    "name": "cut",
+    "summary": "A hard cut: the next scene replaces this one with no overlap.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'cut'}",
+    "tags": [
+      "hard",
+      "instant",
+      "editorial"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/fade",
+    "category": "transitions",
+    "name": "fade",
+    "summary": "A cross-fade between the two scenes.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'fade'}",
+    "tags": [
+      "soft",
+      "classic"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/dip",
+    "category": "transitions",
+    "name": "dip",
+    "summary": "The scene fades to the page colour, then the next one fades in from it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'dip'}",
+    "tags": [
+      "soft",
+      "calm",
+      "page"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/slide",
+    "category": "transitions",
+    "name": "slide",
+    "summary": "The next scene slides in from the right on a spring, pushing this one out.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'slide'}",
+    "tags": [
+      "motion",
+      "spring",
+      "bold"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/wipe",
+    "category": "transitions",
+    "name": "wipe",
+    "summary": "A hard edge sweeps across from the right, revealing the next scene.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'wipe'}",
+    "tags": [
+      "hard",
+      "edge",
+      "swiss"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/iris",
+    "category": "transitions",
+    "name": "iris",
+    "summary": "A circle opens from the middle onto the next scene.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'iris'}",
+    "tags": [
+      "round",
+      "reveal",
+      "soft"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/clock",
+    "category": "transitions",
+    "name": "clock",
+    "summary": "A hand sweeps round like a clock, revealing the next scene.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'clock'}",
+    "tags": [
+      "round",
+      "reveal",
+      "time"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/flip",
+    "category": "transitions",
+    "name": "flip",
+    "summary": "The frame turns over like a card in 3D to show the next scene.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'flip'}",
+    "tags": [
+      "3d",
+      "card",
+      "paper"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/zoom",
+    "category": "transitions",
+    "name": "zoom",
+    "summary": "Forward through the cut: this scene rushes past the camera and blurs, the next settles in.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'zoom'}",
+    "tags": [
+      "motion",
+      "forward",
+      "energy"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/whip",
+    "category": "transitions",
+    "name": "whip",
+    "summary": "A very fast push sideways with a motion smear at its peak.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'whip'}",
+    "tags": [
+      "fast",
+      "motion",
+      "smear"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/bars",
+    "category": "transitions",
+    "name": "bars",
+    "summary": "Bars of the accent sweep in, cover the scene, then uncover the next one.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'bars'}",
+    "tags": [
+      "accent",
+      "graphic",
+      "bold"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/flash",
+    "category": "transitions",
+    "name": "flash",
+    "summary": "A cut hidden in a bright flash, with a little punch-in on the next scene.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'flash'}",
+    "tags": [
+      "bright",
+      "punch",
+      "energy"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/glitch",
+    "category": "transitions",
+    "name": "glitch",
+    "summary": "A few frames of digital breakup: torn slices and split colour channels.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'glitch'}",
+    "tags": [
+      "digital",
+      "terminal",
+      "retro"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/zoom-blur",
+    "category": "transitions",
+    "name": "zoomBlur",
+    "summary": "A radial zoom blur through the cut. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'zoomBlur'}",
+    "tags": [
+      "shader",
+      "zoom",
+      "blur"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/cross-zoom",
+    "category": "transitions",
+    "name": "crossZoom",
+    "summary": "Both scenes zoom and blur into each other. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'crossZoom'}",
+    "tags": [
+      "shader",
+      "zoom",
+      "blur"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/dreamy-zoom",
+    "category": "transitions",
+    "name": "dreamyZoom",
+    "summary": "A slow, rotating dreamy zoom into the next scene. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'dreamyZoom'}",
+    "tags": [
+      "shader",
+      "zoom",
+      "dreamy"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/film-burn",
+    "category": "transitions",
+    "name": "filmBurn",
+    "summary": "A warm film burn flares across the cut. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'filmBurn'}",
+    "tags": [
+      "shader",
+      "film",
+      "cinema"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/crosswarp",
+    "category": "transitions",
+    "name": "crosswarp",
+    "summary": "The scenes warp sideways into each other. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'crosswarp'}",
+    "tags": [
+      "shader",
+      "warp",
+      "motion"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/ripple",
+    "category": "transitions",
+    "name": "ripple",
+    "summary": "A water ripple spreads from the middle into the next scene. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'ripple'}",
+    "tags": [
+      "shader",
+      "water",
+      "soft"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/swap",
+    "category": "transitions",
+    "name": "swap",
+    "summary": "The two scenes swap places in perspective. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'swap'}",
+    "tags": [
+      "shader",
+      "3d",
+      "swap"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/book-flip",
+    "category": "transitions",
+    "name": "bookFlip",
+    "summary": "A page turns like a book onto the next scene. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'bookFlip'}",
+    "tags": [
+      "shader",
+      "page",
+      "paper"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/blur-slide",
+    "category": "transitions",
+    "name": "blurSlide",
+    "summary": "A slide with a motion blur. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'blurSlide'}",
+    "tags": [
+      "shader",
+      "slide",
+      "blur"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/linear-blur",
+    "category": "transitions",
+    "name": "linearBlur",
+    "summary": "A directional blur carries one scene into the next. A WebGL shader: use it as an accent, and check every frame of the final render around it.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'linearBlur'}",
+    "tags": [
+      "shader",
+      "blur",
+      "motion"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  },
+  {
+    "id": "transitions/push-cut",
+    "category": "transitions",
+    "name": "pushCut",
+    "summary": "A push cut with a flash in the accent at the join.",
+    "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'pushCut'}",
+    "tags": [
+      "punch",
+      "flash",
+      "energy"
+    ],
+    "exports": [],
+    "needs": [],
+    "packages": [
+      "@remotion/transitions"
+    ],
+    "props": []
+  }
+]

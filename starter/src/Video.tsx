@@ -1,7 +1,7 @@
 import React from 'react';
 import {Audio, CalculateMetadataFunction, Sequence, staticFile} from 'remotion';
 import {brand} from './brand';
-import {Scene, Scenes, sceneStarts, scenesLength} from './fx/transitions';
+import {Scene, Scenes, sceneStarts, scenesLength} from './sequence';
 import {LookProvider, StyleName, makeLook} from './look';
 import {Approve} from './scenes/Approve';
 import {End} from './scenes/End';

@@ -1,0 +1,12 @@
+{
+  "name": "Captions",
+  "summary": "Reels-style captions a few words at a time, timed to a voiceover, with the spoken word marked.",
+  "usage": "<Captions lines={tutorial} start={15} variant=\"karaoke\" />",
+  "tags": [
+    "captions",
+    "subtitles",
+    "voice",
+    "karaoke"
+  ],
+  "order": 2
+}

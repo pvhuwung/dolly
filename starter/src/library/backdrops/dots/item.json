@@ -1,0 +1,10 @@
+{
+  "name": "dots",
+  "summary": "A dot grid that drifts slowly and fades at the edges.",
+  "usage": "<Backdrop kind=\"dots\" />",
+  "tags": [
+    "pattern",
+    "dots"
+  ],
+  "order": 4
+}

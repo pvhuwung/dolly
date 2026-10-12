@@ -1,0 +1,12 @@
+{
+  "name": "Changelog",
+  "summary": "A version badge, then the changes landing one by one tagged New, Improved or Fixed: release notes.",
+  "usage": "<Changelog version=\"v2.4\" title=\"What's\" accent=\"new.\" items={[{tag: 'New', text: 'Offline mode'}, {tag: 'Fixed', text: 'Sync on flaky connections'}]} />",
+  "tags": [
+    "release",
+    "changelog",
+    "update",
+    "version"
+  ],
+  "order": 12
+}

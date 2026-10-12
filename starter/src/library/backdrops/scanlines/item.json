@@ -1,0 +1,11 @@
+{
+  "name": "scanlines",
+  "summary": "A CRT: scanlines, a rolling band and dark corners.",
+  "usage": "<Backdrop kind=\"scanlines\" />",
+  "tags": [
+    "retro",
+    "terminal",
+    "crt"
+  ],
+  "order": 6
+}

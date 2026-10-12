@@ -1,0 +1,11 @@
+{
+  "name": "iris",
+  "summary": "A circle opens from the middle onto the next scene.",
+  "usage": "{name: 'Logo', seconds: 3, component: Logo, transition: 'iris'}",
+  "tags": [
+    "round",
+    "reveal",
+    "soft"
+  ],
+  "order": 6
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Checklist",
+  "summary": "Items ticking off one by one: each box fills and its check draws in.",
+  "usage": "<Checklist items={['Tests pass', 'Preview deployed', 'Ready to merge']} start={6} />",
+  "tags": [
+    "list",
+    "checks",
+    "done",
+    "steps"
+  ],
+  "order": 8
+}

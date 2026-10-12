@@ -1,0 +1,12 @@
+{
+  "name": "Waveform",
+  "summary": "A waveform that moves with a voice: centred bars, a line, or bars around a ring with a face inside.",
+  "usage": "<Waveform lines={tutorial} start={15} variant=\"circle\">{face}</Waveform>",
+  "tags": [
+    "audio",
+    "waveform",
+    "podcast",
+    "voice"
+  ],
+  "order": 3
+}

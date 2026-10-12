@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, CalculateMetadataFunction, Freeze, Sequence} from 'remotion';
 import {brand} from './brand';
-import {sceneStarts} from './fx/transitions';
+import {sceneStarts} from './sequence';
 import {Footage} from './kit';
 import {FORMATS, FormatName, StyleName, makeLook} from './look';
 import {FPS, SCENES, Video, frames, lengthOf} from './Video';

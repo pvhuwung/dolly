@@ -1,0 +1,12 @@
+{
+  "name": "Burst",
+  "summary": "Confetti bursting from a point and falling away under gravity: a success moment.",
+  "usage": "<Burst x={960} y={500} at={14} />",
+  "tags": [
+    "confetti",
+    "celebration",
+    "success",
+    "moment"
+  ],
+  "order": 9
+}
