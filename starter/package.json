@@ -13,6 +13,7 @@
     "render:square": "remotion render Square out/square.mp4",
     "render:portrait": "remotion render Portrait out/portrait.mp4",
     "check": "node scripts/check.mjs",
+    "gif": "remotion render Video out/video.gif --codec=gif --every-nth-frame=2 --scale=0.5",
     "promo": "remotion render Promo out/promo.mp4",
     "styles": "remotion still Styles out/styles.png",
     "formats": "remotion still Formats out/formats.png",
