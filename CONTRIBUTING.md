@@ -12,6 +12,7 @@ Work in a copy of the starter, so `node_modules` never lands in the skill folder
 npx tsc --noEmit
 npx remotion still Sheet out/sheet.png                  # look at it
 npx remotion render Video out/video.mp4 --scale=0.5     # and watch it
+npm run check -- out/video.mp4                          # no ✗: no late hook, stutter or bad file
 npm run moves                                           # if you touched the camera or moves
 npm run styles && npm run formats                       # if you touched a style, a format or a scene
 npx remotion still GallerySheet out/g.png --props='{"only":"text","format":"vertical"}'   # an effect, in another format

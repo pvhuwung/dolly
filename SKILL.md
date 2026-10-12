@@ -208,7 +208,10 @@ Read every PNG. Check that:
 - close-ups are sharp, and no stray pointer, banner or private data shows in any take.
 
 Stills can't show speed. Render a draft (`npx remotion render Video out/draft.mp4 --scale=0.5`)
-and ask the user specific questions ("is the push-in at 0:12 too fast?").
+and run `npm run check -- out/draft.mp4`: it times the hook, finds stutters (a repeated frame
+mid-move) and dead stretches, and lists every one-frame jump, each of which should be a cut you
+meant. Fix every ✗, look at every ! on a sheet, then ask the user specific questions ("is the
+push-in at 0:12 too fast?").
 
 ## 7. Render
 
