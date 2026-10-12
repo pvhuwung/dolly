@@ -189,6 +189,13 @@ What makes it look expensive, in any style:
    scene leaves the way the next one arrives.
 8. **Restraint.** The product is the star: one showy move or effect per 10 s at most.
 
+**The numbers top launch videos hit** (measured frame by frame): the
+picture moves within 0.1 s and the first word reads by 0.4 s; the product is on screen by a
+quarter of the way in; something changes about every 0.7 s, even inside a long shot; text being
+read moves under about 3 px a frame; one designed hold of 1–1.6 s on the key claim, no other
+stillness over 0.8 s; the biggest moment at about 80% of the running time, then a calm end card of
+about 2 s.
+
 `references/gotchas.md` has the traps: what flattens 3D, what breaks frame-by-frame rendering, the
 limits of the bundled ffmpeg.
 

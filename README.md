@@ -40,7 +40,8 @@ git clone https://github.com/gettermary/observee && cd observee && ./install.sh
 3. **Build.** Windows, panes and phones float in 3D under headlines, the camera pushes in on what
    matters, and components from the library fill in the rest.
 4. **Review and render.** It can't watch video, so it renders contact sheets and reads them, frame
-   by frame, before you see anything. Then every format you need.
+   by frame, then measures the render (`npm run check`) for what stills can't show: a slow hook,
+   a stutter, a dead stretch, the loudness. Then every format you need.
 
 ## Real footage, not mock-ups
 
@@ -115,6 +116,9 @@ npm run styles                                       # a frame in every style
 scripts/take.sh start A 30 && scripts/take.sh wait   # record a 30 s take
 npm run scan                                         # read the recordings in public/takes/
 npm run render                                       # out/video.mp4; render:vertical, render:square, render:portrait
+npm run check -- out/video.mp4                       # the hook, stutters, dead stretches, loudness
+npm run web -- out/video.mp4                         # out/video-web.mp4, at the -14 LUFS feeds play at
+npm run gif -- --frames=0-149                        # a 5 s GIF for a README or a site
 npm run gallery                                      # every component, labelled with its code
 npm run music -- 45                                  # 45 s of original music
 ```
@@ -131,7 +135,7 @@ observee) and on Windows in Git Bash with ffmpeg. The editing works anywhere.
 | `starter/` | The project every video starts from: a take-based `Video` and a templates-only `Promo` |
 | `starter/src/library/` | The 87 components, one folder each, and [`CATALOG.md`](starter/src/library/CATALOG.md), their index |
 | `starter/src/kit.tsx`, `look.tsx` | The 3D kit and camera moves; the styles and formats |
-| `starter/scripts/` | Record a take, scan recordings, make sound and music, a voiceover, rebuild the catalog, render the samples |
+| `starter/scripts/` | Record a take, scan recordings, make sound and music, a voiceover, rebuild the catalog, render the samples, check a render and make its upload copy |
 | `examples/` | The videos made with dolly |
 
 Contributions are welcome: [CONTRIBUTING.md](CONTRIBUTING.md) says how to add a component.
