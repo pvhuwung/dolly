@@ -28,7 +28,7 @@ const check = process.argv.includes('--check');
 const CATEGORIES = {
   templates: 'Whole scenes that take words as props. Put one in SCENES: `{name, seconds, component: () => <Statement text="…" />}`. They draw their own backdrop and lay themselves out for every format.',
   text: 'Kinetic type: a headline that animates in with its accent phrase marked, words that mark themselves, a rotating word, a counter. The style picks the effect and the mark; props override them.',
-  graphics: 'Charts, numbers, pointers, input and product UI to put over any scene. Each takes `at` (the frame it starts) and most take `exit`.',
+  graphics: 'Charts, numbers, pointers, input and product UI to put over any scene. Each takes `start` (the frame it begins) and most take `exit`.',
   drawings: 'Illustrations drawn with code that animate as they draw. They tint themselves toward the brand colour.',
   voice: 'A voiceover from WAV lines (`npm run voice`), captions in sync with it, and a waveform that moves with it.',
   backdrops: 'The page behind the shots. A style picks one; `<Backdrop kind="…" />` picks another.',

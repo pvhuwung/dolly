@@ -199,7 +199,7 @@ Props: `to: number` The number it counts to. · `from?: number` The number it co
 
 ## Graphics
 
-Charts, numbers, pointers, input and product UI to put over any scene. Each takes `at` (the frame it starts) and most take `exit`.
+Charts, numbers, pointers, input and product UI to put over any scene. Each takes `start` (the frame it begins) and most take `exit`.
 
 ### Draw · `graphics/draw`
 
