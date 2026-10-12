@@ -1,8 +1,8 @@
 import React from 'react';
 import {Audio, CalculateMetadataFunction, Sequence, staticFile} from 'remotion';
 import {brand} from './brand';
-import {Scene, Scenes, sceneStarts, scenesLength} from './sequence';
-import {LookProvider, StyleName, makeLook} from './look';
+import {Scene, Scenes, sceneStarts, scenesLength, whooshStarts} from './sequence';
+import {LookProvider, StyleName} from './look';
 import {Approve} from './scenes/Approve';
 import {End} from './scenes/End';
 import {Hook} from './scenes/Hook';
@@ -43,7 +43,6 @@ export const videoMetadata: CalculateMetadataFunction<VideoProps> = ({props}) =>
 export const Video: React.FC<VideoProps> = ({style = brand.style}) => {
   const starts = sceneStarts(SCENES, style);
   const startOf = (name: string) => starts[SCENES.findIndex((s) => s.name === name)];
-  const transition = makeLook(style, WIDTH, HEIGHT).transition;
   return (
     <LookProvider style={style}>
       <Scenes scenes={SCENES} />
@@ -52,14 +51,12 @@ export const Video: React.FC<VideoProps> = ({style = brand.style}) => {
           <Audio src={staticFile('sfx/ting.wav')} volume={0.4} />
         </Sequence>
       ))}
-      {/* A whoosh under every transition that isn't a cut. */}
-      {SCENES.slice(1).map((s, i) =>
-        (s.transition ?? transition) === 'cut' ? null : (
-          <Sequence key={s.name} from={starts[i + 1]} durationInFrames={30}>
-            <Audio src={staticFile('sfx/whoosh.wav')} volume={0.25} />
-          </Sequence>
-        ),
-      )}
+      {/* A whoosh under each transition that moves the whole frame; the music carries the rest. */}
+      {whooshStarts(SCENES, style).map((from) => (
+        <Sequence key={`whoosh-${from}`} from={from} durationInFrames={30}>
+          <Audio src={staticFile('sfx/whoosh.wav')} volume={0.25} />
+        </Sequence>
+      ))}
     </LookProvider>
   );
 };

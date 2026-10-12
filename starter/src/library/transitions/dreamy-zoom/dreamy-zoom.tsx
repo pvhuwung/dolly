@@ -7,5 +7,6 @@ const FRAMES = 26;
 /** A slow, rotating dreamy zoom into the next scene. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: () => linear(FRAMES, as(dreamyZoom({}))),
 };

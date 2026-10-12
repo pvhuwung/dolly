@@ -62,6 +62,21 @@ export const sceneStarts = (scenes: Scene[], style: StyleName): number[] => {
   return out;
 };
 
+/**
+ * The frames a whoosh starts on: the transitions that move the whole frame (a slide, a whip, a zoom),
+ * never a fade, a wipe or a cut, and at least 8 s apart. Top launch videos use about two whooshes a
+ * film and carry the other cuts with the music, so a style whose transition doesn't travel gets none.
+ */
+export const whooshStarts = (scenes: Scene[], style: StyleName): number[] => {
+  const names = transitionsOf(scenes, makeLook(style, 1920, 1080).transition);
+  const starts = sceneStarts(scenes, style);
+  const out: number[] = [];
+  names.forEach((name, i) => {
+    if (i > 0 && itemOf(name)?.travels && (!out.length || starts[i] - out[out.length - 1] >= framesOf(8))) out.push(starts[i]);
+  });
+  return out;
+};
+
 /** The video's length in frames, after transitions overlap the scenes. */
 export const scenesLength = (scenes: Scene[], style: StyleName) => {
   const starts = sceneStarts(scenes, style);

@@ -7,5 +7,6 @@ const FRAMES = 24;
 /** Both scenes zoom and blur into each other. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: () => linear(FRAMES, as(crossZoom({}))),
 };

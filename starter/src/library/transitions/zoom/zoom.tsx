@@ -24,5 +24,6 @@ const Zoom: React.FC<PresentationProps<{scale: number}>> = ({children, presentat
 /** Forward through the cut: this scene rushes past the camera and blurs, the next settles in. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: () => linear(FRAMES, presentation(Zoom, {scale: 1})),
 };

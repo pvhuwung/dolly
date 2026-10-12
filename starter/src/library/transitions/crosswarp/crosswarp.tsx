@@ -7,5 +7,6 @@ const FRAMES = 24;
 /** The scenes warp sideways into each other. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: () => linear(FRAMES, as(crosswarp({}))),
 };

@@ -112,7 +112,8 @@ nobody has described to you. Those times are the `at` values shots play from.
 
 A scene is a component that fills the frame. `SCENES` in `Video.tsx` (or `Promo.tsx`) lists them
 with their lengths; the style's transition joins them, and a scene can name its own
-(`transition: 'iris'`, the one into it). A whoosh plays under every transition that isn't a cut.
+(`transition: 'iris'`, the one into it). A whoosh plays under each transition that moves the
+whole frame (a slide, a whip, a zoom).
 
 **The library** (`src/library/`) holds every ready-made piece, one folder each: templates (whole
 scenes), text effects, graphics, drawings, voice parts, backdrops and transitions. **Read
@@ -166,9 +167,12 @@ What makes it look expensive, in any style:
   around what a push-in goes to.
 - **Show the input.** `Tap` where something is tapped, `Callout` or `Spotlight` around what
   matters, a `Cursor` over a template, a `Speed` chip whenever footage is sped up.
-- **Sound on every turn.** `public/sfx/ting.wav` on each moment the story turns on, `whoosh.wav`
-  under transitions and fast moves, `click.wav` on a tap. Music under it: the user's licensed
-  track, or `npm run music -- <seconds>` for an original generated one.
+- **Sound on every turn, and little else.** `public/sfx/ting.wav` on each moment the story turns
+  on, on the frame it becomes readable (not the bar line after); `click.wav` on a tap; `whoosh.wav`
+  only under moves of the whole frame (the video plays one under a transition that travels:
+  slide, whip, zoom, flip, at most one every 8 s), about two a video. Keep effects to about 5
+  per 10 s and let the music carry the other cuts: the user's licensed track, or
+  `npm run music -- <seconds>`.
 - **Avoid the tells of generated design:** gradient text, purple-to-blue gradients, cyan on dark,
   every card the same, an effect on every word, five transitions in one video. One effect per
   idea, one transition style per video (plus one accent), the style's defaults first.

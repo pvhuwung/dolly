@@ -7,5 +7,6 @@ const FRAMES = 26;
 /** The two scenes swap places in perspective. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: () => linear(FRAMES, as(swap({}))),
 };

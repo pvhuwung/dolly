@@ -7,5 +7,6 @@ const FRAMES = 18;
 /** A slide with a motion blur. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: () => linear(FRAMES, as(blurSlide({direction: 'from-right'}))),
 };

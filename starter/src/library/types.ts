@@ -39,6 +39,8 @@ export type AnyPresentation = TransitionPresentation<Record<string, unknown>>;
 export type TransitionDef = {
   /** Frames it overlaps the two scenes by. Fixed, so a video's length can be computed. */
   frames: number;
+  /** True when the whole frame travels (a push, a zoom, a turn): only these get a whoosh. */
+  travels?: boolean;
   /** Its presentation and timing in the look's colours, for a <TransitionSeries.Transition>. Null for a cut. */
   make: (look: Look) => {presentation: AnyPresentation; timing: TransitionTiming} | null;
 };
