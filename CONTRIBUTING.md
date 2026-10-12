@@ -39,8 +39,10 @@ an item.
    in what its sample shows off with.
 3. **`item.json`**: its `name` (the export), a one-sentence `summary`, a `usage` line that works as
    written, a few `tags`, and its `order` in the gallery.
-4. **`npm run library`** rewrites `src/library/index.ts` and the catalog (`CATALOG.md`,
-   `catalog.json`) from the folders, with the props read from the TypeScript types. Commit them.
+4. **`npm run library`** rewrites `src/library/index.ts` and the catalogs (the index in
+   `CATALOG.md`, each category's own `CATALOG.md`, `catalog.json`) from the folders, with the props
+   read from the TypeScript types. `npm run library -- --previews` also re-renders each category's
+   `preview.jpg`, then run `npm run library` once more. Commit them all.
 5. **Render it** in every style and in a tall format: `npx remotion still GallerySheet out/g.png
    --props='{"only":"graphics","format":"vertical"}'`.
 

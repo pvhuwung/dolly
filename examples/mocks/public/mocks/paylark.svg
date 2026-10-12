@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
-  <rect width="256" height="256" rx="44" fill="#1f47d6"/>
-  <!-- A P whose bowl is a bird's head: the stem, the bowl with an eye, a beak. -->
-  <rect x="70" y="58" width="34" height="142" fill="#ffffff"/>
-  <path fill="#ffffff" fill-rule="evenodd" d="M104 58 H128 A54 54 0 0 1 128 166 H104 Z M134 96 a12 12 0 1 0 0.01 0 Z"/>
-  <path fill="#ffffff" d="M176 102 L214 114 L176 128 Z"/>
-</svg>

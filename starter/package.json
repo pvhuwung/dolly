@@ -7,6 +7,7 @@
     "postinstall": "node scripts/sfx.mjs",
     "studio": "remotion studio",
     "sheet": "remotion still Sheet out/sheet.png",
+    "scan": "node scripts/scan.mjs",
     "render": "remotion render Video out/video.mp4",
     "render:vertical": "remotion render Vertical out/vertical.mp4",
     "render:square": "remotion render Square out/square.mp4",

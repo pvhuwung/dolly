@@ -13,6 +13,7 @@ import {FPS, SCENES, Video, frames, lengthOf} from './Video';
 //   npx remotion still Sheet out/v.png --props='{"format":"vertical","guides":true}'  # another format, with its safe area
 //   npx remotion still Sheet out/A.png --props='{"take":"takes/A-mac.mov","seconds":42}'  # a raw take
 //   npx remotion still Sheet out/B.png --props='{"take":"takes/B-phone.mov","from":60,"seconds":30,"every":10,"format":"vertical"}'  # 60-90 s of one, 3 frames/s, tall cells
+//   npx remotion still Sheet out/C.png --props='{"take":"takes/C.mov","times":[4.2,10.5,31],"labels":["login","home","result"]}'  # chosen moments (what npm run scan draws)
 //
 // Labels give the frame of the Video (for `remotion still Video --frame=N`), or for a take the
 // second to pass to <Footage at={...}>. Guides draw the format's safe area (dashed: keep text
@@ -25,6 +26,9 @@ export type SheetProps = {
   /** For a take: the second to start at (default 0), and how many seconds to show from there. */
   from?: number;
   seconds?: number;
+  /** For a take: exactly these moments, in seconds, instead of a stretch; `labels` names each. */
+  times?: number[];
+  labels?: string[];
   style?: StyleName;
   format?: FormatName;
   guides?: boolean;
@@ -44,9 +48,11 @@ const spansOf = (style: StyleName) => {
   return SCENES.map((s, i) => ({name: s.name, start: starts[i], end: starts[i] + frames(s.seconds)}));
 };
 
-const lengthOfSheet = (props: SheetProps) => (props.take ? frames((props.from ?? 0) + (props.seconds ?? 60)) : lengthOf(props.style));
+const lengthOfSheet = (props: SheetProps) =>
+  props.take && props.times?.length ? frames(Math.max(...props.times)) + 2 : props.take ? frames((props.from ?? 0) + (props.seconds ?? 60)) : lengthOf(props.style);
 
 const sampled = (props: SheetProps) => {
+  if (props.take && props.times?.length) return props.times.map((t) => frames(t));
   const span = spansOf(props.style ?? brand.style).find((s) => s.name === props.scene) ?? {start: props.take ? frames(props.from ?? 0) : 0, end: lengthOfSheet(props)};
   const every = Math.max(1, props.every ?? FPS);
   const out: number[] = [];
@@ -55,7 +61,8 @@ const sampled = (props: SheetProps) => {
   return out;
 };
 
-const label = (props: SheetProps, f: number) => {
+const label = (props: SheetProps, f: number, i: number) => {
+  if (props.take && props.labels?.[i]) return `at ${(f / FPS).toFixed(1)}s · ${props.labels[i]}`;
   if (props.take) return `at ${(f / FPS).toFixed(1)}s`;
   // During a transition two scenes overlap: name the one coming in.
   const here = spansOf(props.style ?? brand.style).filter((s) => f >= s.start && f < s.end);
@@ -90,8 +97,8 @@ export const Sheet: React.FC<SheetProps> = (props) => {
   const {f, cellW, cellH} = sizeOf(props);
   return (
     <AbsoluteFill style={{background: '#101014', flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-start', gap: GAP, padding: GAP}}>
-      {sampled(props).map((n) => (
-        <div key={n} style={{width: cellW}}>
+      {sampled(props).map((n, i) => (
+        <div key={`${n}-${i}`} style={{width: cellW}}>
           <div style={{width: cellW, height: cellH, overflow: 'hidden', position: 'relative', background: '#000'}}>
             <div style={{position: 'absolute', width: f.width, height: f.height, transform: `scale(${cellW / f.width})`, transformOrigin: '0 0'}}>
               {/* The Sequence gives the video back its own size for useVideoConfig(). */}
@@ -102,7 +109,7 @@ export const Sheet: React.FC<SheetProps> = (props) => {
             </div>
           </div>
           <div style={{height: LABEL, lineHeight: `${LABEL}px`, font: '15px system-ui, sans-serif', color: '#9a9aa5', whiteSpace: 'nowrap', overflow: 'hidden'}}>
-            {label(props, n)}
+            {label(props, n, i)}
           </div>
         </div>
       ))}

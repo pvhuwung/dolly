@@ -1,8 +1,9 @@
 # Examples
 
-Videos made with dolly, and the code that made them. The videos are attached to the
-[examples release](https://github.com/pvhuwung/dolly/releases/tag/examples), since they're too big
-for the repo.
+Videos made with dolly. Watch them on the [showreel](https://dolly-site.vercel.app), or download
+them from the [examples release](https://github.com/pvhuwung/dolly/releases/tag/examples). Their
+projects aren't kept here: what a video invents that others can use goes into the library
+(`starter/src/library/`) instead, so it grows with every video.
 
 ## Spacejot for iPhone
 
@@ -19,27 +20,14 @@ and a board for the client. Swiss style, sound effects, no music.
 | [spacejot-16x9.mp4](https://github.com/pvhuwung/dolly/releases/download/examples/spacejot-16x9.mp4) | 16:9, for X, LinkedIn and the site | 57 s |
 | [spacejot-9x16.mp4](https://github.com/pvhuwung/dolly/releases/download/examples/spacejot-9x16.mp4) | 9:16, for Reels, TikTok and Shorts | 28 s |
 
-[`spacejot/`](spacejot) holds the files that differ from the starter:
-
-- `src/Video.tsx`: the brief, and both cuts: `SCENES` for 16:9 and `SHORT` for the others.
-- `src/scenes/phone.tsx`: the phone playing cuts of a take, with the real picture as a card
-  beside it, laid out for wide and tall frames. Every scene is built from it.
-- `src/scenes/takes.ts`: where things are in the takes: the phone's size in points, tap points,
-  regions.
-- `src/scenes/`: `Hook` (a before-and-after wipe), `Restyle` and `Reply`, `Edit`, `More` (explore,
-  plans, the client board), `Logo` and `End`.
-
-The takes (300 MB) and the stills of the results aren't in the repo, so this shows how the video
-was built but doesn't render as it is.
+Its project isn't in this repo; what it invented that other videos can use moves into the library.
 
 ## 18 mock videos
 
 ![The poster frame of every mock](../docs/examples.jpg)
 
 Invented products and organisations, made to test dolly across every style, format and agenda.
-They're built only from templates, effects and drawings, with no recordings. Each is one file in
-`src/mocks/`, and `mock.tsx` is the frame they share: brand, style, format, scenes, chimes and
-music.
+They're built only from templates, effects and drawings, with no recordings.
 
 | Video | What | Style | Format | Length |
 |---|---|---|---|---|
@@ -62,19 +50,8 @@ music.
 | [buildlog.mp4](https://github.com/pvhuwung/dolly/releases/download/examples/buildlog.mp4) | Podcast clip: The Build Log, ep. 42 | midnight | vertical | 22 s |
 | [juniper.mp4](https://github.com/pvhuwung/dolly/releases/download/examples/juniper.mp4) | Shop opening: a neighbourhood bakery and café opens its doors | paper | vertical | 24 s |
 
-To render them, put [`mocks/`](mocks) over a new project (its `Root.tsx` replaces the starter's):
-
-```sh
-~/.claude/skills/dolly/new.sh mocks && cd mocks
-cp -R ~/.claude/skills/dolly/examples/mocks/. .
-npx remotion still Posters out/posters.png      # every poster frame on one image
-npx remotion render Vaultly out/vaultly.mp4      # one mock: its id is its file name
-```
-
-Their soundtracks (67 MB) aren't in the repo. Before rendering a mock that has a `music` line,
-make its track, with the video's length from the table:
-`node scripts/music.mjs public/mocks/quillo-music.wav 24`. Or delete the `music` line. Vaultly and
-The Build Log use the voiceovers in `public/voice/`, made with `npm run voice`.
+They were the test bed for the library: every template, effect and drawing they used is in
+`starter/src/library/`, and their own code isn't kept here.
 
 ## Termary
 

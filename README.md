@@ -57,9 +57,10 @@ makes it:
 
 ## Examples
 
-24 videos made with dolly, most with their code, in [`examples/`](examples): a launch video for
-Spacejot's iOS app filmed from the real app on the live server, 18 mock videos for invented
-products across every style, format and agenda, and Termary's own.
+24 videos made with dolly, on the [showreel](https://dolly-site.vercel.app) and listed in
+[`examples/`](examples): a launch video for Spacejot's iOS app filmed from the real app on the live
+server, 18 mock videos for invented products across every style, format and agenda, and Termary's
+own.
 
 ![The poster frame of each mock video](docs/examples.jpg)
 
@@ -121,14 +122,14 @@ const camera = useShot(moves.zoomIn(wide, card), {dolly: 40});
 
 | | |
 |---|---|
-| `SKILL.md` | The pipeline the agent follows, the taste, and the rules of motion |
+| `SKILL.md` | The pipeline the agent follows, the taste and the rules of motion, and which guide to read when |
 | `new.sh` | Sets up a new video project with everything installed |
 | `starter/` | Two working videos to start from: `Video` (made from takes) and `Promo` (templates only) |
 | `starter/src/look.tsx` | The styles and formats, read through `useLook()` |
 | `starter/src/kit.tsx` | The 3D kit, in one file: `Stage`, `Layer`, `Screen`, `Clip`, `Footage`, `Floor`, `animate`, `useShot`, `focusOn`, `moves` |
-| `starter/src/library/` | The component library: 87 items (templates, kinetic type, graphics, drawings, voice, backdrops, transitions), one folder each with its component, its sample and an `item.json`. [`CATALOG.md`](starter/src/library/CATALOG.md) lists them with their props |
-| `starter/scripts/` | `take.sh` records a take (screen and Simulator at once); `sfx.mjs` generates a chime, a whoosh and a click; `music.mjs` generates an original soundtrack of any length; `library.mjs` rebuilds the library's index and catalog |
-| `references/` | `recipes.md` has bigger camera moves |
+| `starter/src/library/` | The component library: 87 items (templates, kinetic type, graphics, drawings, voice, backdrops, transitions), one folder each with its component, its sample and an `item.json`. [`CATALOG.md`](starter/src/library/CATALOG.md) indexes them; each category has its own catalog with the props, and a preview |
+| `starter/scripts/` | `take.sh` records a take (screen and Simulator at once); `scan.mjs` reads recordings nobody has described (holds, changes, sound, a sheet of frames); `sfx.mjs` generates a chime, a whoosh and a click; `music.mjs` an original soundtrack of any length; `library.mjs` rebuilds the library's index, catalogs and previews |
+| `references/` | Guides the agent reads only when the job needs them: recording on a Mac or elsewhere, the user's own footage, the camera kit, other agendas, the gotchas, bigger camera moves |
 
 Every scene, style, format and effect is rendered and checked against the versions pinned in
 `starter/package.json`. The sounds and music are synthesized by the scripts, so they're free to
