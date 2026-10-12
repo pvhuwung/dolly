@@ -51,7 +51,7 @@ For an existing Remotion 4.0.320+ project, copy `src/kit.tsx`, `src/look.tsx`, `
 | `src/parts.tsx` | What goes over a shot: `Caption`, `Tap`, `Callout`, `Speed`, `Pop` |
 | `src/kit.tsx` | The 3D kit and the camera moves (`references/camera.md`) |
 | `public/takes/` | The recordings. Replace them with the user's own |
-| `scripts/` | `take.sh` records a take, `scan.mjs` (`npm run scan`) reads recordings, `sfx.mjs` and `music.mjs` make sound, `voice.mjs` a voiceover, `library.mjs` rebuilds the catalog |
+| `scripts/` | `take.sh` records a take, `scan.mjs` (`npm run scan`) reads recordings, `sfx.mjs` and `music.mjs` make sound, `voice.mjs` a voiceover, `library.mjs` rebuilds the catalog, `check.mjs` (`npm run check`) measures a render, `web.mjs` (`npm run web`) makes the upload copy |
 
 Remotion is free for individuals and companies of up to 3 people; bigger companies need a
 company license (remotion.pro). Tell the user once if that applies.
@@ -230,7 +230,9 @@ npx remotion still Video out/poster.png --frame=150                      # thumb
 - **Music** only if the user has the rights to it, or the generated one (`npm run music -- 45`):
   `<Audio src={staticFile('music.wav')} volume={0.5} />` inside `Video`, scenes cut on its beat.
 - **For upload,** normalise loudness and put the index at the front so it starts playing at once:
-  `npx remotion ffmpeg -i out/video.mp4 -c:v copy -c:a aac -b:a 192k -af loudnorm=I=-14:TP=-1.5:LRA=11 -movflags +faststart out/video-web.mp4`
+  `npm run web -- out/video.mp4` writes `out/video-web.mp4` at -14 LUFS; then
+  `npm run check -- out/video-web.mp4 --upload` gates the size, codec and loudness.
+- **A GIF** for a README or a site: `npm run gif -- --frames=0-149` (5 s, 15 fps, half size).
 
 Finish by telling the user where the files are, how long they run, and the commands to re-render.
 Close any window you opened for recording.
