@@ -1,31 +1,86 @@
 # dolly
 
-**Ask your coding agent for a launch video. It records your app, edits it in 3D, and renders it in
-your style for every platform.**
+**Your coding agent, now a video editor.** Ask for a launch video and it records your real app,
+cuts it into 3D shots, sets the words in motion and renders every format, all written as code in
+[Remotion](https://www.remotion.dev).
 
-dolly is an agent skill for product videos and motion graphics, written as code in
-[Remotion](https://www.remotion.dev). It films your real app and cuts its windows and panes into
-3D shots with camera moves, or builds the whole video from motion-graphics templates when there's
-nothing to film. It sets headlines in kinetic type, joins scenes with transitions, adds sound, and
-checks its own frames before you see anything.
+![A line drawing and a real laminate go into Spacejot's chat on the iPhone; the room comes back](docs/hero.gif)
 
-The starter is a 41-second cut of [Termary](https://termary.com)'s launch video:
+**[▶ Watch the showreel](https://dolly.pvhuwung.com)** · **[Browse the library](https://dolly.pvhuwung.com/library.html)** · 24 videos, 87 components, 8 styles, 4 formats
+
+## Try it
+
+dolly is an Agent Skill: a folder your agent
+reads. For Claude Code:
+
+```sh
+git clone https://github.com/gettermary/dolly ~/.claude/skills/dolly
+```
+
+Then ask:
+
+> Make a 30-second launch video for yourapp.com, for Reels and LinkedIn.
+
+That's it. The agent sets up the project (Node, packages, the renderer), asks only what it can't
+work out, and comes back with the files.
+
+**Want it to drive your app by itself?** Add [observee](https://github.com/gettermary/observee), which
+lets the agent click and type on your Mac while it records:
+
+```sh
+git clone https://github.com/gettermary/observee && cd observee && ./install.sh
+```
+
+## How it works
+
+1. **Plan.** It reads your site, asks where the video will play and what viewers should remember,
+   and shows you every style to pick from.
+2. **Footage.** It records your app (driving it itself on a Mac), writes you a shot list if you'd
+   rather record, or **scans recordings you already have** to find the moments worth showing.
+3. **Build.** Windows, panes and phones float in 3D under headlines, the camera pushes in on what
+   matters, and components from the library fill in the rest.
+4. **Review and render.** It can't watch video, so it renders contact sheets and reads them, frame
+   by frame, before you see anything. Then every format you need.
+
+## Real footage, not mock-ups
+
+The hero above is from Spacejot's iOS launch. The agent drove the real app in the iOS Simulator,
+signed in to the live server, so every room on screen is a real result. When the footage is yours,
+`npm run scan` reads it first: where the screen holds still, where it changes, where there's sound,
+with a sheet of frames the agent looks at before proposing the video.
 
 ![Four frames from the starter: the hook, a captioned window, approving from the phone, the end card](docs/preview.jpg)
 
-## Eight styles
+## A library of 87 components
 
-The same scenes, restyled by one line in `brand.ts`. A style takes your brand colour and decides
-the page, the type, how the accent phrase is set, the backdrop, how words come in and how scenes
-change: editorial, midnight, bold, swiss, soft, terminal, cinema, paper.
+Templates (whole scenes), kinetic type, charts and graphics, drawings, voice with captions,
+backdrops and transitions. Every one reads your style, fits any format, and starts and leaves on
+the frames it's given. The agent picks from a catalog generated from the code, so it never guesses
+a prop.
+
+```tsx
+<Statement eyebrow="Agents everywhere" text="Five agents running." accent="One needs you." />
+<Stat value={12400} label="teams shipping" start={6} />
+<Kinetic text="Approve it" accent="from your phone." start={10} exit={80} />
+```
+
+**[See every one playing →](https://dolly.pvhuwung.com/library.html)**
+
+![The poster frame of each mock video made with the library](docs/examples.jpg)
+
+## Eight styles, one line
+
+The same video, restyled by one line in `brand.ts`: editorial, midnight, bold, swiss, soft,
+terminal, cinema, paper. A style takes your brand colour and decides the page, the type, how words
+come in and how scenes change.
 
 ![One frame of the starter in each of the eight styles](docs/styles.jpg)
 
-## Every format
+## Every format, laid out for it
 
-Each scene lays itself out for the frame it's rendered in, and keeps text clear of the buttons
-Reels, TikTok and Shorts put over the video. Wide shots push in to one pane in a tall frame; the
-phone comes forward.
+Each scene lays itself out for the frame it's in and keeps text clear of the buttons Reels, TikTok
+and Shorts put over the video. Nothing is cropped from 16:9: wide shots push in, the phone comes
+forward.
 
 ![The same frame in 16:9, 9:16, 1:1 and 4:5](docs/formats.jpg)
 
@@ -36,81 +91,10 @@ phone comes forward.
 | `Square` | 1080×1080 | Feeds on X, LinkedIn and Instagram |
 | `Portrait` | 1080×1350 | Instagram and LinkedIn feeds |
 
-## Motion graphics
-
-Templates are whole scenes that take words: a statement, a metric, features, a quote, a before and
-after, steps, a logo reveal, an end card, and for videos that aren't launches, an announcement, a
-lineup of people, an agenda, a countdown, a changelog, a timeline and a priced list. Under them are the effects: kinetic type in nine
-entrances with seven ways to mark a phrase, 18 graphics (charts, counters, a cursor, keys,
-notifications, chat, confetti, a spotlight), a voiceover with captions in sync and a waveform,
-13 illustrations drawn with code (watercolour
-flowers, a butterfly, a growing plant, embroidery, a topographic map), 10 backdrops and 24
-transitions. `Promo` is a sample
-cut made only of templates. `npm run gallery` renders every effect, labelled with the code that
-makes it:
-
-![Templates in the soft style](docs/templates.jpg)
-
-![Graphics in the midnight style](docs/graphics.jpg)
-
-![Drawings in the paper style](docs/drawings.jpg)
-
-## Examples
-
-24 videos made with dolly, on the [showreel](https://dolly.pvhuwung.com) and listed in
-[`examples/`](examples): a launch video for Spacejot's iOS app filmed from the real app on the live
-server, 18 mock videos for invented products across every style, format and agenda, and Termary's
-own.
-
-![The poster frame of each mock video](docs/examples.jpg)
-
-## How a video gets made
-
-1. **Plan.** The agent asks where the video will play (which sets the formats), the one thing
-   viewers should remember, and the call to action, and shows you every style to pick from.
-2. **Record.** `scripts/take.sh` records your Mac's screen, and the iOS Simulator if it's
-   running. With [observee](https://github.com/gettermary/observee) installed, the agent drives
-   your app itself while it records. On Windows it records while you drive, from a shot list the
-   agent writes, and recordings you already have work anywhere. No app to film? It builds from
-   templates.
-3. **Build scenes.** Windows and panes are cut out of the takes and placed in 3D under a headline,
-   the camera pushes in on what matters, and templates and effects fill in the rest.
-4. **Review.** The agent renders contact sheets (many frames on one image, with each platform's
-   safe area drawn) and reads them.
-5. **Render.** Every format you need, plus a poster frame.
-
-## Install
-
-dolly is a folder with a `SKILL.md`, so any agent that reads Agent Skills can use it. For
-Claude Code:
-
-```sh
-git clone https://github.com/gettermary/dolly ~/.claude/skills/dolly
-```
-
-For the agent to record your app by itself, add observee too. It needs Rust:
-
-```sh
-git clone https://github.com/gettermary/observee && cd observee && ./install.sh
-```
-
-Then ask:
-
-> Make a 30-second launch video for yourapp.com, for Reels and LinkedIn.
-
-The agent starts every video with `new.sh`, which installs what's missing: Node (with Homebrew),
-the project's packages, the sound effects, and the headless Chrome that renders the frames.
-Recording works on macOS (your terminal app needs Screen Recording permission, plus
-Accessibility for observee) and on Windows in Git Bash with ffmpeg (`winget install
-Gyan.FFmpeg`); the agent drives your app itself only on a Mac. The editing works anywhere.
-
 ## Camera moves
 
-Ready-made moves for any shot: `tiltIn`, `zoomIn`, `zoomOut`, `focus`, `pan`, `orbit` and
-`pushThrough`. Each turns two framings into keyframes, and they chain. `npm run moves` renders a
-sample reel of every one:
-
-![Six moves from the sample reel, each labelled with the line that makes it](docs/moves.jpg)
+`tiltIn`, `zoomIn`, `zoomOut`, `focus`, `pan`, `orbit` and `pushThrough`, each turning two
+framings into keyframes:
 
 ```tsx
 const wide = focusOn({rect: whole(PAGE), size: PAGE, video, lens: 1800, ...look.aim});
@@ -118,22 +102,7 @@ const card = focusOn({rect: PRICING_CARD, size: PAGE, video, lens: 1800, fill: 0
 const camera = useShot(moves.zoomIn(wide, card), {dolly: 40});
 ```
 
-## What's inside
-
-| | |
-|---|---|
-| `SKILL.md` | The pipeline the agent follows, the taste and the rules of motion, and which guide to read when |
-| `new.sh` | Sets up a new video project with everything installed |
-| `starter/` | Two working videos to start from: `Video` (made from takes) and `Promo` (templates only) |
-| `starter/src/look.tsx` | The styles and formats, read through `useLook()` |
-| `starter/src/kit.tsx` | The 3D kit, in one file: `Stage`, `Layer`, `Screen`, `Clip`, `Footage`, `Floor`, `animate`, `useShot`, `focusOn`, `moves` |
-| `starter/src/library/` | The component library: 87 items (templates, kinetic type, graphics, drawings, voice, backdrops, transitions), one folder each with its component, its sample and an `item.json`. [`CATALOG.md`](starter/src/library/CATALOG.md) indexes them; each category has its own catalog with the props, and a preview |
-| `starter/scripts/` | `take.sh` records a take (screen and Simulator at once); `scan.mjs` reads recordings nobody has described (holds, changes, sound, a sheet of frames); `sfx.mjs` generates a chime, a whoosh and a click; `music.mjs` an original soundtrack of any length; `library.mjs` rebuilds the library's index, catalogs and previews; `samples.mjs` renders every item as a clip for the library page |
-| `references/` | Guides the agent reads only when the job needs them: recording on a Mac or elsewhere, the user's own footage, the camera kit, other agendas, the gotchas, bigger camera moves |
-
-Every scene, style, format and effect is rendered and checked against the versions pinned in
-`starter/package.json`. The sounds and music are synthesized by the scripts, so they're free to
-use anywhere.
+![Six moves from the sample reel, each labelled with the line that makes it](docs/moves.jpg)
 
 ## Without an agent
 
@@ -142,14 +111,30 @@ The starter is a normal Remotion project:
 ```sh
 ~/.claude/skills/dolly/new.sh ~/my-video && cd ~/my-video
 npx remotion studio                                  # preview and scrub
-npm run styles                                       # out/styles.png: a frame in every style
+npm run styles                                       # a frame in every style
 scripts/take.sh start A 30 && scripts/take.sh wait   # record a 30 s take
-npm run sheet                                        # out/sheet.png: the whole video on one image
+npm run scan                                         # read the recordings in public/takes/
 npm run render                                       # out/video.mp4; render:vertical, render:square, render:portrait
-npx remotion render Vertical out/v.mp4 --props='{"style":"bold"}'   # another style
-npm run promo                                        # out/promo.mp4, the templates-only cut
-npm run music -- 45                                  # public/music.wav, 45 s of original music
+npm run gallery                                      # every component, labelled with its code
+npm run music -- 45                                  # 45 s of original music
 ```
+
+Recording works on macOS (your terminal needs Screen Recording permission, plus Accessibility for
+observee) and on Windows in Git Bash with ffmpeg. The editing works anywhere.
+
+## What's inside
+
+| | |
+|---|---|
+| `SKILL.md` | What the agent follows: the pipeline, the taste, the rules of motion, and which guide to read when |
+| `references/` | Guides read only when needed: recording on a Mac or elsewhere, your own footage, the camera kit, other kinds of video, the gotchas |
+| `starter/` | The project every video starts from: a take-based `Video` and a templates-only `Promo` |
+| `starter/src/library/` | The 87 components, one folder each, and [`CATALOG.md`](starter/src/library/CATALOG.md), their index |
+| `starter/src/kit.tsx`, `look.tsx` | The 3D kit and camera moves; the styles and formats |
+| `starter/scripts/` | Record a take, scan recordings, make sound and music, a voiceover, rebuild the catalog, render the samples |
+| `examples/` | The videos made with dolly |
+
+Contributions are welcome: [CONTRIBUTING.md](CONTRIBUTING.md) says how to add a component.
 
 ## License
 
@@ -161,5 +146,4 @@ icons are [lucide](https://lucide.dev) (ISC).
 dolly builds on Remotion, which has its own license: free for individuals and companies of up to 3
 people, while larger companies need a [company license](https://www.remotion.pro).
 
-Made by the team behind [Termary](https://termary.com). Contributions are welcome; see
-[CONTRIBUTING.md](CONTRIBUTING.md).
+Made by the team behind [Termary](https://termary.com).
