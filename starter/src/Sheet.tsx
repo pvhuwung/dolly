@@ -12,6 +12,7 @@ import {FPS, SCENES, Video, frames, lengthOf} from './Video';
 //   npx remotion still Sheet out/focus.png --props='{"scene":"Focus","every":6}'  # one scene, 5 frames/s
 //   npx remotion still Sheet out/v.png --props='{"format":"vertical","guides":true}'  # another format, with its safe area
 //   npx remotion still Sheet out/A.png --props='{"take":"takes/A-mac.mov","seconds":42}'  # a raw take
+//   npx remotion still Sheet out/B.png --props='{"take":"takes/B-phone.mov","from":60,"seconds":30,"every":10,"format":"vertical"}'  # 60-90 s of one, 3 frames/s, tall cells
 //
 // Labels give the frame of the Video (for `remotion still Video --frame=N`), or for a take the
 // second to pass to <Footage at={...}>. Guides draw the format's safe area (dashed: keep text
@@ -21,6 +22,8 @@ export type SheetProps = {
   scene?: string;
   every?: number;
   take?: string;
+  /** For a take: the second to start at (default 0), and how many seconds to show from there. */
+  from?: number;
   seconds?: number;
   style?: StyleName;
   format?: FormatName;
@@ -41,10 +44,10 @@ const spansOf = (style: StyleName) => {
   return SCENES.map((s, i) => ({name: s.name, start: starts[i], end: starts[i] + frames(s.seconds)}));
 };
 
-const lengthOfSheet = (props: SheetProps) => (props.take ? frames(props.seconds ?? 60) : lengthOf(props.style));
+const lengthOfSheet = (props: SheetProps) => (props.take ? frames((props.from ?? 0) + (props.seconds ?? 60)) : lengthOf(props.style));
 
 const sampled = (props: SheetProps) => {
-  const span = spansOf(props.style ?? brand.style).find((s) => s.name === props.scene) ?? {start: 0, end: lengthOfSheet(props)};
+  const span = spansOf(props.style ?? brand.style).find((s) => s.name === props.scene) ?? {start: props.take ? frames(props.from ?? 0) : 0, end: lengthOfSheet(props)};
   const every = Math.max(1, props.every ?? FPS);
   const out: number[] = [];
   for (let f = span.start; f < span.end; f += every) out.push(f);

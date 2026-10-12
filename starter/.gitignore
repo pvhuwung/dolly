@@ -1,6 +1,7 @@
 node_modules/
 out/
 .take
+.take-log
 .DS_Store
 public/sfx/
 public/music.wav

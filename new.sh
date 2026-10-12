@@ -28,7 +28,7 @@ if [ "$node_major" -lt 18 ]; then
     echo "Node 18 or newer is needed; installing it with Homebrew."
     brew install node
   else
-    echo "Node 18 or newer is needed. Install it from https://nodejs.org (or with Homebrew: brew install node), then run this again." >&2
+    echo "Node 18 or newer is needed. Install it from https://nodejs.org (or: brew install node on a Mac, winget install OpenJS.NodeJS.LTS on Windows), then run this again." >&2
     exit 1
   fi
 fi
@@ -36,7 +36,7 @@ echo "node $(node -v)"
 
 step "Project"
 cp -R "$here/starter" "$dest"
-rm -rf "$dest/node_modules" "$dest/out" "$dest/.take"
+rm -rf "$dest/node_modules" "$dest/out" "$dest/.take" "$dest/.take-log"
 cd "$dest"
 npm install --no-audit --no-fund
 echo "created $(pwd)"
@@ -45,8 +45,9 @@ step "Renderer"
 # Remotion renders with its own headless Chrome. Fetch it now instead of on the first render.
 npx --no-install remotion browser ensure
 
-step "Recording (macOS)"
-if [ "$(uname)" = "Darwin" ]; then
+step "Recording"
+case "$(uname -s)" in
+Darwin)
   echo "scripts/take.sh records the screen. Your terminal app needs Screen Recording permission"
   echo "(System Settings > Privacy & Security > Screen & System Audio Recording)."
   if command -v observee >/dev/null 2>&1 || (command -v claude >/dev/null 2>&1 && claude mcp list 2>/dev/null | grep -q observee); then
@@ -55,9 +56,16 @@ if [ "$(uname)" = "Darwin" ]; then
     echo "Optional: install observee so the agent can drive your app while it records:"
     echo "  git clone https://github.com/gettermary/observee && cd observee && ./install.sh"
   fi
-else
-  echo "Recording takes needs macOS. Everything else works here: bring recordings in public/takes/."
-fi
+  ;;
+MINGW* | MSYS* | CYGWIN*)
+  echo "scripts/take.sh records the screen with ffmpeg while you drive the app. The agent can't drive it here."
+  if command -v ffmpeg >/dev/null 2>&1; then echo "ffmpeg is installed."; else echo "Install ffmpeg first: winget install Gyan.FFmpeg"; fi
+  echo "Recordings you already have work too: put them in public/takes/."
+  ;;
+*)
+  echo "scripts/take.sh records on macOS and Windows. Everything else works here: bring recordings in public/takes/."
+  ;;
+esac
 
 step "Ready"
 cat <<EOF

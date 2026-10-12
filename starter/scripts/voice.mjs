@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-// Turns a script into a voiceover with macOS's built-in voices (`say`): no network, no API key.
+// Turns a script into a voiceover with the computer's built-in voices: `say` on macOS, System.Speech
+// (through PowerShell) on Windows. No network, no API key.
 //
 //   npm run voice -- script.json tutorial                 # public/voice/tutorial/01.wav ... + src/voice/tutorial.ts
 //   npm run voice -- script.txt intro --voice Daniel --rate 175
+//   npm run voice -- script.txt intro --voice "Microsoft Zira Desktop"   # on Windows
 //
 // The script is a .txt (one line per line of speech) or a .json array of lines:
 //   [{"text": "Set up two-factor in a minute."}, {"text": "Open Settings.", "voice": "Samantha", "rate": 170}]
@@ -10,11 +12,12 @@
 // It writes a WAV per line into public/voice/<name>/, and src/voice/<name>.ts, which exports the
 // lines (text, file, length, and where the speech starts and ends inside the file) for <Voiceover>
 // and <Captions> in src/fx/voice.tsx. Re-run it whenever the script changes. `--ts <path>` writes
-// the module somewhere else. On another OS, record the lines yourself as WAVs and write the same
-// module by hand: everything downstream works the same.
+// the module somewhere else. `--rate` is in words a minute. On another OS, record the lines
+// yourself as WAVs and write the same module by hand: everything downstream works the same.
 
 import {spawnSync} from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 const args = process.argv.slice(2);
@@ -34,9 +37,10 @@ if (!input) {
   console.error('usage: node scripts/voice.mjs <script.txt|script.json> [name] [--voice "Ava (Premium)"] [--rate 185] [--ts src/voice/name.ts]');
   process.exit(1);
 }
-if (process.platform !== 'darwin') {
+const windows = process.platform === 'win32';
+if (process.platform !== 'darwin' && !windows) {
   console.error(
-    "scripts/voice.mjs uses macOS's `say`, so it only runs on a Mac. Elsewhere, record each line as a WAV\n" +
+    'scripts/voice.mjs speaks with the built-in voices of macOS or Windows. Elsewhere, record each line as a WAV\n' +
       'into public/voice/<name>/ and write src/voice/<name>.ts by hand in the same shape: everything that\n' +
       'plays and captions it works the same.',
   );
@@ -57,12 +61,24 @@ if (!lines.length) {
   process.exit(1);
 }
 
-// The best English voice installed: the Premium and Enhanced ones sound far more natural.
-const installed = spawnSync('say', ['-v', '?'], {encoding: 'utf8'})
-  .stdout.split('\n')
-  .map((l) => /^(.+?)\s{2,}(\w\w_\w\w)/.exec(l))
-  .filter(Boolean)
-  .map((m) => ({name: m[1].trim(), lang: m[2]}));
+// Windows speaks through PowerShell. Values go in through the environment, so nothing needs quoting.
+const ps = (script, env = {}) =>
+  spawnSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', `$ErrorActionPreference = 'Stop'; Add-Type -AssemblyName System.Speech; ${script}`], {
+    encoding: 'utf8',
+    env: {...process.env, ...env},
+  });
+
+// The best English voice installed: on a Mac the Premium and Enhanced ones sound far more natural.
+const installed = windows
+  ? ps("(New-Object System.Speech.Synthesis.SpeechSynthesizer).GetInstalledVoices() | ForEach-Object { $_.VoiceInfo.Name + '|' + $_.VoiceInfo.Culture.Name }")
+      .stdout.split(/\r?\n/)
+      .filter((l) => l.includes('|'))
+      .map((l) => ({name: l.split('|')[0].trim(), lang: l.split('|')[1].trim().replace('-', '_')}))
+  : spawnSync('say', ['-v', '?'], {encoding: 'utf8'})
+      .stdout.split('\n')
+      .map((l) => /^(.+?)\s{2,}(\w\w_\w\w)/.exec(l))
+      .filter(Boolean)
+      .map((m) => ({name: m[1].trim(), lang: m[2]}));
 const has = (v) => installed.some((i) => i.name === v);
 const pick = () =>
   ['Ava (Premium)', 'Zoe (Premium)', 'Evan (Premium)', 'Ava (Enhanced)', 'Samantha'].find(has) ??
@@ -113,6 +129,23 @@ const measure = (file) => {
   return {seconds: r3(seconds), speech: first < 0 ? [0, r3(seconds)] : [r3(Math.max(0, first * 0.01 - 0.02)), r3(Math.min(seconds, (last + 1) * 0.01 + 0.02))]};
 };
 
+/** Speaks `text` into a 16-bit, 44.1 kHz WAV at `out`, at `rate` words a minute. */
+const speak = (text, voice, rate, out) => {
+  // `--` ends the options, so a line starting with "-" is still read as text.
+  if (!windows) return spawnSync('say', ['-v', voice, '-r', rate, '--file-format=WAVE', '--data-format=LEI16@44100', '-o', out, '--', text], {encoding: 'utf8'});
+  const textFile = path.join(os.tmpdir(), `dolly-voice-${process.pid}.txt`);
+  fs.writeFileSync(textFile, text);
+  const r = ps(
+    '$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; $s.SelectVoice($env:DOLLY_VOICE); $s.Rate = [int]$env:DOLLY_RATE; ' +
+      '$s.SetOutputToWaveFile($env:DOLLY_OUT, (New-Object System.Speech.AudioFormat.SpeechAudioFormatInfo(44100, [System.Speech.AudioFormat.AudioBitsPerSample]::Sixteen, [System.Speech.AudioFormat.AudioChannel]::Mono))); ' +
+      '$s.Speak([IO.File]::ReadAllText($env:DOLLY_TEXT)); $s.Dispose()',
+    // System.Speech's rate runs from -10 to 10, and 0 is roughly 170 words a minute.
+    {DOLLY_TEXT: textFile, DOLLY_OUT: path.resolve(out), DOLLY_VOICE: voice, DOLLY_RATE: String(Math.max(-10, Math.min(10, Math.round((Number(rate) - 170) / 15))))},
+  );
+  fs.rmSync(textFile, {force: true});
+  return r;
+};
+
 const outDir = path.join('public', 'voice', name);
 fs.rmSync(outDir, {recursive: true, force: true});
 fs.mkdirSync(outDir, {recursive: true});
@@ -122,10 +155,9 @@ const written = lines.map((line, i) => {
   const voice = line.voice ?? defaultVoice;
   const rate = String(line.rate ?? rateFlag ?? 185);
   const out = path.join(outDir, file);
-  // `--` ends the options, so a line starting with "-" is still read as text.
-  const r = spawnSync('say', ['-v', voice, '-r', rate, '--file-format=WAVE', '--data-format=LEI16@44100', '-o', out, '--', line.text], {encoding: 'utf8'});
+  const r = speak(line.text, voice, rate, out);
   if (r.status !== 0) {
-    console.error(`say failed on line ${i + 1}: ${r.stderr || r.stdout}`);
+    console.error(`Speaking line ${i + 1} failed: ${r.stderr || r.stdout || r.error}`);
     process.exit(1);
   }
   const {seconds, speech} = measure(out);
