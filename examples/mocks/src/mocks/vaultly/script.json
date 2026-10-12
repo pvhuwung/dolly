@@ -1,0 +1,8 @@
+[
+  {"text": "Here's how to turn on two-step sign-in in Vaultly. It takes about a minute."},
+  {"text": "Open Settings, and choose Security."},
+  {"text": "Under Two-step sign-in, click Turn on."},
+  {"text": "Scan the code with the authenticator app on your phone."},
+  {"text": "Type the six-digit code it shows, then click Verify."},
+  {"text": "That's it. Now your vault asks for your phone, too."}
+]

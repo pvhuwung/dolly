@@ -25,8 +25,8 @@ cd my-video && npx remotion studio         # optional: the user can scrub it at 
 
 `new.sh` installs Node with Homebrew if it's missing, runs `npm install` (which also generates the
 sound effects), downloads the headless Chrome that Remotion renders with, and says whether
-observee is installed. For an existing Remotion 4.0.320+ project, copy `src/kit.tsx`, `src/look.tsx`
-and `src/fx/`.
+observee is installed. On Windows, run it in Git Bash, after `winget install OpenJS.NodeJS.LTS`.
+For an existing Remotion 4.0.320+ project, copy `src/kit.tsx`, `src/look.tsx` and `src/fx/`.
 
 | File | What's in it |
 |---|---|
@@ -41,6 +41,10 @@ and `src/fx/`.
 | `src/kit.tsx` | The 3D kit and the camera moves (section 4) |
 | `public/takes/` | The recordings. Replace them with the user's own |
 | `scripts/` | `take.sh` records a take; `sfx.mjs` and `music.mjs` generate sound; `voice.mjs` turns a script into a voiceover |
+
+`examples/` in this skill's folder holds finished videos' code: `spacejot/` cuts a phone app's
+real takes into phone-and-picture scenes in two cuts (16:9 and 9:16), and `mocks/` has 18
+template-only videos across every style, format and agenda. Read the closest one before you build.
 
 Remotion is free for individuals and companies of up to 3 people; bigger companies need a
 company license (remotion.pro). Tell the user once if that applies.
@@ -114,7 +118,7 @@ npx remotion still Sheet out/A.png --props='{"take":"takes/A-mac.mov","seconds":
 **Drive the app with observee** (the computer-use MCP server, github.com/gettermary/observee;
 its CLI `observee <tool> key=value` works too): `open` the app, `read_ui` for refs, then
 `click`, `type_text`, `press_key`, `scroll`, `wait_for`. Re-read refs after anything changes the
-window. Without observee, ask the user to perform the take while it records.
+window. Without observee, or on Windows, the user performs the take while it records (below).
 
 - **Set up first:** a clean state with believable dummy data, no private data, notifications off,
   big fonts, cookie banners dismissed. Put the window on the built-in Retina screen: `take.sh`
@@ -133,7 +137,15 @@ window. Without observee, ask the user to perform the take while it records.
   -frames:v 1 -vf scale=1512:-2 out/A16.png` gives a frame in screen points.
 - **Phone:** the Simulator recording only stores frames when its screen changes, and starts a
   moment off from the Mac one. Line them up on an event visible in both (a tap, a notification).
-  `xcrun simctl status_bar booted override --time 9:41` first, for a clean status bar.
+  `xcrun simctl status_bar booted override --time 9:41` first, for a clean status bar. With
+  several simulators booted, `TAKE_SIM=<udid> scripts/take.sh start A 60` records the right one.
+- **Device Hub** (Xcode 27 has no Simulator.app) ignores synthetic clicks: press controls through
+  observee by ref or text, and reach gestures and toolbars with the app's debug launch arguments
+  (`xcrun simctl launch <udid> <bundle id> -someFlag`). To type, turn on its Capture Keyboard and
+  `press_key` plain keys. **Never send it Delete or ⌘ shortcuts**: ⌘A then Delete selects every
+  simulator and asks to remove them. Autocorrect rewrites unusual words: type dictionary ones.
+- **Film the real product.** A demo or preview mode shows canned results: record against the live
+  service, signed in, or tell the user the pictures are staged.
 - **For vertical,** the phone is the star and a whole Mac window is too small to read: plan takes
   where the action happens in one pane or on the phone.
 
@@ -141,6 +153,29 @@ window. Without observee, ask the user to perform the take while it records.
 the screen, and record while observee scrolls from section to section (nav links scroll smoothly
 to anchors; a URL with `#section` jumps straight there). The page area below the toolbar is your
 region. A sign-in-only product with no account: film its public site and say so to the user.
+
+**The user records** a moment that needs a real device (the camera, AR, a notification), an
+account or payment you shouldn't touch, or an app you can't drive, and everything on Windows.
+Write them a shot list: one take per moment; for each, the screen to start on, every step, and
+"hold 5 s" before and after it; slow taps; Do Not Disturb on, a demo account. On a Mac `take.sh`
+records while they drive; on Windows it records the desktop with ffmpeg (`winget install
+Gyan.FFmpeg`), or one window with `TAKE_WINDOW="<title>"`. A real iPhone records itself (Control
+Center, Screen Recording); Android with `adb shell screenrecord --time-limit 60 /sdcard/A.mp4` and
+`adb pull`, and you can drive that yourself (`adb shell input tap x y`; `adb shell uiautomator
+dump` lists the screen's elements).
+
+**Recordings the user already has** work on any OS. Put them in `public/takes/`, one per moment.
+- Check each: `npx remotion ffprobe -v error -show_entries stream=codec_name,width,height:format=duration
+  public/takes/A-phone.mp4`. Phone HEVC and uneven frame rates play fine. Points are pixels over
+  the screen's scale: 3 on most iPhones, 2 on a Retina Mac, the display scaling (1–1.5) on a PC.
+- Sheet a stretch of a long one: `--props='{"take":"takes/A-phone.mp4","from":120,"seconds":30,"every":10,"format":"vertical"}'`
+  is 120–150 s at 3 frames/s, in tall cells for a phone.
+- Takes play muted. To keep narration, pull it out (`npx remotion ffmpeg -i public/takes/A.mov -vn
+  public/A.wav`) and play it with `<Audio>`: it stays in sync only where shots don't cut or speed up.
+- Ask for the raw files: zooms, cursor effects and backgrounds baked in by Screen Studio or Loom
+  fight the camera. A real phone's status bar shows the real time and a recording dot: `crop` it.
+- A rushed moment can be held (`<Freeze>`, or `speed` below 1). A missing one can't be made: fill
+  it with a template, or ask for a retake.
 
 ## 4. Build scenes
 
@@ -233,12 +268,13 @@ zoom, text behind the product, a reflection, a turn-around reveal.
   `Plant` (growing), `Stitch` (embroidery), `Watercolor` (a wash behind a headline), `Doodles`
   (hand-drawn marks), `Constellation`, `Contours` (a topographic map), `Ripple`, `Scribble`. They
   tint themselves toward the brand colour; for a crafty, human feel, and in the `paper` style.
-- **Voice** (`fx/voice.tsx`): `npm run voice -- script.txt name` speaks a script with macOS `say`
-  (or use recorded WAVs) into `public/voice/name/` and `src/voice/name.ts`. `Voiceover` plays it,
-  `voiceTiming`/`voiceEnd` time scenes to it, `Captions` show the words in sync (`karaoke`, `pop`,
-  `line`), and `Waveform` moves with the voice (`bars`, `line`, a `circle` round a face). Feeds
-  play muted: a narrated video still needs its captions. `say` voices are for drafts; for a
-  published video, record a person or use a voice the user has the rights to.
+- **Voice** (`fx/voice.tsx`): `npm run voice -- script.txt name` speaks a script with the Mac's or
+  Windows' built-in voices (or use recorded WAVs) into `public/voice/name/` and
+  `src/voice/name.ts`. `Voiceover` plays it, `voiceTiming`/`voiceEnd` time scenes to it,
+  `Captions` show the words in sync (`karaoke`, `pop`, `line`), and `Waveform` moves with the
+  voice (`bars`, `line`, a `circle` round a face). Feeds play muted: a narrated video still needs
+  its captions. Built-in voices are for drafts; for a published video, record a person or use a
+  voice the user has the rights to.
 - **Backdrops** (`fx/backdrops.tsx`): `Backdrop` draws the style's page: `plain`, `glow`, `grid`,
   `dots`, `blobs`, `scanlines`, `grain`, `aurora`, `beams`, `spotlight`.
 - **Transitions** (`fx/transitions.tsx`): `cut`, `fade`, `dip` (through the page colour), `slide`,

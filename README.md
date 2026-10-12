@@ -55,13 +55,23 @@ makes it:
 
 ![Drawings in the paper style](docs/drawings.jpg)
 
+## Examples
+
+24 videos made with dolly, most with their code, in [`examples/`](examples): a launch video for
+Spacejot's iOS app filmed from the real app on the live server, 18 mock videos for invented
+products across every style, format and agenda, and Termary's own.
+
+![The poster frame of each mock video](docs/examples.jpg)
+
 ## How a video gets made
 
 1. **Plan.** The agent asks where the video will play (which sets the formats), the one thing
    viewers should remember, and the call to action, and shows you every style to pick from.
 2. **Record.** `scripts/take.sh` records your Mac's screen, and the iOS Simulator if it's
    running. With [observee](https://github.com/gettermary/observee) installed, the agent drives
-   your app itself while it records. No app to film? It builds from templates.
+   your app itself while it records. On Windows it records while you drive, from a shot list the
+   agent writes, and recordings you already have work anywhere. No app to film? It builds from
+   templates.
 3. **Build scenes.** Windows and panes are cut out of the takes and placed in 3D under a headline,
    the camera pushes in on what matters, and templates and effects fill in the rest.
 4. **Review.** The agent renders contact sheets (many frames on one image, with each platform's
@@ -89,8 +99,9 @@ Then ask:
 
 The agent starts every video with `new.sh`, which installs what's missing: Node (with Homebrew),
 the project's packages, the sound effects, and the headless Chrome that renders the frames.
-Recording needs macOS, and your terminal app needs Screen Recording permission (plus
-Accessibility for observee). The editing works anywhere.
+Recording works on macOS (your terminal app needs Screen Recording permission, plus
+Accessibility for observee) and on Windows in Git Bash with ffmpeg (`winget install
+Gyan.FFmpeg`); the agent drives your app itself only on a Mac. The editing works anywhere.
 
 ## Camera moves
 
