@@ -1,32 +1,47 @@
 import React from 'react';
-import {useCurrentFrame} from 'remotion';
 import {mix} from '../../../look';
-import type {Demo} from '../../types';
-import {Area, accentWord, useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 /**
  * Keyboard keys that pop in and press down one after another, held, then let go. For a shortcut
  * the product is built around.
  *
- *   <Keys keys={['⌘', 'K']} at={6} />
+ *   <Keys keys={['⌘', 'K']} start={6} />
  */
-export const Keys: React.FC<{keys: string[]; at?: number; stagger?: number; hold?: number; size?: number; exit?: number}> = ({
+export const Keys: React.FC<{
+  /** The keys, in the order they go down: '⌘', 'Shift', 'K'. */
+  keys: string[];
+  /** Frame it starts on, counted from the start of its scene (default 0). */
+  start?: number;
+  /** @deprecated Use start. */
+  at?: number;
+  /** Frames between one key going down and the next (default 8). */
+  stagger?: number;
+  /** Frames the keys stay down before they let go (default 30). */
+  hold?: number;
+  /** Height of a key in px (default 140). */
+  size?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
+  exit?: number;
+}> = ({
   keys,
-  at = 0,
+  start: startProp,
+  at,
   stagger = 8,
   hold = 30,
   size = 140,
   exit,
 }) => {
+  const start = startProp ?? at ?? 0;
   const {look, pop, glide, gone} = useTempo();
   const out = gone(exit);
-  const first = at + 18;
+  const first = start + 18;
   const release = first + (keys.length - 1) * stagger + hold;
   const edge = mix(look.surface, '#000000', look.dark ? 0.55 : 0.16);
   return (
     <div style={{display: 'flex', gap: size * 0.16, opacity: 1 - out}}>
       {keys.map((key, i) => {
-        const shown = pop(at + i * 4, 18);
+        const shown = pop(start + i * 4, 18);
         const down = glide(first + i * stagger, 5) - glide(release, 8);
         const lift = size * 0.07;
         return (
@@ -58,22 +73,3 @@ export const Keys: React.FC<{keys: string[]; at?: number; stagger?: number; hold
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const KeysDemo: React.FC = () => {
-  const {look, w} = useArea();
-  return (
-    <Area gap={look.size * 0.7}>
-      <Keys keys={['⌘', 'K']} at={4} size={Math.min(170, w / 5)} />
-      <div style={{...look.headline, fontSize: look.size * 0.8, opacity: Math.min(1, Math.max(0, (useCurrentFrame() - 26) / 10))}}>
-        Open <span style={accentWord(look)}>anything.</span>
-      </div>
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Shortcut keys', code: "<Keys keys={['⌘', 'K']} />", seconds: 2.5, hero: 40, Component: KeysDemo},
-];

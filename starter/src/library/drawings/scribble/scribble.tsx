@@ -2,8 +2,7 @@ import React, {useMemo} from 'react';
 import {random} from 'remotion';
 import {ease} from '../../../kit';
 import {alpha} from '../../../look';
-import type {Demo} from '../../types';
-import {DrawOn, InArea, noise, smooth, useArea, useClock, usePalette, type Palette, type Pt} from '../_shared';
+import {DrawOn, noise, smooth, useClock, usePalette, type Palette, type Pt} from '../_shared';
 
 /**
  * A marker scribbling back and forth until a shape is filled, in one continuous stroke drawn on
@@ -12,15 +11,25 @@ import {DrawOn, InArea, noise, smooth, useArea, useClock, usePalette, type Palet
  *   <Scribble width={320} height={140} start={10} />
  */
 export const Scribble: React.FC<{
+  /** Its width in px. */
   width: number;
+  /** Its height in px. */
   height: number;
+  /** The outline it fills: a loose blob or a circle (default blob). */
   shape?: 'blob' | 'circle';
+  /** How many back-and-forth passes (default 11). */
   density?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames it takes to draw (default 30). */
   frames?: number;
+  /** Its colour; the palette's sun, see-through, if not set. */
   color?: string;
+  /** Line width in px (default 14). */
   strokeWidth?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({width, height, shape = 'blob', density = 11, start = 0, frames = 30, color, strokeWidth = 14, seed = 1, palette}) => {
   const p = usePalette(palette);
@@ -47,24 +56,3 @@ export const Scribble: React.FC<{
     </svg>
   );
 };
-
-const ScribbleDemo: React.FC = () => {
-  const {look} = useArea();
-  const size = Math.round(look.size * 1.3);
-  return (
-    <InArea>
-      <div style={{...look.headline, fontSize: size, display: 'flex', justifyContent: 'center', alignItems: 'center', columnGap: '0.26em'}}>
-        <span>Pick</span>
-        <span style={{position: 'relative', display: 'inline-flex', justifyContent: 'center', width: size * 1.75}}>
-          <span style={{position: 'absolute', left: -size * 0.2, top: -size * 0.1}}>
-            <Scribble width={size * 2.15} height={size * 1.25} start={10} frames={26} />
-          </span>
-          <span style={{position: 'relative'}}>this</span>
-        </span>
-        <span>one.</span>
-      </div>
-    </InArea>
-  );
-};
-
-export const demos: Demo[] = [{name: 'Scribble', code: '<Scribble width={320} height={140} />', seconds: 2.5, hero: 60, Component: ScribbleDemo}];

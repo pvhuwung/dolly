@@ -2,7 +2,6 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {alpha} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {backdropDemos} from '../_shared';
 
 /** Pastel cousins of the accent, drifting and changing shape: a tint the content sits on. */
 export const backdrop: React.FC<BackdropProps> = ({look, tone, t}) => {
@@ -42,5 +41,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, tone, t}) => {
     </AbsoluteFill>
   );
 };
-
-export const demos = backdropDemos('blobs');

@@ -1,28 +1,35 @@
 import React from 'react';
-import {AbsoluteFill, random, useCurrentFrame} from 'remotion';
-import {Check} from 'lucide-react';
+import {random} from 'remotion';
 import {mix} from '../../../look';
-import type {Demo} from '../../types';
-import {useArea, useTempo} from '../_shared';
-import {Icon} from '../icon/icon';
+import {useTempo} from '../_shared';
 
 /**
- * Confetti bursting from (x, y) at frame `at`, falling away under gravity in about a second and a
+ * Confetti bursting from (x, y) at frame `start`, falling away under gravity in about a second and a
  * half. For a success moment: a merge, a payment, a launch.
  *
- *   <Burst x={960} y={500} at={14} />
+ *   <Burst x={960} y={500} start={14} />
  */
 export const Burst: React.FC<{
+  /** Where it bursts from, in px of its parent. */
   x: number;
+  /** Where it bursts from, in px of its parent. */
   y: number;
-  at: number;
+  /** Frame it bursts on, counted from the start of its scene (default 0). */
+  start?: number;
+  /** @deprecated Use start. */
+  at?: number;
+  /** How many pieces of confetti (default 80). */
   count?: number;
+  /** How big and far it bursts; 1 is normal (default 1). */
   power?: number;
+  /** Changes the pattern, so two bursts don't match (default 'burst'). */
   seed?: string;
+  /** Colours of the confetti; the accent, the alert colour, a light accent and the ink if not set. */
   colors?: string[];
-}> = ({x, y, at, count = 80, power = 1, seed = 'burst', colors}) => {
+}> = ({x, y, start: startProp, at, count = 80, power = 1, seed = 'burst', colors}) => {
+  const start = startProp ?? at ?? 0;
   const {look, frame, fps} = useTempo();
-  const t = (frame - at) / fps;
+  const t = (frame - start) / fps;
   const life = 1.7 * look.pace;
   if (t < 0 || t > life) return null;
   const palette = colors ?? [look.accent, look.alert, mix(look.accent, '#ffffff', 0.45), look.ink];
@@ -74,23 +81,3 @@ export const Burst: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const BurstDemo: React.FC = () => {
-  const {look, cx, cy} = useArea();
-  return (
-    <AbsoluteFill>
-      <Burst x={cx} y={cy} at={12} power={(look.format !== 'landscape') ? 0.8 : 1} />
-      <div style={{position: 'absolute', left: cx, top: cy, transform: 'translate(-50%, -50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 28}}>
-        <Icon icon={Check} size={150} at={6} tone="accent" />
-        <div style={{...look.headline, fontSize: look.size * 0.9, opacity: Math.min(1, Math.max(0, (useCurrentFrame() - 14) / 10))}}>Merged.</div>
-      </div>
-    </AbsoluteFill>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Confetti', code: '<Burst x={cx} y={cy} at={12} />', seconds: 2.5, hero: 24, Component: BurstDemo},
-];

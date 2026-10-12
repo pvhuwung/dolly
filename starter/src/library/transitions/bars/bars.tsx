@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {mix} from '../../../look';
 import type {TransitionDef} from '../../types';
-import {clamp01, inOut, linear, presentation, type PresentationProps, transitionDemos} from '../_shared';
+import {clamp01, inOut, linear, presentation, type PresentationProps} from '../_shared';
 
 const FRAMES = 22;
 
@@ -48,5 +48,3 @@ export const transition: TransitionDef = {
       Easing.linear,
     ),
 };
-
-export const demos = transitionDemos('bars', transition);

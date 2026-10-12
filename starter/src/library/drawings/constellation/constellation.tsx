@@ -2,8 +2,7 @@ import React, {useMemo} from 'react';
 import {random} from 'remotion';
 import {ease} from '../../../kit';
 import {alpha} from '../../../look';
-import type {Demo} from '../../types';
-import {DrawOn, InArea, n1, useArea, useClock, useInk, usePalette, type Palette, type Pt} from '../_shared';
+import {DrawOn, n1, useClock, useInk, usePalette, type Palette, type Pt} from '../_shared';
 
 /**
  * Stars appearing one by one across a box and joining up with fine lines, nearest first, into a
@@ -12,13 +11,21 @@ import {DrawOn, InArea, n1, useArea, useClock, useInk, usePalette, type Palette,
  *   <Constellation width={800} height={460} count={14} start={4} />
  */
 export const Constellation: React.FC<{
+  /** Its width in px. */
   width: number;
+  /** Its height in px. */
   height: number;
+  /** How many stars (default 14). */
   count?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames between one star appearing and the next (default 5). */
   stagger?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** Its colour; the ink colour (dark on paper and light pages, light on dark ones) if not set. */
   color?: string;
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({width, height, count = 14, start = 0, stagger = 5, seed = 1, color, palette}) => {
   const p = usePalette(palette);
@@ -84,14 +91,3 @@ export const Constellation: React.FC<{
     </svg>
   );
 };
-
-const ConstellationDemo: React.FC = () => {
-  const a = useArea();
-  return (
-    <InArea>
-      <Constellation width={Math.round(Math.min(a.w * 0.9, 1100))} height={Math.round(Math.min(a.h * 0.85, a.look.tall ? 800 : 560))} count={16} start={4} stagger={4} />
-    </InArea>
-  );
-};
-
-export const demos: Demo[] = [{name: 'Constellation', code: '<Constellation width={800} height={460} count={16} />', seconds: 3, hero: 85, Component: ConstellationDemo}];

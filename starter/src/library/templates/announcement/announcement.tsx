@@ -1,7 +1,6 @@
 import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
 import {useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, Eyebrow, inner, useStagger} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
@@ -11,7 +10,18 @@ import {Kinetic} from '../../text/kinetic/kinetic';
  *
  *   <Announcement eyebrow="Big news" text="We raised $18M" accent="to build what's next." detail="Series A" />
  */
-export const Announcement: React.FC<{eyebrow?: string; text: string; accent?: string; detail?: string; size?: number}> = ({eyebrow, text, accent, detail, size}) => {
+export const Announcement: React.FC<{
+  /** A small label above the headline. */
+  eyebrow?: string;
+  /** The news, before its accent phrase. */
+  text: string;
+  /** The phrase set in the style's accent way, after the text. */
+  accent?: string;
+  /** A line of detail under it. */
+  detail?: string;
+  /** The headline's font size in px; sized to the frame if not set. */
+  size?: number;
+}> = ({eyebrow, text, accent, detail, size}) => {
   const look = useLook();
   const frame = useCurrentFrame();
   const pop = useStagger();
@@ -76,8 +86,3 @@ export const Announcement: React.FC<{eyebrow?: string; text: string; accent?: st
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Announcement', code: '<Announcement eyebrow="Big news" text="We raised $18M" accent="…" detail="…" />', seconds: 4, hero: 100, backdrop: false, Component: () => <Announcement eyebrow="Big news" text="We raised $18M" accent="to build what’s next." detail="Series A, with thanks to our customers and team" />},
-];

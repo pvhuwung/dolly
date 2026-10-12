@@ -17,7 +17,7 @@ One big line filling the frame, with an optional eyebrow: a hook, a punchline or
 
 `<Statement eyebrow="Agents everywhere" text="Five agents running." accent="One needs you." />`
 
-Props: `eyebrow?: string` · `text: string` · `accent?: string` · `effect?: TextEffect` · `exit?: number`
+Props: `eyebrow?: string` A small label above the headline. · `text: string` The line, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the text. · `effect?: TextEffect` How the words come in; the style's own if not set. · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 Needs: `text/kinetic`
 
@@ -27,7 +27,7 @@ A number that counts up with what it counts under it; real numbers only.
 
 `<Metric value={12} label="agents in one window" note="and counting" />`
 
-Props: `value: number` · `label: string` · `prefix?: string` · `suffix?: string` · `decimals?: number` · `note?: string`
+Props: `value: number` The number it counts up to. · `label: string` What the number counts, under it. · `prefix?: string` Text before the number, such as `$`. · `suffix?: string` Text after the number, such as `%` or `k`. · `decimals?: number` Decimal places to show; 0 if not set. · `note?: string` A small line under the label, such as a source or a date.
 
 Needs: `text/counter`, `text/kinetic`
 
@@ -37,7 +37,7 @@ Three to six features as cards with icons, coming in one after another: what the
 
 `<Features title="Everything in" accent="one window." items={[{icon: Columns3, title: 'Split panes', text: 'Grouped by project'}]} />`
 
-Props: `eyebrow?: string` · `title?: string` · `accent?: string` · `items: { icon: LucideIcon; title: string; text?: string; }[]`
+Props: `eyebrow?: string` A small label above the headline. · `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `items: { icon: LucideIcon; title: string; text?: string; }[]` Three to six features, one card each.
 
 Needs: `text/kinetic`
 
@@ -47,7 +47,7 @@ A testimonial with who said it, an initials avatar and their role; real quotes o
 
 `<Quote quote="I stopped tabbing through terminals." accent="Now they come to me." name="Ada Okafor" role="Design lead" />`
 
-Props: `quote: string` · `accent?: string` · `name: string` · `role?: string`
+Props: `quote: string` What they said, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the quote. · `name: string` Who said it; their initials make the avatar. · `role?: string` Their role and company, under the name.
 
 Needs: `text/kinetic`
 
@@ -57,7 +57,7 @@ Before and after: the old way struck through, the product's way ticked, side by 
 
 `<Compare title="Stop checking" accent="every tab." before={{title: 'Before', items: ['Tab through every terminal']}} after={{title: 'After', items: ['Every agent in one view']}} />`
 
-Props: `title?: string` · `accent?: string` · `before: { title: string; items: string[]; }` · `after: { title: string; items: string[]; }`
+Props: `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `before: { title: string; items: string[]; }` The old way: a heading and its items, struck through. · `after: { title: string; items: string[]; }` The product's way: a heading and its items, ticked.
 
 Needs: `text/kinetic`
 
@@ -67,7 +67,7 @@ Numbered steps joined by a line that draws from one to the next: how it works.
 
 `<Steps title="How it" accent="works." steps={['Open a group', 'Start your agents', 'Get pinged when one asks']} />`
 
-Props: `title?: string` · `accent?: string` · `steps: string[]`
+Props: `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `steps: string[]` The steps in order, one short line each.
 
 Needs: `text/kinetic`
 
@@ -77,7 +77,7 @@ The logo arriving (pop, iris, slide or focus), then the name and a tagline under
 
 `<LogoReveal kind="pop" tagline="Run agents in parallel." accent="All in one place." />`
 
-Props: `kind?: 'pop' | 'slide' | 'iris' | 'focus'` · `tagline?: string` · `accent?: string` · `logo?: string` · `name?: string`
+Props: `kind?: 'pop' | 'slide' | 'iris' | 'focus'` How the logo arrives: `pop`, `iris`, `slide` or `focus`; `pop` if not set. · `tagline?: string` A line under the name, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the tagline. · `logo?: string` An image in public/; the brand's logo if not set. · `name?: string` The name under the logo; the brand's name if not set.
 
 Needs: `text/kinetic`
 
@@ -87,7 +87,7 @@ The ask, big and held: logo and name, one line, a button with a glint and the UR
 
 `<EndCard line="Your agents keep working." accent="Even when you walk away." button="Download free" url="example.com" />`
 
-Props: `line?: string` · `accent?: string` · `button?: string` · `url?: string`
+Props: `line?: string` One line under the name, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the line. · `button?: string` The button's words; `Get started` if not set. · `url?: string` Where to go, under the button; the brand's URL if not set.
 
 Needs: `text/kinetic`
 
@@ -97,7 +97,7 @@ People as portrait cards with initials or photos, coming in one after another: s
 
 `<Lineup title="Meet the" accent="speakers." people={[{name: 'Ada Okafor', role: 'Design lead'}, {name: 'Ravi Menon', role: 'Founder'}]} />`
 
-Props: `eyebrow?: string` · `title?: string` · `accent?: string` · `people: { name: string; role?: string; initials?: string; image?: string; }[]`
+Props: `eyebrow?: string` A small label above the headline. · `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `people: { name: string; role?: string; initials?: string; image?: string; }[]` Two to eight people, one card each.
 
 Needs: `text/kinetic`
 
@@ -107,7 +107,7 @@ A schedule row by row with times, then a highlight slides to the featured row: a
 
 `<Agenda title="Day one" date="Thu · Oct 24" items={[{time: '09:30', title: 'Keynote', who: 'Ravi Menon'}]} highlight={0} />`
 
-Props: `eyebrow?: string` · `title?: string` · `accent?: string` · `date?: string` · `items: { time: string; title: string; who?: string; }[]` · `highlight?: number`
+Props: `eyebrow?: string` A small label above the headline. · `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `date?: string` The day it happens, shown with the headline. · `items: { time: string; title: string; who?: string; }[]` The schedule, one row each. · `highlight?: number` The row to highlight, counted from 0; none if not set.
 
 Needs: `text/kinetic`
 
@@ -117,7 +117,7 @@ Days, hours, minutes and seconds ticking down for real, each digit rolling: a la
 
 `<Countdown title="Doors open" accent="soon." to="Oct 24 · 9:00 AM" from={{days: 12, hours: 4, minutes: 32, seconds: 9}} />`
 
-Props: `eyebrow?: string` · `title?: string` · `accent?: string` · `to: string` · `from: { days: number; hours: number; minutes: number; seconds: number; }`
+Props: `eyebrow?: string` A small label above the headline. · `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `to: string` The date and time it counts down to, as it should read. · `from: { days: number; hours: number; minutes: number; seconds: number; }` How long is left when the scene starts; it ticks down in real time.
 
 Needs: `text/kinetic`
 
@@ -127,7 +127,7 @@ A version badge, then the changes landing one by one tagged New, Improved or Fix
 
 `<Changelog version="v2.4" title="What's" accent="new." items={[{tag: 'New', text: 'Offline mode'}, {tag: 'Fixed', text: 'Sync on flaky connections'}]} />`
 
-Props: `version: string` · `title?: string` · `accent?: string` · `items: { tag: 'New' | 'Improved' | 'Fixed'; text: string; }[]`
+Props: `version: string` The release, in the badge, such as `v2.4`. · `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `items: { tag: 'New' | 'Improved' | 'Fixed'; text: string; }[]` The changes, one row each.
 
 Needs: `text/kinetic`
 
@@ -137,7 +137,7 @@ Milestones on a line that draws from one to the next, the last one marked: compa
 
 `<Timeline title="How we" accent="got here." items={[{when: '2023', what: 'Two people, one idea'}, {when: '2026', what: 'Series A'}]} />`
 
-Props: `eyebrow?: string` · `title?: string` · `accent?: string` · `items: { when: string; what: string; }[]`
+Props: `eyebrow?: string` A small label above the headline. · `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `items: { when: string; what: string; }[]` The milestones in order; the last one is marked.
 
 Needs: `text/kinetic`
 
@@ -147,7 +147,7 @@ Labels with dotted leaders to values and an optional detail line: a menu, open r
 
 `<List title="Today's" accent="menu." items={[{label: 'Flat white', detail: 'Oat or whole', value: '$4.50'}]} />`
 
-Props: `eyebrow?: string` · `title?: string` · `accent?: string` · `items: { label: string; detail?: string; value?: string; }[]`
+Props: `eyebrow?: string` A small label above the headline. · `title?: string` The headline, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the title. · `items: { label: string; detail?: string; value?: string; }[]` The rows.
 
 Needs: `text/kinetic`
 
@@ -157,7 +157,7 @@ Big news: the headline lands with a glint and a drawn stroke under it, then a li
 
 `<Announcement eyebrow="Big news" text="We raised $18M" accent="to build what's next." detail="Series A" />`
 
-Props: `eyebrow?: string` · `text: string` · `accent?: string` · `detail?: string` · `size?: number`
+Props: `eyebrow?: string` A small label above the headline. · `text: string` The news, before its accent phrase. · `accent?: string` The phrase set in the style's accent way, after the text. · `detail?: string` A line of detail under it. · `size?: number` The headline's font size in px; sized to the frame if not set.
 
 Needs: `text/kinetic`
 
@@ -171,15 +171,15 @@ A headline that comes in word by word or letter by letter the style's way, with 
 
 `<Kinetic text="Approve it" accent="from your phone." start={10} exit={80} />`
 
-Props: `text: string` · `accent?: string` · `effect?: TextEffect` · `start?: number` · `stagger?: number` · `exit?: number` · `mark?: MarkKind` · `align?: 'left' | 'center'` · `style?: React.CSSProperties`
+Props: `text: string` The words, before the accent phrase. · `accent?: string` The phrase set in the style's accent way. · `effect?: TextEffect` How the words come in; the style's own if not set. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `stagger?: number` Frames between one word (or letter) starting and the next; the effect's own if not set. · `exit?: number` Frame it starts to leave; it stays to the end if not set. · `mark?: MarkKind` What's drawn behind the accent phrase; the style's own if not set. · `align?: 'left' | 'center'` Left-aligned or centred (default left). · `style?: React.CSSProperties` CSS merged over the headline style: font size, colour, max width.
 
 ### Mark · `text/mark`
 
 Draws a highlighter, block, pill, underline, circle, strike or box on any inline words at a given frame.
 
-`<Mark kind="circle" at={40}>3×</Mark>`
+`<Mark kind="circle" start={40}>3×</Mark>`
 
-Props: `kind: MarkKind` · `at: number` · `color?: string` · `children: React.ReactNode`
+Props: `kind: MarkKind` Which mark: marker, block, pill, underline, circle, strike or box. · `start?: number` Frame its mark starts to draw, counted from the start of its scene (default 0). · `color?: string` Its colour; the style's accent if not set (the alert colour for a strike). · `children: ReactNode` The words, number or name to mark.
 
 ### Cycle · `text/cycle`
 
@@ -187,9 +187,7 @@ One slot in a line whose word changes every few frames, sliding the old word out
 
 `<Cycle words={['fast.', 'polished.', 'yours.']} start={30} />`
 
-Props: `words: string[]` · `every?: number` · `start?: number` · `style?: React.CSSProperties`
-
-Needs: `text/kinetic`
+Props: `words: string[]` The words it cycles through, in order; it loops. · `every?: number` Frames each word holds before the next comes in; 45 times the style's pace if not set. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `style?: React.CSSProperties` CSS merged over the headline and accent style: font size, colour.
 
 ### Counter · `text/counter`
 
@@ -197,9 +195,7 @@ A number counting up or down with easing, thousands separators and tabular figur
 
 `<Counter to={12480} suffix="+" start={20} />`
 
-Props: `to: number` · `from?: number` · `start?: number` · `frames?: number` · `decimals?: number` · `prefix?: string` · `suffix?: string` · `style?: React.CSSProperties`
-
-Needs: `text/kinetic`
+Props: `to: number` The number it counts to. · `from?: number` The number it counts from (default 0). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames the count takes; 50 times the style's pace if not set. · `decimals?: number` Digits after the decimal point (default 0). · `prefix?: string` Text before the number, like $. · `suffix?: string` Text after the number, like + or %. · `style?: React.CSSProperties` CSS merged over the headline style: font size, colour.
 
 ## Graphics
 
@@ -211,7 +207,7 @@ An SVG path that draws itself on, and off again: a hand-drawn underline, a scrib
 
 `<Draw d="M6 26 C 110 10, 250 8, 414 20" width={420} height={40} start={10} />`
 
-Props: `d: string` · `width: number` · `height: number` · `start?: number` · `frames?: number` · `exit?: number` · `color?: string` · `strokeWidth?: number` · `stretch?: boolean` · `style?: React.CSSProperties`
+Props: `d: string` The SVG path to draw, in a `width` × `height` box. · `width: number` Its width in px: the box `d` is drawn in. · `height: number` Its height in px: the box `d` is drawn in. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames the line takes to draw (default 36). · `exit?: number` Frame it starts to undraw; it stays to the end if not set. · `color?: string` Its colour; the style's accent if not set. · `strokeWidth?: number` Line width in px (default 6). · `stretch?: boolean` Let `style` size the box to any width and height, stretching the path: for an underline as wide as its word. · `style?: React.CSSProperties` CSS for the SVG, to place or size it.
 
 ### Arrow · `graphics/arrow`
 
@@ -219,7 +215,7 @@ A curved, hand-drawn arrow that draws itself from one point to another, its head
 
 `<Arrow from={{x: 620, y: 360}} to={{x: 1180, y: 560}} start={10} />`
 
-Props: `from: Pt` · `to: Pt` · `bend?: number` · `start?: number` · `frames?: number` · `exit?: number` · `color?: string` · `strokeWidth?: number` · `head?: number`
+Props: `from: Pt` Where it starts, in px of its parent. · `to: Pt` Where the head lands, in px of its parent. · `bend?: number` How much it curves: 0 is straight, more bows it to the left of travel, less to the right (default 0.25). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames the line takes to draw (default 28). · `exit?: number` Frame it starts to leave; it stays to the end if not set. · `color?: string` Its colour; the style's accent if not set. · `strokeWidth?: number` Line width in px (default 6). · `head?: number` Length of the head's two strokes in px (default 26).
 
 ### Ring · `graphics/ring`
 
@@ -227,7 +223,7 @@ A ring that fills to a percentage, the number counting up in its middle.
 
 `<Ring value={87} label="tests passing" start={8} />`
 
-Props: `value: number` · `start?: number` · `frames?: number` · `size?: number` · `thickness?: number` · `label?: string` · `suffix?: string` · `color?: string` · `exit?: number`
+Props: `value: number` The percentage it fills to, 0 to 100. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames the ring takes to fill (default 60). · `size?: number` Its width and height in px (default 320). · `thickness?: number` Width of the ring in px; 7.5% of `size` if not set. · `label?: string` Words under the number. · `suffix?: string` After the number (default '%'). · `color?: string` Its colour; the style's accent if not set. · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 ### Bars · `graphics/bars`
 
@@ -235,7 +231,7 @@ A bar chart whose bars grow in one after another, values counting up, one bar hi
 
 `<Bars data={[{label: 'Jan', value: 12}, {label: 'Feb', value: 19}]} highlight={1} start={6} />`
 
-Props: `data: { label: string; value: number; }[]` · `highlight?: number` · `across?: boolean` · `width?: number` · `height?: number` · `start?: number` · `stagger?: number` · `max?: number` · `format?: (n: number) => string` · `exit?: number`
+Props: `data: { label: string; value: number; }[]` The bars, in order: a label and a value each. · `highlight?: number` Index of the bar drawn in the accent. · `across?: boolean` Lay the bars on their side with the labels on the left: for named categories, and for many bars in a tall frame. · `width?: number` Its width in px (default 900). · `height?: number` Its height in px (default 480). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `stagger?: number` Frames between one bar starting to grow and the next (default 5). · `max?: number` The value a full bar stands for; the largest value if not set. · `format?: (n: number) => string` How a value is written (default a whole number with thousands separators). · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 ### LineChart · `graphics/line-chart`
 
@@ -243,7 +239,7 @@ A line chart that draws across, its area filling in and a dot riding the head wi
 
 `<LineChart values={[12, 18, 15, 26, 31, 29, 44, 58]} start={6} />`
 
-Props: `values: number[]` · `labels?: string[]` · `width?: number` · `height?: number` · `start?: number` · `frames?: number` · `min?: number` · `max?: number` · `color?: string` · `format?: (n: number) => string` · `exit?: number`
+Props: `values: number[]` The points, left to right. · `labels?: string[]` Labels under the points, one per value. · `width?: number` Its width in px (default 960). · `height?: number` Its height in px (default 440). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames the line takes to draw across (default 70). · `min?: number` The value at the bottom (default 0). · `max?: number` The value at the top; 12% above the largest value if not set. · `color?: string` Its colour; the style's accent if not set. · `format?: (n: number) => string` How the value at the line's head is written (default a whole number with thousands separators). · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 ### Stat · `graphics/stat`
 
@@ -251,7 +247,7 @@ A big number counting up, its label under it, with an optional delta chip.
 
 `<Stat value={12400} label="teams shipping" start={6} />`
 
-Props: `value: number` · `label?: string` · `prefix?: string` · `suffix?: string` · `decimals?: number` · `delta?: string` · `start?: number` · `frames?: number` · `size?: number` · `align?: 'left' | 'center'` · `exit?: number`
+Props: `value: number` The number it counts up to. · `label?: string` Words under the number. · `prefix?: string` Before the number, like '$'. · `suffix?: string` After the number, like '%' or 'k'. · `decimals?: number` Decimal places shown (default 0). · `delta?: string` A small chip beside the number once the count lands, like '+38%'. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames the count takes (default 50). · `size?: number` Size of the number in px; twice the style's headline size if not set. · `align?: 'left' | 'center'` 'center' puts the label under the middle of the number, 'left' lines both up on the left (default 'center'). · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 ### Progress · `graphics/progress`
 
@@ -259,7 +255,7 @@ A progress bar filling to a percentage, with its label and percentage above it.
 
 `<Progress value={72} label="Indexing repository" start={6} />`
 
-Props: `value: number` · `label?: string` · `width?: number` · `thickness?: number` · `start?: number` · `frames?: number` · `exit?: number`
+Props: `value: number` The percentage it fills to; at 100 it says Done. · `label?: string` Words above the bar, on the left. · `width?: number` Its width in px (default 760). · `thickness?: number` Height of the bar in px (default 16). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames the bar takes to fill (default 50). · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 ### Checklist · `graphics/checklist`
 
@@ -267,25 +263,23 @@ Items ticking off one by one: each box fills and its check draws in.
 
 `<Checklist items={['Tests pass', 'Preview deployed', 'Ready to merge']} start={6} />`
 
-Props: `items: string[]` · `start?: number` · `stagger?: number` · `size?: number` · `exit?: number`
+Props: `items: string[]` The lines to tick off, in order. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `stagger?: number` Frames between one item ticking and the next (default 16). · `size?: number` Size of the text in px (default 34). · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 ### Burst · `graphics/burst`
 
 Confetti bursting from a point and falling away under gravity: a success moment.
 
-`<Burst x={960} y={500} at={14} />`
+`<Burst x={960} y={500} start={14} />`
 
-Props: `x: number` · `y: number` · `at: number` · `count?: number` · `power?: number` · `seed?: string` · `colors?: string[]`
-
-Needs: `graphics/icon`
+Props: `x: number` Where it bursts from, in px of its parent. · `y: number` Where it bursts from, in px of its parent. · `start?: number` Frame it bursts on, counted from the start of its scene (default 0). · `count?: number` How many pieces of confetti (default 80). · `power?: number` How big and far it bursts; 1 is normal (default 1). · `seed?: string` Changes the pattern, so two bursts don't match (default 'burst'). · `colors?: string[]` Colours of the confetti; the accent, the alert colour, a light accent and the ink if not set.
 
 ### Shine · `graphics/shine`
 
 A glint of light sweeping across its children, once or on a loop.
 
-`<Shine at={20} every={50}><div>Get early access</div></Shine>`
+`<Shine start={20} every={50}><div>Get early access</div></Shine>`
 
-Props: `at?: number` · `frames?: number` · `every?: number` · `radius?: number` · `color?: string` · `children: React.ReactNode`
+Props: `start?: number` Frame the first glint starts on, counted from the start of its scene (default 0). · `frames?: number` Frames one sweep takes (default 30). · `every?: number` Sweep again every this many frames; just once if not set. · `radius?: number` Corner radius of what it shines on, in px; the style's if not set. · `color?: string` Colour of the glint (default a soft white). · `children: ReactNode` What it shines across: a button, a logo, a price.
 
 ### Cursor · `graphics/cursor`
 
@@ -293,7 +287,7 @@ A macOS pointer gliding through points, with a press and a ripple on clicks.
 
 `<Cursor points={[{x: 1300, y: 760, at: 0}, {x: 900, y: 430, at: 30, click: true}]} />`
 
-Props: `points: CursorPoint[]` · `travel?: number` · `size?: number` · `exit?: number` · `light?: boolean`
+Props: `points: CursorPoint[]` Where it goes: each point's `x` and `y` in px of its parent, the frame `at` it arrives there, and `click` to press there. · `travel?: number` Frames it takes to move from one point to the next (default 22). · `size?: number` Its size in px (default 40). · `exit?: number` Frame it starts to leave; it stays to the end if not set. · `light?: boolean` A white pointer with a dark edge, for dark footage; a black one if not set.
 
 Also exports: `CursorPoint`
 
@@ -301,25 +295,25 @@ Also exports: `CursorPoint`
 
 Keyboard keys that pop in and press down one after another: a shortcut.
 
-`<Keys keys={['⌘', 'K']} at={6} />`
+`<Keys keys={['⌘', 'K']} start={6} />`
 
-Props: `keys: string[]` · `at?: number` · `stagger?: number` · `hold?: number` · `size?: number` · `exit?: number`
+Props: `keys: string[]` The keys, in the order they go down: '⌘', 'Shift', 'K'. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `stagger?: number` Frames between one key going down and the next (default 8). · `hold?: number` Frames the keys stay down before they let go (default 30). · `size?: number` Height of a key in px (default 140). · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 ### Spotlight · `graphics/spotlight`
 
 Dims the whole frame except one rectangle, the hole tightening onto it.
 
-`<Spotlight rect={{x: 700, y: 300, width: 520, height: 260}} at={15} />`
+`<Spotlight rect={{x: 700, y: 300, width: 520, height: 260}} start={15} />`
 
-Props: `rect: { x: number; y: number; width: number; height: number; }` · `at?: number` · `frames?: number` · `exit?: number` · `dim?: number` · `pad?: number` · `radius?: number` · `ring?: boolean`
+Props: `rect: { x: number; y: number; width: number; height: number; }` The part to light, in px of the frame: `x`, `y`, `width`, `height`. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames the light takes to close in (default 26). · `exit?: number` Frame it starts to leave; it stays to the end if not set. · `dim?: number` How dark the rest of the frame gets, 0 to 1 (default 0.62). · `pad?: number` Space left around `rect` in px (default 14). · `radius?: number` Corner radius of the hole in px; the style's if not set. · `ring?: boolean` Draw an accent outline round the hole (default true).
 
 ### Toast · `graphics/toast`
 
 A notification sliding in like macOS or iOS: app icon, name, time, title and body.
 
-`<Toast title="Build passed" body="All 214 checks green on main" at={8} />`
+`<Toast title="Build passed" body="All 214 checks green on main" start={8} />`
 
-Props: `title: string` · `body?: string` · `app?: string` · `time?: string` · `icon?: LucideIcon` · `logo?: string` · `at?: number` · `exit?: number` · `width?: number` · `from?: 'top' | 'right'`
+Props: `title: string` The notification's title. · `body?: string` A line under the title. · `app?: string` The app's name; the brand's if not set. · `time?: string` The time beside the app's name (default 'now'). · `icon?: LucideIcon` A lucide icon on an accent tile, in place of the logo. · `logo?: string` An image in public/ for the app's icon; the brand logo if not set. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `exit?: number` Frame it starts to leave; it stays to the end if not set. · `width?: number` Its width in px (default 560). · `from?: 'top' | 'right'` Where it slides in from: 'top' or 'right' (default 'top').
 
 ### Chat · `graphics/chat`
 
@@ -327,7 +321,7 @@ A conversation: bubbles arriving one by one, theirs after typing dots, earlier o
 
 `<Chat messages={[{from: 'them', text: 'Can you ship it tonight?', at: 20}, {from: 'me', text: 'Already merged.', at: 46}]} />`
 
-Props: `messages: ChatMessage[]` · `width?: number` · `size?: number` · `typing?: number` · `exit?: number`
+Props: `messages: ChatMessage[]` The bubbles, in order: who sent each (`from`: 'me' or 'them'), its `text`, and the frame `at` it lands. · `width?: number` Its width in px (default 640). · `size?: number` Size of the text in px (default 28). · `typing?: number` Frames of typing dots before each of their messages (default 22). · `exit?: number` Frame it starts to leave; it stays to the end if not set.
 
 Also exports: `ChatMessage`
 
@@ -335,17 +329,17 @@ Also exports: `ChatMessage`
 
 A pill label that pops in with an icon or a live dot: New, Beta, Live.
 
-`<Badge icon={Sparkles} text="New in 2.0" at={10} />`
+`<Badge icon={Sparkles} text="New in 2.0" start={10} />`
 
-Props: `text: string` · `icon?: LucideIcon` · `at?: number` · `exit?: number` · `tone?: 'accent' | 'soft' | 'card' | 'alert'` · `size?: number` · `pulse?: boolean`
+Props: `text: string` The words on it. · `icon?: LucideIcon` A lucide icon before the words. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `exit?: number` Frame it starts to leave; it stays to the end if not set. · `tone?: 'accent' | 'soft' | 'card' | 'alert'` How loud it is: 'soft', 'accent', 'card' or 'alert' (default 'soft'). · `size?: number` Size of the text in px; scaled to the format's headline if not set. · `pulse?: boolean` Add a live dot that pulses.
 
 ### Icon · `graphics/icon`
 
 A lucide icon in a tinted tile that pops in, for feature grids.
 
-`<Icon icon={Zap} at={8} />`
+`<Icon icon={Zap} start={8} />`
 
-Props: `icon: LucideIcon` · `size?: number` · `at?: number` · `exit?: number` · `tone?: 'accent' | 'soft' | 'card'`
+Props: `icon: LucideIcon` The lucide icon (lucide.dev): `import {Zap} from 'lucide-react'`. · `size?: number` Size of the tile in px (default 112). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `exit?: number` Frame it starts to leave; it stays to the end if not set. · `tone?: 'accent' | 'soft' | 'card'` The tile's fill: 'soft', 'accent' or 'card' (default 'soft').
 
 ### Marquee · `graphics/marquee`
 
@@ -353,7 +347,7 @@ A row of words or logos sliding past for ever, its ends fading out.
 
 `<Marquee items={['Fast', 'Private', 'Native', 'Open source']} />`
 
-Props: `items: React.ReactNode[]` · `loop?: number` · `gap?: number` · `reverse?: boolean` · `size?: number` · `color?: string` · `start?: number` · `separator?: boolean` · `width?: string | number`
+Props: `items: React.ReactNode[]` What slides past: strings are set in the headline face; pass elements for logos. · `loop?: number` Seconds one full loop takes (default 9). · `gap?: number` Space between items in px; 70% of `size` if not set. · `reverse?: boolean` Slide the other way. · `size?: number` Size of the words in px; 1.1 times the style's headline size if not set. · `color?: string` Colour of the words; the style's ink if not set. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `separator?: boolean` Put an accent dot between items (default true). · `width?: string | number` Its width, in px or any CSS width (default '100%').
 
 ## Drawings
 
@@ -365,11 +359,9 @@ A card of warm paper with grain, fibres and an uneven edge that slides in and ho
 
 `<Paper width={560} height={700} rotate={-3}><Flower /></Paper>`
 
-Props: `width: number` · `height: number` · `rotate?: number` · `start?: number` · `color?: string` · `seed?: number` · `padding?: number` · `style?: React.CSSProperties` · `children?: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…`
+Props: `width: number` Its width in px. · `height: number` Its height in px. · `rotate?: number` Tilt in degrees (default 0). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `color?: string` The paper's colour (default a warm off-white, #f6f1e5). · `seed?: number` Changes the grain and the edge; the same seed always draws the same. · `padding?: number` Space between the card's edge and what's on it, in px (default 0). · `style?: React.CSSProperties` Styles for the card's outer box, to place it. · `children?: ReactNode` What sits on the card, centred.
 
 Also exports: `noise`, `Palette`
-
-Needs: `drawings/flower`, `drawings/hex-field`, `drawings/stamps`
 
 ### Flower · `drawings/flower`
 
@@ -377,9 +369,7 @@ A watercolour flower whose stem draws up, leaves unfurl and petals open from a b
 
 `<Flower size={320} petals={6} start={10} />`
 
-Props: `size?: number` · `petals?: number` · `start?: number` · `frames?: number` · `seed?: number` · `color?: string` · `stem?: boolean` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `size?: number` Its width in px; it's 1.5 times as tall with a stem (default 320). · `petals?: number` How many petals (default 6). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames it takes to draw (default 80). · `seed?: number` Changes the random layout; the same seed always draws the same. · `color?: string` The petals' colour; the palette's rose if not set. · `stem?: boolean` Draws the stem and its two leaves (default true). · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### Stamps · `drawings/stamps`
 
@@ -387,9 +377,7 @@ A field of stamped motifs landing one after another in speckled ink.
 
 `<Stamps width={700} height={500} motif="flower" start={6} />`
 
-Props: `width: number` · `height: number` · `count?: number` · `motif?: Motif` · `start?: number` · `stagger?: number` · `seed?: number` · `colors?: string[]` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `width: number` Its width in px. · `height: number` Its height in px. · `count?: number` How many stamps (default 18). · `motif?: Motif` What's stamped: flower, star, leaf, dot or sprig (default flower). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `stagger?: number` Frames between one stamp landing and the next (default 3). · `seed?: number` Changes the random layout; the same seed always draws the same. · `colors?: string[]` Ink colours to pick from; two mixes of the accent if not set. · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### HexField · `drawings/hex-field`
 
@@ -397,9 +385,7 @@ A board of hexagons warming from pale to deep around a hot spot, spreading in a 
 
 `<HexField width={700} height={520} origin={{x: 0.6, y: 0.55}} start={8} />`
 
-Props: `width: number` · `height: number` · `radius?: number` · `origin?: Pt` · `start?: number` · `frames?: number` · `seed?: number` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `width: number` Its width in px. · `height: number` Its height in px. · `radius?: number` Size of each hexagon, centre to corner, in px (default 30). · `origin?: Pt` The hot spot the colour spreads from, in fractions of the box (default {x: 0.62, y: 0.55}). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames it takes to draw (default 60). · `seed?: number` Changes the random layout; the same seed always draws the same. · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### Butterfly · `drawings/butterfly`
 
@@ -407,9 +393,7 @@ A butterfly that flutters in along a curve and hovers with beating wings.
 
 `<Butterfly size={300} start={6} />`
 
-Props: `size?: number` · `start?: number` · `flap?: number` · `seed?: number` · `color?: string` · `arrive?: boolean` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `size?: number` Its size in px (default 300). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `flap?: number` Frames for one wingbeat (default 24). · `seed?: number` Changes the random layout; the same seed always draws the same. · `color?: string` Its wing colour; the palette's warm colour if not set. · `arrive?: boolean` Flies in along a curve from below left; false to start in place, hovering (default true). · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### Plant · `drawings/plant`
 
@@ -417,9 +401,7 @@ A plant growing from the bottom of its box: the stem draws up, branches fork, le
 
 `<Plant width={420} height={560} start={4} />`
 
-Props: `width?: number` · `height?: number` · `start?: number` · `frames?: number` · `depth?: number` · `seed?: number` · `blooms?: boolean` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `width?: number` Its width in px (default 420). · `height?: number` Its height in px (default 560). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames it takes to grow (default 100). · `depth?: number` How many times the branches fork (default 4). · `seed?: number` Grows a different plant; the same seed always grows the same one (default 2). · `blooms?: boolean` Some branch tips flower (default true). · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### Stitch · `drawings/stitch`
 
@@ -427,9 +409,7 @@ Embroidery: a sun, circle, heart or leaf filled with satin stitches that appear 
 
 `<Stitch size={380} shape="sun" start={6} />`
 
-Props: `size?: number` · `shape?: 'circle' | 'sun' | 'leaf' | 'heart'` · `start?: number` · `frames?: number` · `seed?: number` · `colors?: string[]` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `size?: number` Its size in px (default 380). · `shape?: 'circle' | 'sun' | 'leaf' | 'heart'` sun stitches out from the middle in rings; circle, heart and leaf fill in slanted rows (default sun). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames it takes to sew (default 80). · `seed?: number` Changes the random layout; the same seed always draws the same. · `colors?: string[]` Thread colours, shading across the shape; warm golds (greens for a leaf) if not set. · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### Watercolor · `drawings/watercolor`
 
@@ -437,9 +417,7 @@ A watercolour wash painted behind content, as a brushstroke or a spreading pool.
 
 `<Watercolor width={760} height={170} start={4}><h1>Drawn with code.</h1></Watercolor>`
 
-Props: `width: number` · `height: number` · `kind?: 'stroke' | 'pool'` · `color?: string` · `start?: number` · `frames?: number` · `seed?: number` · `palette?: Partial<Palette>` · `children?: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…`
-
-Needs: `drawings/paper`
+Props: `width: number` Its width in px. · `height: number` Its height in px. · `kind?: 'stroke' | 'pool'` stroke paints a brushstroke left to right; pool bleeds out from the middle (default stroke). · `color?: string` The paint's colour; the accent mixed with the palette's sun if not set. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames it takes to paint (default 28). · `seed?: number` Changes the random layout; the same seed always draws the same. · `palette?: Partial<Palette>` Overrides some of the drawing's colours. · `children?: ReactNode` What sits on the wash, centred.
 
 ### Doodles · `drawings/doodles`
 
@@ -447,11 +425,9 @@ A hand-drawn mark in a wobbly pen line: underline, circle, arrow, star, heart an
 
 `<Doodles kind="circle" width={300} height={140} start={20} />`
 
-Props: `kind: DoodleKind` · `width?: number` · `height?: number` · `start?: number` · `frames?: number` · `color?: string` · `strokeWidth?: number` · `seed?: number` · `palette?: Partial<Palette>`
+Props: `kind: DoodleKind` Which mark: underline, circle, squiggle, arrow, loop, spiral, star, sparkle, heart, burst or check. · `width?: number` Its width in px (default 200). · `height?: number` Its height in px (default 200). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames it takes to draw (default 24). · `color?: string` Its colour; the ink colour (dark on paper and light pages, light on dark ones) if not set. · `strokeWidth?: number` Line width in px (default 5). · `seed?: number` Changes the random layout; the same seed always draws the same. · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 Also exports: `DoodleKind`
-
-Needs: `drawings/paper`
 
 ### Constellation · `drawings/constellation`
 
@@ -459,9 +435,7 @@ Stars appearing one by one and joining up with fine lines into a constellation.
 
 `<Constellation width={800} height={460} count={14} start={4} />`
 
-Props: `width: number` · `height: number` · `count?: number` · `start?: number` · `stagger?: number` · `seed?: number` · `color?: string` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `width: number` Its width in px. · `height: number` Its height in px. · `count?: number` How many stars (default 14). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `stagger?: number` Frames between one star appearing and the next (default 5). · `seed?: number` Changes the random layout; the same seed always draws the same. · `color?: string` Its colour; the ink colour (dark on paper and light pages, light on dark ones) if not set. · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### Contours · `drawings/contours`
 
@@ -469,9 +443,7 @@ Topographic contour lines of a made-up landscape, drawing on level by level.
 
 `<Contours width={800} height={520} levels={10} start={4} />`
 
-Props: `width: number` · `height: number` · `levels?: number` · `start?: number` · `frames?: number` · `seed?: number` · `color?: string` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `width: number` Its width in px. · `height: number` Its height in px. · `levels?: number` How many contour lines (default 10). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames it takes to draw (default 70). · `seed?: number` Changes the random layout; the same seed always draws the same. · `color?: string` The colour of every line; ink warming towards the palette's warm colour, level by level, if not set. · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### Ripple · `drawings/ripple`
 
@@ -479,9 +451,7 @@ Drops of ink landing one after another and rippling out in wobbly rings.
 
 `<Ripple width={700} height={460} drops={6} start={4} />`
 
-Props: `width: number` · `height: number` · `drops?: number` · `start?: number` · `every?: number` · `seed?: number` · `color?: string` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `width: number` Its width in px. · `height: number` Its height in px. · `drops?: number` How many drops land (default 6). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `every?: number` Frames between one drop and the next (default 9). · `seed?: number` Changes the random layout; the same seed always draws the same. · `color?: string` Its colour; ink mixed with the palette's sky if not set. · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ### Scribble · `drawings/scribble`
 
@@ -489,9 +459,7 @@ A marker scribbling back and forth to fill a shape behind a word or number.
 
 `<Scribble width={320} height={140} start={10} />`
 
-Props: `width: number` · `height: number` · `shape?: 'circle' | 'blob'` · `density?: number` · `start?: number` · `frames?: number` · `color?: string` · `strokeWidth?: number` · `seed?: number` · `palette?: Partial<Palette>`
-
-Needs: `drawings/paper`
+Props: `width: number` Its width in px. · `height: number` Its height in px. · `shape?: 'circle' | 'blob'` The outline it fills: a loose blob or a circle (default blob). · `density?: number` How many back-and-forth passes (default 11). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `frames?: number` Frames it takes to draw (default 30). · `color?: string` Its colour; the palette's sun, see-through, if not set. · `strokeWidth?: number` Line width in px (default 14). · `seed?: number` Changes the random layout; the same seed always draws the same. · `palette?: Partial<Palette>` Overrides some of the drawing's colours.
 
 ## Voice
 
@@ -503,7 +471,7 @@ Plays a voiceover's lines one after another, and times scenes to them with voice
 
 `<Voiceover lines={tutorial} start={15} />`
 
-Props: `lines: VoiceLine[]` · `start?: number` · `gap?: number` · `volume?: number`
+Props: `lines: VoiceLine[]` The voiceover's lines, from src/voice/<name>.ts (written by npm run voice). · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `gap?: number` Seconds of silence between lines (default 0.3). · `volume?: number` Its volume, 0 to 1 (default 1).
 
 Also exports: `voiceTiming`, `voiceEnd`, `voiceWords`, `VoiceLine`, `Word`
 
@@ -513,7 +481,7 @@ Reels-style captions a few words at a time, timed to a voiceover, with the spoke
 
 `<Captions lines={tutorial} start={15} variant="karaoke" />`
 
-Props: `lines?: VoiceLine[]` · `only?: number[]` The indices of the lines this waveform follows; the others leave it flat. Default: all. · `text?: string` · `seconds?: number` · `words?: Word[]` · `start?: number` · `gap?: number` · `variant?: 'pop' | 'karaoke' | 'line'` · `max?: number` The most words on screen at once. · `position?: 'bottom' | 'middle'` · `size?: number` · `plate?: boolean` A plate behind the words: the default on light styles.
+Props: `lines?: VoiceLine[]` A voiceover's lines to caption; give it the Voiceover's start and gap. · `only?: number[]` Not used by Captions, which shows every line; Waveform takes the same prop. · `text?: string` Words to caption without a voiceover, spoken over `seconds` from `start`. · `seconds?: number` Seconds `text` is spoken over (default 3). · `words?: Word[]` Exact words with their start and end frames, instead of lines or text. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `gap?: number` Seconds between the voiceover's lines, as given to Voiceover (default 0.3). · `variant?: 'pop' | 'karaoke' | 'line'` karaoke (a box jumps to the word being said), pop (words pop in on their beat) or line (a plain subtitle); default karaoke. · `max?: number` The most words on screen at once (default 3 in tall frames, 5 in wide ones). · `position?: 'bottom' | 'middle'` Low in the safe area (bottom, the default) or in the middle. · `size?: number` Its font size in px; sized to the frame if not set. · `plate?: boolean` A plate behind the words: the default on light styles.
 
 Needs: `voice/voiceover`
 
@@ -523,9 +491,9 @@ A waveform that moves with a voice: centred bars, a line, or bars around a ring 
 
 `<Waveform lines={tutorial} start={15} variant="circle">{face}</Waveform>`
 
-Props: `lines?: VoiceLine[]` · `only?: number[]` The indices of the lines this waveform follows; the others leave it flat. Default: all. · `gap?: number` · `src?: string` · `start?: number` · `variant?: 'circle' | 'line' | 'bars'` · `width?: number` · `height?: number` · `size?: number` The circle's diameter. · `bars?: number` · `color?: string` · `seed?: number` · `children?: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…`
+Props: `lines?: VoiceLine[]` A voiceover's lines to follow; give it the Voiceover's start and gap. · `only?: number[]` The indices of the lines this waveform follows; the others leave it flat. Default: all. · `gap?: number` Seconds between the voiceover's lines, as given to Voiceover (default 0.3). · `src?: string` One audio file in public/ to follow, playing from `start`. · `start?: number` Frame it starts on, counted from the start of its scene (default 0). · `variant?: 'circle' | 'line' | 'bars'` bars (a centred spectrum), line (the wave) or circle (bars round a ring, with children inside); default bars. · `width?: number` Its width in px, for bars and line (default 720). · `height?: number` Its height in px, for bars and line (default 160). · `size?: number` The circle's diameter in px (default 360). · `bars?: number` How many bars (default 48, or 72 round a circle). · `color?: string` Its colour; the style's accent if not set. · `seed?: number` Seed for the made-up motion it shows with no voice to follow (default 3). · `children?: ReactNode` What sits inside the circle: a face, a cover.
 
-Needs: `voice/captions`, `voice/voiceover`
+Needs: `voice/voiceover`
 
 ## Backdrops
 

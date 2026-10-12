@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {mix} from '../../../look';
 import type {TransitionDef} from '../../types';
-import {linear, presentation, type PresentationProps, transitionDemos} from '../_shared';
+import {linear, presentation, type PresentationProps} from '../_shared';
 
 const FRAMES = 10;
 
@@ -25,5 +25,3 @@ export const transition: TransitionDef = {
   frames: FRAMES,
   make: (look) => linear(FRAMES, presentation(Flash, {color: look.dark ? mix('#ffffff', look.accent, 0.12) : '#ffffff'}), Easing.linear),
 };
-
-export const demos = transitionDemos('flash', transition);

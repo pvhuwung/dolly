@@ -2,7 +2,6 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {alpha} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {backdropDemos} from '../_shared';
 
 /** A dot grid that drifts slowly and fades out towards the edges. */
 export const backdrop: React.FC<BackdropProps> = ({look, t, id}) => {
@@ -21,5 +20,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, t, id}) => {
     </AbsoluteFill>
   );
 };
-
-export const demos = backdropDemos('dots');

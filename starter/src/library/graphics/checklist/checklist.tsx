@@ -1,7 +1,6 @@
 import React from 'react';
 import {ease} from '../../../kit';
-import type {Demo} from '../../types';
-import {Area, useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 /**
  * Items ticking off one by one: each box fills and its check draws in. For what's included, what
@@ -10,10 +9,15 @@ import {Area, useArea, useTempo} from '../_shared';
  *   <Checklist items={['Tests pass', 'Preview deployed', 'Ready to merge']} start={6} />
  */
 export const Checklist: React.FC<{
+  /** The lines to tick off, in order. */
   items: string[];
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames between one item ticking and the next (default 16). */
   stagger?: number;
+  /** Size of the text in px (default 34). */
   size?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
 }> = ({items, start = 0, stagger = 16, size = 34, exit}) => {
   const {look, pop, glide, ramp, gone} = useTempo();
@@ -62,19 +66,3 @@ export const Checklist: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const ChecklistDemo: React.FC = () => {
-  const {look} = useArea();
-  return (
-    <Area>
-      <Checklist items={['Tests pass', 'Preview deployed', 'Docs updated', 'Ready to merge']} start={4} size={(look.format !== 'landscape') ? 52 : 50} />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Checklist', code: "<Checklist items={['Tests pass', ...]} />", seconds: 3.5, hero: 90, Component: ChecklistDemo},
-];

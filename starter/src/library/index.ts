@@ -89,6 +89,93 @@ import * as transitions_book_flip from './transitions/book-flip/book-flip';
 import * as transitions_blur_slide from './transitions/blur-slide/blur-slide';
 import * as transitions_linear_blur from './transitions/linear-blur/linear-blur';
 import * as transitions_push_cut from './transitions/push-cut/push-cut';
+import * as templates_statement_demo from './templates/statement/statement.demo';
+import * as templates_metric_demo from './templates/metric/metric.demo';
+import * as templates_features_demo from './templates/features/features.demo';
+import * as templates_quote_demo from './templates/quote/quote.demo';
+import * as templates_compare_demo from './templates/compare/compare.demo';
+import * as templates_steps_demo from './templates/steps/steps.demo';
+import * as templates_logo_reveal_demo from './templates/logo-reveal/logo-reveal.demo';
+import * as templates_end_card_demo from './templates/end-card/end-card.demo';
+import * as templates_lineup_demo from './templates/lineup/lineup.demo';
+import * as templates_agenda_demo from './templates/agenda/agenda.demo';
+import * as templates_countdown_demo from './templates/countdown/countdown.demo';
+import * as templates_changelog_demo from './templates/changelog/changelog.demo';
+import * as templates_timeline_demo from './templates/timeline/timeline.demo';
+import * as templates_list_demo from './templates/list/list.demo';
+import * as templates_announcement_demo from './templates/announcement/announcement.demo';
+import * as text_kinetic_demo from './text/kinetic/kinetic.demo';
+import * as text_mark_demo from './text/mark/mark.demo';
+import * as text_cycle_demo from './text/cycle/cycle.demo';
+import * as text_counter_demo from './text/counter/counter.demo';
+import * as graphics_draw_demo from './graphics/draw/draw.demo';
+import * as graphics_arrow_demo from './graphics/arrow/arrow.demo';
+import * as graphics_ring_demo from './graphics/ring/ring.demo';
+import * as graphics_bars_demo from './graphics/bars/bars.demo';
+import * as graphics_line_chart_demo from './graphics/line-chart/line-chart.demo';
+import * as graphics_stat_demo from './graphics/stat/stat.demo';
+import * as graphics_progress_demo from './graphics/progress/progress.demo';
+import * as graphics_checklist_demo from './graphics/checklist/checklist.demo';
+import * as graphics_burst_demo from './graphics/burst/burst.demo';
+import * as graphics_shine_demo from './graphics/shine/shine.demo';
+import * as graphics_cursor_demo from './graphics/cursor/cursor.demo';
+import * as graphics_keys_demo from './graphics/keys/keys.demo';
+import * as graphics_spotlight_demo from './graphics/spotlight/spotlight.demo';
+import * as graphics_toast_demo from './graphics/toast/toast.demo';
+import * as graphics_chat_demo from './graphics/chat/chat.demo';
+import * as graphics_badge_demo from './graphics/badge/badge.demo';
+import * as graphics_icon_demo from './graphics/icon/icon.demo';
+import * as graphics_marquee_demo from './graphics/marquee/marquee.demo';
+import * as drawings_paper_demo from './drawings/paper/paper.demo';
+import * as drawings_flower_demo from './drawings/flower/flower.demo';
+import * as drawings_stamps_demo from './drawings/stamps/stamps.demo';
+import * as drawings_hex_field_demo from './drawings/hex-field/hex-field.demo';
+import * as drawings_butterfly_demo from './drawings/butterfly/butterfly.demo';
+import * as drawings_plant_demo from './drawings/plant/plant.demo';
+import * as drawings_stitch_demo from './drawings/stitch/stitch.demo';
+import * as drawings_watercolor_demo from './drawings/watercolor/watercolor.demo';
+import * as drawings_doodles_demo from './drawings/doodles/doodles.demo';
+import * as drawings_constellation_demo from './drawings/constellation/constellation.demo';
+import * as drawings_contours_demo from './drawings/contours/contours.demo';
+import * as drawings_ripple_demo from './drawings/ripple/ripple.demo';
+import * as drawings_scribble_demo from './drawings/scribble/scribble.demo';
+import * as voice_voiceover_demo from './voice/voiceover/voiceover.demo';
+import * as voice_captions_demo from './voice/captions/captions.demo';
+import * as voice_waveform_demo from './voice/waveform/waveform.demo';
+import * as backdrops_plain_demo from './backdrops/plain/plain.demo';
+import * as backdrops_glow_demo from './backdrops/glow/glow.demo';
+import * as backdrops_grid_demo from './backdrops/grid/grid.demo';
+import * as backdrops_dots_demo from './backdrops/dots/dots.demo';
+import * as backdrops_blobs_demo from './backdrops/blobs/blobs.demo';
+import * as backdrops_scanlines_demo from './backdrops/scanlines/scanlines.demo';
+import * as backdrops_grain_demo from './backdrops/grain/grain.demo';
+import * as backdrops_aurora_demo from './backdrops/aurora/aurora.demo';
+import * as backdrops_beams_demo from './backdrops/beams/beams.demo';
+import * as backdrops_spotlight_demo from './backdrops/spotlight/spotlight.demo';
+import * as transitions_cut_demo from './transitions/cut/cut.demo';
+import * as transitions_fade_demo from './transitions/fade/fade.demo';
+import * as transitions_dip_demo from './transitions/dip/dip.demo';
+import * as transitions_slide_demo from './transitions/slide/slide.demo';
+import * as transitions_wipe_demo from './transitions/wipe/wipe.demo';
+import * as transitions_iris_demo from './transitions/iris/iris.demo';
+import * as transitions_clock_demo from './transitions/clock/clock.demo';
+import * as transitions_flip_demo from './transitions/flip/flip.demo';
+import * as transitions_zoom_demo from './transitions/zoom/zoom.demo';
+import * as transitions_whip_demo from './transitions/whip/whip.demo';
+import * as transitions_bars_demo from './transitions/bars/bars.demo';
+import * as transitions_flash_demo from './transitions/flash/flash.demo';
+import * as transitions_glitch_demo from './transitions/glitch/glitch.demo';
+import * as transitions_zoom_blur_demo from './transitions/zoom-blur/zoom-blur.demo';
+import * as transitions_cross_zoom_demo from './transitions/cross-zoom/cross-zoom.demo';
+import * as transitions_dreamy_zoom_demo from './transitions/dreamy-zoom/dreamy-zoom.demo';
+import * as transitions_film_burn_demo from './transitions/film-burn/film-burn.demo';
+import * as transitions_crosswarp_demo from './transitions/crosswarp/crosswarp.demo';
+import * as transitions_ripple_demo from './transitions/ripple/ripple.demo';
+import * as transitions_swap_demo from './transitions/swap/swap.demo';
+import * as transitions_book_flip_demo from './transitions/book-flip/book-flip.demo';
+import * as transitions_blur_slide_demo from './transitions/blur-slide/blur-slide.demo';
+import * as transitions_linear_blur_demo from './transitions/linear-blur/linear-blur.demo';
+import * as transitions_push_cut_demo from './transitions/push-cut/push-cut.demo';
 
 export * from './types';
 export {Statement} from './templates/statement/statement';
@@ -194,11 +281,11 @@ export const TRANSITIONS = {
 
 /** Every item's gallery samples, by category, in catalog order. */
 export const DEMOS: Record<'templates' | 'text' | 'graphics' | 'drawings' | 'voice' | 'backdrops' | 'transitions', Demo[]> = {
-  templates: [...templates_statement.demos, ...templates_metric.demos, ...templates_features.demos, ...templates_quote.demos, ...templates_compare.demos, ...templates_steps.demos, ...templates_logo_reveal.demos, ...templates_end_card.demos, ...templates_lineup.demos, ...templates_agenda.demos, ...templates_countdown.demos, ...templates_changelog.demos, ...templates_timeline.demos, ...templates_list.demos, ...templates_announcement.demos],
-  text: [...text_kinetic.demos, ...text_mark.demos, ...text_cycle.demos, ...text_counter.demos],
-  graphics: [...graphics_draw.demos, ...graphics_arrow.demos, ...graphics_ring.demos, ...graphics_bars.demos, ...graphics_line_chart.demos, ...graphics_stat.demos, ...graphics_progress.demos, ...graphics_checklist.demos, ...graphics_burst.demos, ...graphics_shine.demos, ...graphics_cursor.demos, ...graphics_keys.demos, ...graphics_spotlight.demos, ...graphics_toast.demos, ...graphics_chat.demos, ...graphics_badge.demos, ...graphics_icon.demos, ...graphics_marquee.demos],
-  drawings: [...drawings_paper.demos, ...drawings_flower.demos, ...drawings_stamps.demos, ...drawings_hex_field.demos, ...drawings_butterfly.demos, ...drawings_plant.demos, ...drawings_stitch.demos, ...drawings_watercolor.demos, ...drawings_doodles.demos, ...drawings_constellation.demos, ...drawings_contours.demos, ...drawings_ripple.demos, ...drawings_scribble.demos],
-  voice: [...voice_voiceover.demos, ...voice_captions.demos, ...voice_waveform.demos],
-  backdrops: [...backdrops_plain.demos, ...backdrops_glow.demos, ...backdrops_grid.demos, ...backdrops_dots.demos, ...backdrops_blobs.demos, ...backdrops_scanlines.demos, ...backdrops_grain.demos, ...backdrops_aurora.demos, ...backdrops_beams.demos, ...backdrops_spotlight.demos],
-  transitions: [...transitions_cut.demos, ...transitions_fade.demos, ...transitions_dip.demos, ...transitions_slide.demos, ...transitions_wipe.demos, ...transitions_iris.demos, ...transitions_clock.demos, ...transitions_flip.demos, ...transitions_zoom.demos, ...transitions_whip.demos, ...transitions_bars.demos, ...transitions_flash.demos, ...transitions_glitch.demos, ...transitions_zoom_blur.demos, ...transitions_cross_zoom.demos, ...transitions_dreamy_zoom.demos, ...transitions_film_burn.demos, ...transitions_crosswarp.demos, ...transitions_ripple.demos, ...transitions_swap.demos, ...transitions_book_flip.demos, ...transitions_blur_slide.demos, ...transitions_linear_blur.demos, ...transitions_push_cut.demos],
+  templates: [...templates_statement_demo.demos, ...templates_metric_demo.demos, ...templates_features_demo.demos, ...templates_quote_demo.demos, ...templates_compare_demo.demos, ...templates_steps_demo.demos, ...templates_logo_reveal_demo.demos, ...templates_end_card_demo.demos, ...templates_lineup_demo.demos, ...templates_agenda_demo.demos, ...templates_countdown_demo.demos, ...templates_changelog_demo.demos, ...templates_timeline_demo.demos, ...templates_list_demo.demos, ...templates_announcement_demo.demos],
+  text: [...text_kinetic_demo.demos, ...text_mark_demo.demos, ...text_cycle_demo.demos, ...text_counter_demo.demos],
+  graphics: [...graphics_draw_demo.demos, ...graphics_arrow_demo.demos, ...graphics_ring_demo.demos, ...graphics_bars_demo.demos, ...graphics_line_chart_demo.demos, ...graphics_stat_demo.demos, ...graphics_progress_demo.demos, ...graphics_checklist_demo.demos, ...graphics_burst_demo.demos, ...graphics_shine_demo.demos, ...graphics_cursor_demo.demos, ...graphics_keys_demo.demos, ...graphics_spotlight_demo.demos, ...graphics_toast_demo.demos, ...graphics_chat_demo.demos, ...graphics_badge_demo.demos, ...graphics_icon_demo.demos, ...graphics_marquee_demo.demos],
+  drawings: [...drawings_paper_demo.demos, ...drawings_flower_demo.demos, ...drawings_stamps_demo.demos, ...drawings_hex_field_demo.demos, ...drawings_butterfly_demo.demos, ...drawings_plant_demo.demos, ...drawings_stitch_demo.demos, ...drawings_watercolor_demo.demos, ...drawings_doodles_demo.demos, ...drawings_constellation_demo.demos, ...drawings_contours_demo.demos, ...drawings_ripple_demo.demos, ...drawings_scribble_demo.demos],
+  voice: [...voice_voiceover_demo.demos, ...voice_captions_demo.demos, ...voice_waveform_demo.demos],
+  backdrops: [...backdrops_plain_demo.demos, ...backdrops_glow_demo.demos, ...backdrops_grid_demo.demos, ...backdrops_dots_demo.demos, ...backdrops_blobs_demo.demos, ...backdrops_scanlines_demo.demos, ...backdrops_grain_demo.demos, ...backdrops_aurora_demo.demos, ...backdrops_beams_demo.demos, ...backdrops_spotlight_demo.demos],
+  transitions: [...transitions_cut_demo.demos, ...transitions_fade_demo.demos, ...transitions_dip_demo.demos, ...transitions_slide_demo.demos, ...transitions_wipe_demo.demos, ...transitions_iris_demo.demos, ...transitions_clock_demo.demos, ...transitions_flip_demo.demos, ...transitions_zoom_demo.demos, ...transitions_whip_demo.demos, ...transitions_bars_demo.demos, ...transitions_flash_demo.demos, ...transitions_glitch_demo.demos, ...transitions_zoom_blur_demo.demos, ...transitions_cross_zoom_demo.demos, ...transitions_dreamy_zoom_demo.demos, ...transitions_film_burn_demo.demos, ...transitions_crosswarp_demo.demos, ...transitions_ripple_demo.demos, ...transitions_swap_demo.demos, ...transitions_book_flip_demo.demos, ...transitions_blur_slide_demo.demos, ...transitions_linear_blur_demo.demos, ...transitions_push_cut_demo.demos],
 };

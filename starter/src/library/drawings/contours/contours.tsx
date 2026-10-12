@@ -2,8 +2,7 @@ import React, {useMemo} from 'react';
 import {random} from 'remotion';
 import {ease} from '../../../kit';
 import {mix} from '../../../look';
-import type {Demo} from '../../types';
-import {CardSample, DrawOn, fbm, smooth, useClock, useInk, usePalette, type Palette, type Pt} from '../_shared';
+import {DrawOn, fbm, smooth, useClock, useInk, usePalette, type Palette, type Pt} from '../_shared';
 
 /** Contour lines of a field at `level`, joined into polylines (marching squares). */
 const isolines = (grid: number[][], step: number, level: number): Pt[][] => {
@@ -85,13 +84,21 @@ const isolines = (grid: number[][], step: number, level: number): Pt[][] => {
  *   <Contours width={800} height={520} levels={10} start={4} />
  */
 export const Contours: React.FC<{
+  /** Its width in px. */
   width: number;
+  /** Its height in px. */
   height: number;
+  /** How many contour lines (default 10). */
   levels?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames it takes to draw (default 70). */
   frames?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** The colour of every line; ink warming towards the palette's warm colour, level by level, if not set. */
   color?: string;
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({width, height, levels = 10, start = 0, frames = 70, seed = 1, color, palette}) => {
   const p = usePalette(palette);
@@ -127,13 +134,3 @@ export const Contours: React.FC<{
     </svg>
   );
 };
-
-export const demos: Demo[] = [
-  {
-    name: 'Contour lines',
-    code: '<Contours width={800} height={520} levels={10} />',
-    seconds: 3.5,
-    hero: 95,
-    Component: () => <CardSample aspect={1.3}>{(w, h) => <Contours width={Math.round(w * 0.9)} height={Math.round(h * 0.88)} start={4} frames={70} />}</CardSample>,
-  },
-];

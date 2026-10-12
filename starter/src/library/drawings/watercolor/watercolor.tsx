@@ -1,8 +1,7 @@
 import React, {useMemo} from 'react';
 import {ease} from '../../../kit';
 import {alpha, mix} from '../../../look';
-import type {Demo} from '../../types';
-import {InArea, Wobble, noise, smooth, useArea, useClock, usePalette, useUid, type Palette, type Pt} from '../_shared';
+import {Wobble, noise, smooth, useClock, usePalette, useUid, type Palette, type Pt} from '../_shared';
 
 /**
  * A wash of watercolour behind content: a brushstroke painted left to right (`kind="stroke"`),
@@ -12,14 +11,23 @@ import {InArea, Wobble, noise, smooth, useArea, useClock, usePalette, useUid, ty
  *   <Watercolor width={760} height={170} start={4}><h1>Drawn with code.</h1></Watercolor>
  */
 export const Watercolor: React.FC<{
+  /** Its width in px. */
   width: number;
+  /** Its height in px. */
   height: number;
+  /** stroke paints a brushstroke left to right; pool bleeds out from the middle (default stroke). */
   kind?: 'stroke' | 'pool';
+  /** The paint's colour; the accent mixed with the palette's sun if not set. */
   color?: string;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames it takes to paint (default 28). */
   frames?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
+  /** What sits on the wash, centred. */
   children?: React.ReactNode;
 }> = ({width, height, kind = 'stroke', color, start = 0, frames = 28, seed = 1, palette, children}) => {
   const p = usePalette(palette);
@@ -77,21 +85,3 @@ export const Watercolor: React.FC<{
     </div>
   );
 };
-
-const WatercolorDemo: React.FC = () => {
-  const a = useArea();
-  const look = a.look;
-  const w = Math.min(a.w * 0.95, 1180);
-  return (
-    <InArea>
-      <Watercolor width={Math.round(w)} height={Math.round(look.size * (look.tall ? 4 : 3))} start={4} frames={30}>
-        <div style={{...look.headline, fontSize: Math.round(look.size * 1.2), textAlign: 'center', padding: '0 0.4em', color: look.dark ? '#f6f1e5' : look.ink}}>
-          {/* The accent phrase keeps its weight or slant but not its colour, which is the wash's. */}
-          Drawn <span style={{...look.emphasis, color: 'inherit', textShadow: 'none'}}>with code.</span>
-        </div>
-      </Watercolor>
-    </InArea>
-  );
-};
-
-export const demos: Demo[] = [{name: 'Watercolour wash', code: '<Watercolor width={760} height={170}>{headline}</Watercolor>', seconds: 2.5, hero: 50, Component: WatercolorDemo}];

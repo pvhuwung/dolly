@@ -1,6 +1,5 @@
 import React from 'react';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
-import type {Demo} from '../../types';
 import {spread} from '../_shared';
 
 // Voice: a voiceover made with scripts/voice.mjs, captions timed to it, and a waveform that moves
@@ -54,7 +53,16 @@ export const voiceEnd = (lines: VoiceLine[], options: Timing = {}) => {
  *
  *   <Voiceover lines={tutorial} start={15} />
  */
-export const Voiceover: React.FC<{lines: VoiceLine[]; start?: number; gap?: number; volume?: number}> = ({lines, start = 0, gap = 0.3, volume = 1}) => {
+export const Voiceover: React.FC<{
+  /** The voiceover's lines, from src/voice/<name>.ts (written by npm run voice). */
+  lines: VoiceLine[];
+  /** Frame it starts on, counted from the start of its scene (default 0). */
+  start?: number;
+  /** Seconds of silence between lines (default 0.3). */
+  gap?: number;
+  /** Its volume, 0 to 1 (default 1). */
+  volume?: number;
+}> = ({lines, start = 0, gap = 0.3, volume = 1}) => {
   const {fps} = useVideoConfig();
   return (
     <>
@@ -75,5 +83,3 @@ export const voiceWords = (lines: VoiceLine[], options: Timing = {}): Word[][] =
     return spread(lines[i].text, t.start + a * fps, t.start + b * fps);
   });
 };
-
-export const demos: Demo[] = [];

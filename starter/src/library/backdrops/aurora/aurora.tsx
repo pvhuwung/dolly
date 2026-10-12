@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {alpha} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {Hairlines, backdropDemos} from '../_shared';
+import {Hairlines} from '../_shared';
 
 /** Ribbons of light in the accent and its cousins, swaying over a faint hairline grid. */
 export const backdrop: React.FC<BackdropProps> = ({look, t}) => {
@@ -32,5 +32,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, t}) => {
     </AbsoluteFill>
   );
 };
-
-export const demos = backdropDemos('aurora');

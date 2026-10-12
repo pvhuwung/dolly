@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, random} from 'remotion';
 import {alpha} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {Vignette, backdropDemos} from '../_shared';
+import {Vignette} from '../_shared';
 
 // A 256 px tile of grey noise, drawn once by the browser and then only moved around.
 const NOISE = `url("data:image/svg+xml;utf8,${encodeURIComponent(
@@ -25,5 +25,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, tone, frame}) => (
     <Vignette look={look} tone={tone} strength={{night: 0.7, mid: 0.3, day: 0.12}} />
   </AbsoluteFill>
 );
-
-export const demos = backdropDemos('grain');

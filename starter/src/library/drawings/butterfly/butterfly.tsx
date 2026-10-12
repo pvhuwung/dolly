@@ -1,8 +1,7 @@
 import React from 'react';
 import {random} from 'remotion';
 import {alpha, mix} from '../../../look';
-import type {Demo} from '../../types';
-import {CardSample, Wobble, n1, useClock, usePalette, useUid, type Palette} from '../_shared';
+import {Wobble, n1, useClock, usePalette, useUid, type Palette} from '../_shared';
 
 const FOREWING = 'M6,-8 C30,-70 110,-128 168,-116 C186,-110 184,-84 170,-64 C150,-36 104,-10 8,2 Z';
 const HINDWING = 'M8,6 C70,0 128,18 134,58 C138,92 110,124 74,122 C44,120 18,92 8,24 Z';
@@ -45,7 +44,22 @@ const HIND_DOTS = [
  *
  *   <Butterfly size={300} start={6} />
  */
-export const Butterfly: React.FC<{size?: number; start?: number; flap?: number; seed?: number; color?: string; arrive?: boolean; palette?: Partial<Palette>}> = ({
+export const Butterfly: React.FC<{
+  /** Its size in px (default 300). */
+  size?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
+  start?: number;
+  /** Frames for one wingbeat (default 24). */
+  flap?: number;
+  /** Changes the random layout; the same seed always draws the same. */
+  seed?: number;
+  /** Its wing colour; the palette's warm colour if not set. */
+  color?: string;
+  /** Flies in along a curve from below left; false to start in place, hovering (default true). */
+  arrive?: boolean;
+  /** Overrides some of the drawing's colours. */
+  palette?: Partial<Palette>;
+}> = ({
   size = 300,
   start = 0,
   flap = 24,
@@ -120,13 +134,3 @@ export const Butterfly: React.FC<{size?: number; start?: number; flap?: number; 
     </svg>
   );
 };
-
-export const demos: Demo[] = [
-  {
-    name: 'Butterfly',
-    code: '<Butterfly size={300} start={6} />',
-    seconds: 3,
-    hero: 78,
-    Component: () => <CardSample aspect={1.15}>{(w) => <Butterfly size={w * 0.72} start={6} />}</CardSample>,
-  },
-];

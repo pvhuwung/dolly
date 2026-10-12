@@ -126,10 +126,9 @@ const camera = useShot(moves.zoomIn(wide, card), {dolly: 40});
 | `starter/` | Two working videos to start from: `Video` (made from takes) and `Promo` (templates only) |
 | `starter/src/look.tsx` | The styles and formats, read through `useLook()` |
 | `starter/src/kit.tsx` | The 3D kit, in one file: `Stage`, `Layer`, `Screen`, `Clip`, `Footage`, `Floor`, `animate`, `useShot`, `focusOn`, `moves` |
-| `starter/src/templates.tsx` | Ready-made scenes |
-| `starter/src/fx/` | Kinetic type, graphics, backdrops, transitions |
-| `starter/scripts/` | `take.sh` records a take (screen and Simulator at once); `sfx.mjs` generates a chime, a whoosh and a click; `music.mjs` generates an original soundtrack of any length |
-| `references/` | `effects.md` lists every effect and template; `recipes.md` has bigger camera moves |
+| `starter/src/library/` | The component library: 87 items (templates, kinetic type, graphics, drawings, voice, backdrops, transitions), one folder each with its component, its sample and an `item.json`. [`CATALOG.md`](starter/src/library/CATALOG.md) lists them with their props |
+| `starter/scripts/` | `take.sh` records a take (screen and Simulator at once); `sfx.mjs` generates a chime, a whoosh and a click; `music.mjs` generates an original soundtrack of any length; `library.mjs` rebuilds the library's index and catalog |
+| `references/` | `recipes.md` has bigger camera moves |
 
 Every scene, style, format and effect is rendered and checked against the versions pinned in
 `starter/package.json`. The sounds and music are synthesized by the scripts, so they're free to

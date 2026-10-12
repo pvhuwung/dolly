@@ -1,6 +1,6 @@
 import {clockWipe} from '@remotion/transitions/clock-wipe';
 import type {TransitionDef} from '../../types';
-import {as, linear, transitionDemos} from '../_shared';
+import {as, linear} from '../_shared';
 
 const FRAMES = 20;
 
@@ -9,5 +9,3 @@ export const transition: TransitionDef = {
   frames: FRAMES,
   make: (look) => linear(FRAMES, as(clockWipe({width: look.width, height: look.height}))),
 };
-
-export const demos = transitionDemos('clock', transition);

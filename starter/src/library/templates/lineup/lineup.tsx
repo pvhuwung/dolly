@@ -1,7 +1,6 @@
 import React from 'react';
 import {Img, staticFile} from 'remotion';
 import {alpha, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, inner, Heading, headingHeight, useStagger} from '../_shared';
 
 const initialsOf = (name: string) =>
@@ -19,7 +18,25 @@ const initialsOf = (name: string) =>
  *
  *   <Lineup title="Meet the" accent="speakers." people={[{name: 'Ada Okafor', role: 'Design lead'}, ...]} />
  */
-export const Lineup: React.FC<{eyebrow?: string; title?: string; accent?: string; people: {name: string; role?: string; initials?: string; image?: string}[]}> = ({
+export const Lineup: React.FC<{
+  /** A small label above the headline. */
+  eyebrow?: string;
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** Two to eight people, one card each. */
+  people: {
+    /** Their name. */
+    name: string;
+    /** Their role, under the name. */
+    role?: string;
+    /** The avatar's letters; taken from the name if not set. */
+    initials?: string;
+    /** A photo in public/, shown in place of the initials. */
+    image?: string;
+  }[];
+}> = ({
   eyebrow,
   title,
   accent,
@@ -95,8 +112,3 @@ export const Lineup: React.FC<{eyebrow?: string; title?: string; accent?: string
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Lineup', code: '<Lineup title="Meet the" accent="speakers." people={[{name, role}, ...]} />', seconds: 4, hero: 100, backdrop: false, Component: () => <Lineup eyebrow="Fieldwork 2027" title="Meet the" accent="speakers." people={[{name: 'Ada Okafor', role: 'Design lead'}, {name: 'Ravi Menon', role: 'Founder'}, {name: 'Lena Varga', role: 'Staff engineer'}, {name: 'Tom Iwasaki', role: 'Product'}]} />},
-];

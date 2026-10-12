@@ -1,6 +1,5 @@
 import React from 'react';
 import {alpha, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, inner, Heading, useStagger} from '../_shared';
 
 /**
@@ -9,7 +8,23 @@ import {Page, inner, Heading, useStagger} from '../_shared';
  *
  *   <List title="Today's" accent="menu." items={[{label: 'Flat white', detail: 'Oat or whole', value: '$4.50'}, ...]} />
  */
-export const List: React.FC<{eyebrow?: string; title?: string; accent?: string; items: {label: string; detail?: string; value?: string}[]}> = ({
+export const List: React.FC<{
+  /** A small label above the headline. */
+  eyebrow?: string;
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** The rows. */
+  items: {
+    /** The row's name, on the left. */
+    label: string;
+    /** A smaller line under the label. */
+    detail?: string;
+    /** What it costs or where it is, on the right after a dotted leader. */
+    value?: string;
+  }[];
+}> = ({
   eyebrow,
   title,
   accent,
@@ -45,8 +60,3 @@ export const List: React.FC<{eyebrow?: string; title?: string; accent?: string; 
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'List', code: '<List title="Today\'s" accent="menu." items={[{label, detail, value}, ...]} />', seconds: 4, hero: 100, backdrop: false, Component: () => <List title="Today’s" accent="menu." items={[{label: 'Flat white', detail: 'Double shot, oat or whole milk', value: '$4.50'}, {label: 'Cardamom bun', detail: 'Baked this morning', value: '$3.80'}, {label: 'Cold brew', detail: 'Steeped for 18 hours', value: '$5.00'}, {label: 'Sourdough toast', detail: 'Butter and sea salt', value: '$6.00'}]} />},
-];

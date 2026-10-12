@@ -1,4 +1,3 @@
-import type React from 'react';
 import type {Word} from './voiceover/voiceover';
 
 // Pieces the voice items share. Not an item: it's copied with any voice item.
@@ -22,7 +21,3 @@ export const spread = (text: string, from: number, to: number): Word[] => {
     return {text: w, start: Math.round(s), end: Math.round(t)};
   });
 };
-
-// Samples for the gallery.
-
-export const centre: React.CSSProperties = {alignItems: 'center', justifyContent: 'center'};

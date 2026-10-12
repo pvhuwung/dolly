@@ -1,6 +1,5 @@
 import React from 'react';
 import {alpha, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, inner, useStagger} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
@@ -10,7 +9,21 @@ import {Kinetic} from '../../text/kinetic/kinetic';
  *
  *   <Changelog version="v2.4" title="What's" accent="new." items={[{tag: 'New', text: 'Offline mode'}, ...]} />
  */
-export const Changelog: React.FC<{version: string; title?: string; accent?: string; items: {tag: 'New' | 'Improved' | 'Fixed'; text: string}[]}> = ({
+export const Changelog: React.FC<{
+  /** The release, in the badge, such as `v2.4`. */
+  version: string;
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** The changes, one row each. */
+  items: {
+    /** `New`, `Improved` or `Fixed`. */
+    tag: 'New' | 'Improved' | 'Fixed';
+    /** The change, one short line. */
+    text: string;
+  }[];
+}> = ({
   version,
   title,
   accent,
@@ -88,8 +101,3 @@ export const Changelog: React.FC<{version: string; title?: string; accent?: stri
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Changelog', code: '<Changelog version="v2.4" title="What\'s" accent="new." items={[{tag: \'New\', text}, ...]} />', seconds: 4.5, hero: 110, backdrop: false, Component: () => <Changelog version="v2.4" title="What’s" accent="new." items={[{tag: 'New', text: 'Offline mode for every note'}, {tag: 'Improved', text: 'Search is three times faster'}, {tag: 'New', text: 'Share a stack with one link'}, {tag: 'Fixed', text: 'Sync on flaky connections'}]} />},
-];

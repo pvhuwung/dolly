@@ -2,8 +2,7 @@ import React, {useMemo} from 'react';
 import {random} from 'remotion';
 import {ease} from '../../../kit';
 import {mix} from '../../../look';
-import type {Demo} from '../../types';
-import {CardSample, bladePoints, n1, smooth, useClock, usePalette, useUid, type Palette} from '../_shared';
+import {bladePoints, n1, smooth, useClock, usePalette, useUid, type Palette} from '../_shared';
 
 type Motif = 'flower' | 'star' | 'leaf' | 'dot' | 'sprig';
 
@@ -66,14 +65,23 @@ const motif = (kind: Motif, s: number, c: string, c2: string, paper: string): Re
  *   <Stamps width={700} height={500} motif="flower" start={6} />
  */
 export const Stamps: React.FC<{
+  /** Its width in px. */
   width: number;
+  /** Its height in px. */
   height: number;
+  /** How many stamps (default 18). */
   count?: number;
+  /** What's stamped: flower, star, leaf, dot or sprig (default flower). */
   motif?: Motif;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames between one stamp landing and the next (default 3). */
   stagger?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** Ink colours to pick from; two mixes of the accent if not set. */
   colors?: string[];
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({width, height, count = 18, motif: kind = 'flower', start = 0, stagger = 3, seed = 1, colors, palette}) => {
   const p = usePalette(palette);
@@ -124,13 +132,3 @@ export const Stamps: React.FC<{
     </svg>
   );
 };
-
-export const demos: Demo[] = [
-  {
-    name: 'Stamps',
-    code: '<Stamps width={700} height={500} motif="flower" />',
-    seconds: 3,
-    hero: 85,
-    Component: () => <CardSample aspect={1.3}>{(w, h) => <Stamps width={w * 0.86} height={h * 0.84} count={20} start={6} />}</CardSample>,
-  },
-];

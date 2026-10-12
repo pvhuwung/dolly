@@ -1,8 +1,7 @@
 import React, {useMemo} from 'react';
 import {ease} from '../../../kit';
 import {alpha, mix} from '../../../look';
-import type {Demo} from '../../types';
-import {CardSample, fbm, n1, useClock, usePalette, type Palette, type Pt} from '../_shared';
+import {fbm, n1, useClock, usePalette, type Palette, type Pt} from '../_shared';
 
 /**
  * A board of hexagons coloured by a heat field: pale cells at the edges, warming to deep ones
@@ -12,13 +11,21 @@ import {CardSample, fbm, n1, useClock, usePalette, type Palette, type Pt} from '
  *   <HexField width={700} height={520} origin={{x: 0.6, y: 0.55}} start={8} />
  */
 export const HexField: React.FC<{
+  /** Its width in px. */
   width: number;
+  /** Its height in px. */
   height: number;
+  /** Size of each hexagon, centre to corner, in px (default 30). */
   radius?: number;
+  /** The hot spot the colour spreads from, in fractions of the box (default {x: 0.62, y: 0.55}). */
   origin?: Pt;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames it takes to draw (default 60). */
   frames?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({width, height, radius = 30, origin = {x: 0.62, y: 0.55}, start = 0, frames = 60, seed = 1, palette}) => {
   const p = usePalette(palette);
@@ -67,13 +74,3 @@ export const HexField: React.FC<{
     </svg>
   );
 };
-
-export const demos: Demo[] = [
-  {
-    name: 'Hex field',
-    code: '<HexField width={700} height={520} origin={{x: 0.6, y: 0.55}} />',
-    seconds: 3,
-    hero: 80,
-    Component: () => <CardSample aspect={1.25}>{(w, h) => <HexField width={w * 0.88} height={h * 0.86} radius={w / 26} start={6} />}</CardSample>,
-  },
-];

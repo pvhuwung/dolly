@@ -1,8 +1,7 @@
 import React from 'react';
 import {Easing, interpolate, random, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {MarkKind, TextEffect, useLook} from '../../../look';
-import type {Demo} from '../../types';
-import {Center, GAP, MarkLayer, WHOLE, clamp01, drawEase, knocksOut, lineHeightOf, markProgress, useDemoType} from '../_shared';
+import {GAP, MarkLayer, WHOLE, clamp01, drawEase, knocksOut, lineHeightOf, markProgress} from '../_shared';
 
 // Kinetic type: headlines that come in word by word (or letter by letter) the style's way, with the
 // accent phrase marked as it lands. Colours, type and springiness come from useLook(), so the same
@@ -77,14 +76,23 @@ const LOWER = 'abcdeghknopqsuvxyz0123456789#+=?';
  * scramble. `exit` is the frame it starts to leave. Keep a line to 2-7 words: it wraps to fit.
  */
 export const Kinetic: React.FC<{
+  /** The words, before the accent phrase. */
   text: string;
+  /** The phrase set in the style's accent way. */
   accent?: string;
+  /** How the words come in; the style's own if not set. */
   effect?: TextEffect;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames between one word (or letter) starting and the next; the effect's own if not set. */
   stagger?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
+  /** What's drawn behind the accent phrase; the style's own if not set. */
   mark?: MarkKind;
+  /** Left-aligned or centred (default left). */
   align?: 'left' | 'center';
+  /** CSS merged over the headline style: font size, colour, max width. */
   style?: React.CSSProperties;
 }> = ({text, accent, effect, start = 0, stagger, exit, mark, align = 'left', style}) => {
   const frame = useCurrentFrame();
@@ -313,51 +321,3 @@ export const Kinetic: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const Headline: React.FC<{text: string; accent: string; effect?: TextEffect; mark?: MarkKind; exit: number}> = ({text, accent, effect, mark, exit}) => (
-  <Center>
-    <Kinetic text={text} accent={accent} effect={effect} mark={mark} start={6} exit={exit} align="center" style={useDemoType()} />
-  </Center>
-);
-
-const EFFECTS: [TextEffect, string, string, number][] = [
-  ['rise', 'Ship the video', 'in an afternoon.', 92],
-  ['reveal', 'Every pixel', 'in its place.', 92],
-  ['blur', 'Out of the noise,', 'into focus.', 92],
-  ['pop', 'Big news.', "It's live.", 92],
-  ['type', 'Write the video', 'as code.', 30],
-  ['letters', 'Made frame', 'by frame.', 92],
-  ['slide', 'From idea', 'to launch.', 92],
-  ['scramble', 'Decode', 'the signal.', 24],
-  ['fade', 'Quiet,', 'and confident.', 92],
-];
-
-const MARKS: [MarkKind, string, string][] = [
-  ['marker', 'The one thing', 'worth remembering.'],
-  ['block', 'Make it', 'unmissable.'],
-  ['pill', 'Friendly by', 'default.'],
-  ['underline', 'Say it once,', 'clearly.'],
-  ['circle', 'Find the', 'one detail.'],
-  ['strike', 'No more', 'manual edits.'],
-  ['box', 'Point at', 'what matters.'],
-];
-
-export const demos: Demo[] = [
-  ...EFFECTS.map(([effect, text, accent, hero]) => ({
-    name: `Text: ${effect}`,
-    code: `<Kinetic text="…" accent="…" effect="${effect}" />`,
-    seconds: 4,
-    hero,
-    Component: () => <Headline text={text} accent={accent} effect={effect} exit={106} />,
-  })),
-  ...MARKS.map(([mark, text, accent]) => ({
-    name: `Mark: ${mark}`,
-    code: `<Kinetic text="…" accent="…" mark="${mark}" />`,
-    seconds: 4.5,
-    hero: 110,
-    Component: () => <Headline text={text} accent={accent} mark={mark} exit={120} />,
-  })),
-];

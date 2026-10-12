@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {alpha} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {Vignette, backdropDemos} from '../_shared';
+import {Vignette} from '../_shared';
 
 /** A CRT: scanlines, a slow rolling band and dark corners. */
 export const backdrop: React.FC<BackdropProps> = ({look, tone, t}) => {
@@ -30,5 +30,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, tone, t}) => {
     </AbsoluteFill>
   );
 };
-
-export const demos = backdropDemos('scanlines');

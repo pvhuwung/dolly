@@ -1,8 +1,7 @@
 import React, {useMemo} from 'react';
 import {AbsoluteFill, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {alpha, type Look, useLook} from '../../../look';
-import type {Demo} from '../../types';
-import {centre, spread} from '../_shared';
+import {alpha, useLook} from '../../../look';
+import {spread} from '../_shared';
 import {type VoiceLine, type Word, voiceWords} from '../voiceover/voiceover';
 
 /**
@@ -52,18 +51,27 @@ const chunk = (lines: Word[][], max: number, chars: number): Word[][] => {
  *   <Captions lines={tutorial} start={15} variant="karaoke" />
  */
 export const Captions: React.FC<{
+  /** A voiceover's lines to caption; give it the Voiceover's start and gap. */
   lines?: VoiceLine[];
-  /** The indices of the lines this waveform follows; the others leave it flat. Default: all. */
+  /** Not used by Captions, which shows every line; Waveform takes the same prop. */
   only?: number[];
+  /** Words to caption without a voiceover, spoken over `seconds` from `start`. */
   text?: string;
+  /** Seconds `text` is spoken over (default 3). */
   seconds?: number;
+  /** Exact words with their start and end frames, instead of lines or text. */
   words?: Word[];
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Seconds between the voiceover's lines, as given to Voiceover (default 0.3). */
   gap?: number;
+  /** karaoke (a box jumps to the word being said), pop (words pop in on their beat) or line (a plain subtitle); default karaoke. */
   variant?: 'karaoke' | 'pop' | 'line';
-  /** The most words on screen at once. */
+  /** The most words on screen at once (default 3 in tall frames, 5 in wide ones). */
   max?: number;
+  /** Low in the safe area (bottom, the default) or in the middle. */
   position?: 'bottom' | 'middle';
+  /** Its font size in px; sized to the frame if not set. */
   size?: number;
   /** A plate behind the words: the default on light styles. */
   plate?: boolean;
@@ -155,47 +163,3 @@ export const Captions: React.FC<{
     </AbsoluteFill>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery: made-up timing, so they need no audio file. For a real voice, see
-// voiceover.tsx.
-
-/** A stand-in for footage behind captions: a card of grey lines. */
-const Shot: React.FC<{look: Look}> = ({look}) => (
-  <div
-    style={{
-      width: look.tall ? 760 : 1100,
-      height: look.tall ? 760 : 520,
-      borderRadius: look.radius,
-      background: look.surface,
-      boxShadow: look.shadow,
-      padding: 48,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 22,
-      marginTop: look.tall ? -240 : -60,
-    }}
-  >
-    {[0.5, 0.8, 0.65, 0.9, 0.4].map((w, i) => (
-      <div key={i} style={{width: `${w * 100}%`, height: i === 0 ? 34 : 20, borderRadius: 10, background: alpha(look.ink, i === 0 ? 0.6 : 0.12)}} />
-    ))}
-  </div>
-);
-
-const LINE = 'Captions land word by word, right on the voice.';
-
-const CaptionDemo: React.FC<{variant: 'karaoke' | 'pop' | 'line'}> = ({variant}) => {
-  const look = useLook();
-  return (
-    <AbsoluteFill style={centre}>
-      <Shot look={look} />
-      <Captions text={LINE} seconds={3.4} start={8} variant={variant} position="middle" />
-    </AbsoluteFill>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Voice: captions, karaoke', code: '<Captions lines={voice} start={15} variant="karaoke" />', seconds: 4, hero: 62, Component: () => <CaptionDemo variant="karaoke" />},
-  {name: 'Voice: captions, pop', code: '<Captions lines={voice} start={15} variant="pop" />', seconds: 4, hero: 92, Component: () => <CaptionDemo variant="pop" />},
-  {name: 'Voice: captions, line', code: '<Captions lines={voice} start={15} variant="line" />', seconds: 4, hero: 62, Component: () => <CaptionDemo variant="line" />},
-];

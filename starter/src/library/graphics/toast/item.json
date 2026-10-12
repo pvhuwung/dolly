@@ -1,7 +1,7 @@
 {
   "name": "Toast",
   "summary": "A notification sliding in like macOS or iOS: app icon, name, time, title and body.",
-  "usage": "<Toast title=\"Build passed\" body=\"All 214 checks green on main\" at={8} />",
+  "usage": "<Toast title=\"Build passed\" body=\"All 214 checks green on main\" start={8} />",
   "tags": [
     "notification",
     "alert",

@@ -1,9 +1,7 @@
 import React from 'react';
 import {Easing, interpolate, useCurrentFrame} from 'remotion';
 import {useLook} from '../../../look';
-import type {Demo} from '../../types';
-import {Center, knocksOut, useDemoType} from '../_shared';
-import {Kinetic} from '../kinetic/kinetic';
+import {knocksOut} from '../_shared';
 
 /**
  * One slot whose word changes every `every` frames: the old word slides up and out, the new one
@@ -14,7 +12,16 @@ import {Kinetic} from '../kinetic/kinetic';
  *     <Kinetic text="Videos that feel" /> <Cycle words={['fast.', 'polished.', 'yours.']} start={30} />
  *   </div>
  */
-export const Cycle: React.FC<{words: string[]; every?: number; start?: number; style?: React.CSSProperties}> = ({words, every, start = 0, style}) => {
+export const Cycle: React.FC<{
+  /** The words it cycles through, in order; it loops. */
+  words: string[];
+  /** Frames each word holds before the next comes in; 45 times the style's pace if not set. */
+  every?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
+  start?: number;
+  /** CSS merged over the headline and accent style: font size, colour. */
+  style?: React.CSSProperties;
+}> = ({words, every, start = 0, style}) => {
   const frame = useCurrentFrame();
   const look = useLook();
   const period = every ?? Math.round(45 * look.pace);
@@ -55,22 +62,3 @@ export const Cycle: React.FC<{words: string[]; every?: number; start?: number; s
     </span>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const CycleDemo: React.FC = () => {
-  const type = useDemoType();
-  return (
-    <Center>
-      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'baseline', columnGap: '0.28em', fontSize: type.fontSize}}>
-        <Kinetic text="Videos that feel" start={6} style={{fontSize: type.fontSize}} />
-        <Cycle words={['fast.', 'polished.', 'yours.']} start={20} every={36} style={{fontSize: type.fontSize}} />
-      </div>
-    </Center>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Cycle', code: `<Cycle words={['fast.', 'polished.', 'yours.']} />`, seconds: 4.5, hero: 75, Component: CycleDemo},
-];

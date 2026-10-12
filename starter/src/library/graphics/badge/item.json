@@ -1,7 +1,7 @@
 {
   "name": "Badge",
   "summary": "A pill label that pops in with an icon or a live dot: New, Beta, Live.",
-  "usage": "<Badge icon={Sparkles} text=\"New in 2.0\" at={10} />",
+  "usage": "<Badge icon={Sparkles} text=\"New in 2.0\" start={10} />",
   "tags": [
     "label",
     "pill",

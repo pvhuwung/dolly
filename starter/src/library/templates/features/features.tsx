@@ -1,8 +1,7 @@
 import React from 'react';
 import {spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {BellRing, Columns3, Smartphone, type LucideIcon} from 'lucide-react';
+import type {LucideIcon} from 'lucide-react';
 import {useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, Eyebrow, inner} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
@@ -29,7 +28,23 @@ const IconTile: React.FC<{icon: LucideIcon; size?: number}> = ({icon: Icon, size
 };
 
 /** Three to six features as cards, coming in one after another: what the product does. */
-export const Features: React.FC<{eyebrow?: string; title?: string; accent?: string; items: {icon: LucideIcon; title: string; text?: string}[]}> = ({
+export const Features: React.FC<{
+  /** A small label above the headline. */
+  eyebrow?: string;
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** Three to six features, one card each. */
+  items: {
+    /** A lucide icon component, such as `Columns3` from lucide-react. */
+    icon: LucideIcon;
+    /** The feature's name. */
+    title: string;
+    /** One short line under the name. */
+    text?: string;
+  }[];
+}> = ({
   eyebrow,
   title,
   accent,
@@ -82,15 +97,3 @@ export const Features: React.FC<{eyebrow?: string; title?: string; accent?: stri
     </Page>
   );
 };
-
-// Samples for the gallery. The copy is placeholder: write the product's own.
-
-const FEATURES = [
-  {icon: Columns3, title: 'Every agent, side by side', text: 'Split panes, grouped by project'},
-  {icon: BellRing, title: 'Knows who’s waiting', text: 'A pane lights up when an agent asks'},
-  {icon: Smartphone, title: 'Approve from your phone', text: 'Answer prompts away from your desk'},
-];
-
-export const demos: Demo[] = [
-  {name: 'Features', code: '<Features title="Everything in" accent="one window." items={[...]} />', seconds: 4, hero: 90, backdrop: false, Component: () => <Features title="Everything in" accent="one window." items={FEATURES} />},
-];

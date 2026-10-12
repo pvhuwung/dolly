@@ -1,7 +1,7 @@
 import React, {useId} from 'react';
 import {AbsoluteFill, Easing, random} from 'remotion';
 import type {TransitionDef} from '../../types';
-import {bump, linear, presentation, type PresentationProps, transitionDemos} from '../_shared';
+import {bump, linear, presentation, type PresentationProps} from '../_shared';
 
 const FRAMES = 9;
 
@@ -51,5 +51,3 @@ export const transition: TransitionDef = {
   frames: FRAMES,
   make: (look) => linear(FRAMES, presentation(Glitch, {width: look.width}), Easing.linear),
 };
-
-export const demos = transitionDemos('glitch', transition);

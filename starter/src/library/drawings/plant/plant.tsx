@@ -2,8 +2,7 @@ import React, {useMemo} from 'react';
 import {random} from 'remotion';
 import {ease} from '../../../kit';
 import {alpha, mix} from '../../../look';
-import type {Demo} from '../../types';
-import {CardSample, DrawOn, Wobble, bladePoints, n1, smooth, useClock, usePalette, useUid, type Palette, type Pt} from '../_shared';
+import {DrawOn, Wobble, bladePoints, n1, smooth, useClock, usePalette, useUid, type Palette, type Pt} from '../_shared';
 
 type Branch = {d: string; t0: number; t1: number; width: number; depth: number; tip: Pt; tipAngle: number; leaves: {x: number; y: number; angle: number; t: number; size: number}[]; bloom: boolean};
 
@@ -52,13 +51,21 @@ const growPlant = (seed: number, W: number, H: number, depth: number): Branch[] 
  *   <Plant width={420} height={560} start={4} />
  */
 export const Plant: React.FC<{
+  /** Its width in px (default 420). */
   width?: number;
+  /** Its height in px (default 560). */
   height?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames it takes to grow (default 100). */
   frames?: number;
+  /** How many times the branches fork (default 4). */
   depth?: number;
+  /** Grows a different plant; the same seed always grows the same one (default 2). */
   seed?: number;
+  /** Some branch tips flower (default true). */
   blooms?: boolean;
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({width = 420, height = 560, start = 0, frames = 100, depth = 4, seed = 2, blooms = true, palette}) => {
   const p = usePalette(palette);
@@ -113,13 +120,3 @@ export const Plant: React.FC<{
     </svg>
   );
 };
-
-export const demos: Demo[] = [
-  {
-    name: 'Growing plant',
-    code: '<Plant width={420} height={560} seed={2} />',
-    seconds: 4,
-    hero: 115,
-    Component: () => <CardSample aspect={0.8}>{(w, h) => <Plant width={w * 0.84} height={h * 0.86} start={4} frames={100} />}</CardSample>,
-  },
-];

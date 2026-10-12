@@ -1,12 +1,22 @@
 import React from 'react';
 import {Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {alpha, useBrand, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {useIn, Page} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
 /** The logo arriving, then the name and a line under it. `kind` picks the entrance. */
-export const LogoReveal: React.FC<{kind?: 'pop' | 'iris' | 'slide' | 'focus'; tagline?: string; accent?: string; logo?: string; name?: string}> = ({
+export const LogoReveal: React.FC<{
+  /** How the logo arrives: `pop`, `iris`, `slide` or `focus`; `pop` if not set. */
+  kind?: 'pop' | 'iris' | 'slide' | 'focus';
+  /** A line under the name, before its accent phrase. */
+  tagline?: string;
+  /** The phrase set in the style's accent way, after the tagline. */
+  accent?: string;
+  /** An image in public/; the brand's logo if not set. */
+  logo?: string;
+  /** The name under the logo; the brand's name if not set. */
+  name?: string;
+}> = ({
   kind = 'pop',
   tagline,
   accent,
@@ -44,10 +54,3 @@ export const LogoReveal: React.FC<{kind?: 'pop' | 'iris' | 'slide' | 'focus'; ta
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'LogoReveal pop', code: '<LogoReveal kind="pop" tagline="…" />', seconds: 3, hero: 86, backdrop: false, Component: () => <LogoReveal kind="pop" tagline="Run agents in parallel." accent="All in one place." />},
-  {name: 'LogoReveal iris', code: '<LogoReveal kind="iris" />', seconds: 3, hero: 86, backdrop: false, Component: () => <LogoReveal kind="iris" tagline="Run agents in parallel." accent="All in one place." />},
-  {name: 'LogoReveal focus', code: '<LogoReveal kind="focus" />', seconds: 3, hero: 60, backdrop: false, Component: () => <LogoReveal kind="focus" />},
-];

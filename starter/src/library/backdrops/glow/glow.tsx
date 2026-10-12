@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {mix} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {Hairlines, Orb, backdropDemos} from '../_shared';
+import {Hairlines, Orb} from '../_shared';
 
 /** Soft lights in the accent drifting over faint hairlines. */
 export const backdrop: React.FC<BackdropProps> = ({look, t}) => {
@@ -18,5 +18,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, t}) => {
     </AbsoluteFill>
   );
 };
-
-export const demos = backdropDemos('glow');

@@ -1,8 +1,7 @@
 import React from 'react';
 import {ease} from '../../../kit';
 import {alpha} from '../../../look';
-import type {Demo} from '../../types';
-import {Area, useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 /**
  * A ring that fills to `value` percent, the number counting up in its middle. For a score, a
@@ -11,14 +10,23 @@ import {Area, useArea, useTempo} from '../_shared';
  *   <Ring value={87} label="tests passing" start={8} />
  */
 export const Ring: React.FC<{
+  /** The percentage it fills to, 0 to 100. */
   value: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames the ring takes to fill (default 60). */
   frames?: number;
+  /** Its width and height in px (default 320). */
   size?: number;
+  /** Width of the ring in px; 7.5% of `size` if not set. */
   thickness?: number;
+  /** Words under the number. */
   label?: string;
+  /** After the number (default '%'). */
   suffix?: string;
+  /** Its colour; the style's accent if not set. */
   color?: string;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
 }> = ({value, start = 0, frames = 60, size = 320, thickness, label, suffix = '%', color, exit}) => {
   const {look, pop, ramp, gone} = useTempo();
@@ -59,19 +67,3 @@ export const Ring: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const RingDemo: React.FC = () => {
-  const {w, h} = useArea();
-  return (
-    <Area>
-      <Ring value={87} label="tests passing" start={6} size={Math.min(440, w * 0.75, h * 0.85)} />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Progress ring', code: '<Ring value={87} label="tests passing" />', seconds: 3.5, hero: 92, Component: RingDemo},
-];

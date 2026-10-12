@@ -1,11 +1,21 @@
 import React from 'react';
 import {TextEffect, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, Eyebrow} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
 /** One big line, filling the frame: a hook, a punchline, a turn in the story. */
-export const Statement: React.FC<{eyebrow?: string; text: string; accent?: string; effect?: TextEffect; exit?: number}> = ({
+export const Statement: React.FC<{
+  /** A small label above the headline. */
+  eyebrow?: string;
+  /** The line, before its accent phrase. */
+  text: string;
+  /** The phrase set in the style's accent way, after the text. */
+  accent?: string;
+  /** How the words come in; the style's own if not set. */
+  effect?: TextEffect;
+  /** Frame it starts to leave; it stays to the end if not set. */
+  exit?: number;
+}> = ({
   eyebrow,
   text,
   accent,
@@ -22,8 +32,3 @@ export const Statement: React.FC<{eyebrow?: string; text: string; accent?: strin
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Statement', code: '<Statement text="Five agents running." accent="One needs you." />', seconds: 3.5, hero: 70, backdrop: false, Component: () => <Statement eyebrow="Agents everywhere" text="Five agents running." accent="One needs you." />},
-];

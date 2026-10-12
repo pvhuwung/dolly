@@ -1,35 +1,46 @@
 import React from 'react';
 import {Img, staticFile} from 'remotion';
 import type {LucideIcon} from 'lucide-react';
-import {Bell} from 'lucide-react';
 import {alpha, useBrand} from '../../../look';
-import type {Demo} from '../../types';
-import {Area, useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 /**
  * A notification sliding in, like macOS or iOS: the app's icon (the brand logo unless `icon` is
  * given), its name and the time, a title and a line of body. For the moment the product tells you
  * something.
  *
- *   <Toast title="Build passed" body="All 214 checks green on main" at={8} />
+ *   <Toast title="Build passed" body="All 214 checks green on main" start={8} />
  */
 export const Toast: React.FC<{
+  /** The notification's title. */
   title: string;
+  /** A line under the title. */
   body?: string;
+  /** The app's name; the brand's if not set. */
   app?: string;
+  /** The time beside the app's name (default 'now'). */
   time?: string;
+  /** A lucide icon on an accent tile, in place of the logo. */
   icon?: LucideIcon;
+  /** An image in public/ for the app's icon; the brand logo if not set. */
   logo?: string;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
+  start?: number;
+  /** @deprecated Use start. */
   at?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
+  /** Its width in px (default 560). */
   width?: number;
+  /** Where it slides in from: 'top' or 'right' (default 'top'). */
   from?: 'top' | 'right';
-}> = ({title, body, app: appName, time = 'now', icon: IconGlyph, logo: logoFile, at = 0, exit, width = 560, from = 'top'}) => {
+}> = ({title, body, app: appName, time = 'now', icon: IconGlyph, logo: logoFile, start: startProp, at, exit, width = 560, from = 'top'}) => {
+  const start = startProp ?? at ?? 0;
   const {look, pop, gone} = useTempo();
   const brand = useBrand();
   const app = appName ?? brand.name;
   const logo = logoFile ?? brand.logo;
-  const p = pop(at, 26);
+  const p = pop(start, 26);
   const out = gone(exit, 14);
   const r = look.radius === 0 ? 0 : Math.max(20, look.radius);
   const s = width / 560;
@@ -70,21 +81,3 @@ export const Toast: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const ToastDemo: React.FC = () => {
-  const {w} = useArea();
-  const width = Math.min(760, w * 0.95);
-  return (
-    <Area gap={22}>
-      <Toast title="Build passed" body="All 214 checks green on main · 2m 14s" at={6} width={width} />
-      <Toast title="Review requested" body="Ana wants you to look at #482" icon={Bell} time="1m ago" at={30} width={width} />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Notification', code: '<Toast title="Build passed" body="..." />', seconds: 3, hero: 70, Component: ToastDemo},
-];

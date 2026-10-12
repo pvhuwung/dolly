@@ -1,10 +1,6 @@
 import React, {useMemo} from 'react';
 import {random} from 'remotion';
-import type {Demo} from '../../types';
-import {InArea, OnPaper, n1, useArea, useClock, useUid} from '../_shared';
-import {Flower} from '../flower/flower';
-import {HexField} from '../hex-field/hex-field';
-import {Stamps} from '../stamps/stamps';
+import {OnPaper, n1, useClock, useUid} from '../_shared';
 
 // The drawings' shared palette and value noise, public from here.
 export {noise, type Palette} from '../_shared';
@@ -17,14 +13,23 @@ export {noise, type Palette} from '../_shared';
  *   <Paper width={560} height={700} rotate={-3}><Flower /></Paper>
  */
 export const Paper: React.FC<{
+  /** Its width in px. */
   width: number;
+  /** Its height in px. */
   height: number;
+  /** Tilt in degrees (default 0). */
   rotate?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** The paper's colour (default a warm off-white, #f6f1e5). */
   color?: string;
+  /** Changes the grain and the edge; the same seed always draws the same. */
   seed?: number;
+  /** Space between the card's edge and what's on it, in px (default 0). */
   padding?: number;
+  /** Styles for the card's outer box, to place it. */
   style?: React.CSSProperties;
+  /** What sits on the card, centred. */
   children?: React.ReactNode;
 }> = ({width, height, rotate = 0, start = 0, color = '#f6f1e5', seed = 1, padding = 0, style, children}) => {
   const {glide} = useClock();
@@ -83,31 +88,3 @@ export const Paper: React.FC<{
     </div>
   );
 };
-
-const PaperDemo: React.FC = () => {
-  const a = useArea();
-  // Three cards, overlapping more where the frame is narrow.
-  const overlap = a.look.tall ? 0.2 : 0.08;
-  const w = Math.min(a.w / (3 - 2 * overlap), a.w * 0.3 + (a.look.tall ? a.w : 0), 470);
-  const h = Math.min(w * 1.3, a.h * 0.92);
-  const gap = -w * overlap;
-  return (
-    <InArea>
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <Paper width={Math.round(w)} height={Math.round(h)} rotate={-6} start={0} style={{marginRight: gap, zIndex: 1}}>
-          <Stamps width={w * 0.84} height={h * 0.86} count={14} start={14} stagger={2} />
-        </Paper>
-        <Paper width={Math.round(w)} height={Math.round(h)} rotate={2} start={6} style={{zIndex: 2, marginTop: -h * 0.06}} seed={3}>
-          <Flower size={w * 0.62} start={18} frames={60} />
-        </Paper>
-        <Paper width={Math.round(w)} height={Math.round(h)} rotate={7} start={12} style={{marginLeft: gap, zIndex: 1}} seed={5}>
-          <HexField width={w * 0.86} height={h * 0.86} radius={w / 17} start={22} frames={40} />
-        </Paper>
-      </div>
-    </InArea>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Paper cards', code: '<Paper width={420} height={540} rotate={-6}>{drawing}</Paper>', seconds: 3.5, hero: 96, Component: PaperDemo},
-];

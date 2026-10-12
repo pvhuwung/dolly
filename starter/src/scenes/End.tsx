@@ -27,7 +27,7 @@ export const End: React.FC = () => {
           style={{fontSize: Math.round(look.size * 0.84), maxWidth: 1500}}
         />
         <Pop
-          at={70}
+          start={70}
           style={{
             marginTop: 18,
             padding: '18px 34px',

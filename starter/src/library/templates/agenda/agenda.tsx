@@ -1,6 +1,5 @@
 import React from 'react';
 import {useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, inner, Heading, useStagger} from '../_shared';
 
 /**
@@ -9,7 +8,27 @@ import {Page, inner, Heading, useStagger} from '../_shared';
  *
  *   <Agenda title="Day one" date="Thu · Oct 24" items={[{time: '09:30', title: 'Keynote', who: 'Ravi Menon'}, ...]} highlight={1} />
  */
-export const Agenda: React.FC<{eyebrow?: string; title?: string; accent?: string; date?: string; items: {time: string; title: string; who?: string}[]; highlight?: number}> = ({
+export const Agenda: React.FC<{
+  /** A small label above the headline. */
+  eyebrow?: string;
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** The day it happens, shown with the headline. */
+  date?: string;
+  /** The schedule, one row each. */
+  items: {
+    /** When, such as `09:30`. */
+    time: string;
+    /** What happens: one short line. */
+    title: string;
+    /** Who leads it, or where it is. */
+    who?: string;
+  }[];
+  /** The row to highlight, counted from 0; none if not set. */
+  highlight?: number;
+}> = ({
   eyebrow,
   title,
   accent,
@@ -112,8 +131,3 @@ export const Agenda: React.FC<{eyebrow?: string; title?: string; accent?: string
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Agenda', code: '<Agenda title="Day one" date="Thu · Oct 24" items={[{time, title, who}, ...]} highlight={1} />', seconds: 5, hero: 140, backdrop: false, Component: () => <Agenda title="Day one" accent="agenda." date="Thu · Oct 24" highlight={1} items={[{time: '09:00', title: 'Doors open'}, {time: '09:30', title: 'Keynote', who: 'Ravi Menon'}, {time: '11:00', title: 'Workshops', who: 'Three rooms'}, {time: '13:00', title: 'Lunch on the terrace'}, {time: '15:00', title: 'Demos and drinks'}]} />},
-];

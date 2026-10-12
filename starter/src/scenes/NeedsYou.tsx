@@ -44,7 +44,7 @@ const Phone: React.FC = () => {
       <div style={{transform: `scale(${scale})`, transformOrigin: '50% 0%'}}>
         <Screen frame="phone" width={PHONE.width} height={PHONE.height} glare={0}>
           <Footage src={PUSH.src} at={0.5} />
-          <Tap x={196} y={70} at={78} />
+          <Tap x={196} y={70} start={78} />
         </Screen>
       </div>
     </AbsoluteFill>

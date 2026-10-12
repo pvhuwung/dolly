@@ -1,8 +1,7 @@
 import React, {createContext, useContext, useId} from 'react';
-import {AbsoluteFill, interpolate, random, spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {interpolate, random, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {ease, type Ease} from '../../kit';
 import {mix, useBrand, useLook} from '../../look';
-import {Paper} from './paper/paper';
 
 // Drawings made with code: watercolour flowers, stamped patterns, a hexagon heat field, a
 // butterfly, a growing plant, embroidery, washes, doodles, constellations, contour lines, ink
@@ -12,7 +11,7 @@ import {Paper} from './paper/paper';
 //
 // They're 2D SVG: put them over a Stage or inside a Screen, never on a Layer's wrapper.
 //
-// Pieces the drawings share, and their gallery layout. Not an item: it's copied with any drawing.
+// Pieces the drawings share. Not an item: it's copied with any drawing.
 
 export type Pt = {x: number; y: number};
 
@@ -156,39 +155,4 @@ export const bladePoints = (length: number, width: number, seed: string, round: 
   pts.push({x: 0, y: -length});
   for (let k = N - 1; k >= 1; k--) pts.push({x: half(k / N, k + 20), y: -(k / N) * length});
   return pts;
-};
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-/** The area a sample can use: the safe area, above the gallery's label. */
-export const useArea = () => {
-  const look = useLook();
-  const top = look.safe.top;
-  const bottom = Math.max(look.safe.bottom, 190);
-  return {look, x: look.safe.left, y: top, w: look.width - look.safe.left - look.safe.right, h: look.height - top - bottom};
-};
-
-/** Centres its child in the sample area. */
-export const InArea: React.FC<{children: React.ReactNode}> = ({children}) => {
-  const a = useArea();
-  return (
-    <AbsoluteFill>
-      <div style={{position: 'absolute', left: a.x, top: a.y, width: a.w, height: a.h, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{children}</div>
-    </AbsoluteFill>
-  );
-};
-
-/** A paper card filling most of the area at `aspect` (width / height), with the drawing's size. */
-export const CardSample: React.FC<{aspect: number; rotate?: number; children: (w: number, h: number) => React.ReactNode}> = ({aspect, rotate = -1.5, children}) => {
-  const a = useArea();
-  const w = Math.min(a.w * 0.92, a.h * 0.96 * aspect, 1100);
-  const h = w / aspect;
-  return (
-    <InArea>
-      <Paper width={Math.round(w)} height={Math.round(h)} rotate={rotate}>
-        {children(w, h)}
-      </Paper>
-    </InArea>
-  );
 };

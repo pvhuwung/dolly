@@ -1,7 +1,6 @@
 import React from 'react';
 import {ease} from '../../../kit';
-import type {Demo} from '../../types';
-import {Area, accentWord, useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 /**
  * An SVG path that draws itself on from `start` over `frames`, and off again from `exit`. `d` is in
@@ -11,15 +10,25 @@ import {Area, accentWord, useArea, useTempo} from '../_shared';
  *   <Draw d="M6 26 C 110 10, 250 8, 414 20" width={420} height={40} start={10} />
  */
 export const Draw: React.FC<{
+  /** The SVG path to draw, in a `width` × `height` box. */
   d: string;
+  /** Its width in px: the box `d` is drawn in. */
   width: number;
+  /** Its height in px: the box `d` is drawn in. */
   height: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames the line takes to draw (default 36). */
   frames?: number;
+  /** Frame it starts to undraw; it stays to the end if not set. */
   exit?: number;
+  /** Its colour; the style's accent if not set. */
   color?: string;
+  /** Line width in px (default 6). */
   strokeWidth?: number;
+  /** Let `style` size the box to any width and height, stretching the path: for an underline as wide as its word. */
   stretch?: boolean;
+  /** CSS for the SVG, to place or size it. */
   style?: React.CSSProperties;
 }> = ({d, width, height, start = 0, frames = 36, exit, color, strokeWidth = 6, stretch, style}) => {
   const {look, ramp} = useTempo();
@@ -50,28 +59,3 @@ export const Draw: React.FC<{
     </svg>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const UNDERLINE = 'M6 24 C 110 9, 250 6, 414 17 M60 36 C 160 27, 270 25, 370 30';
-
-const DrawDemo: React.FC = () => {
-  const {look, w} = useArea();
-  const size = Math.min(look.size * 1.6, w / 5.2);
-  return (
-    <Area>
-      <div style={{...look.headline, fontSize: size, display: 'flex', gap: '0.28em', flexWrap: 'wrap', justifyContent: 'center'}}>
-        <span>Ship it</span>
-        <span style={{position: 'relative', ...accentWord(look)}}>
-          today.
-          <Draw d={UNDERLINE} width={420} height={40} start={12} frames={26} stretch strokeWidth={7} style={{position: 'absolute', left: '-4%', top: '96%', width: '108%', height: size * 0.32}} />
-        </span>
-      </div>
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Draw a line', code: '<Draw d={UNDERLINE} width={420} height={40} start={12} />', seconds: 2.5, hero: 50, Component: DrawDemo},
-];

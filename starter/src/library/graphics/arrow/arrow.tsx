@@ -1,8 +1,6 @@
 import React from 'react';
-import {AbsoluteFill} from 'remotion';
 import {ease} from '../../../kit';
-import type {Demo} from '../../types';
-import {type Pt, accentWord, card, useArea, useTempo} from '../_shared';
+import {type Pt, useTempo} from '../_shared';
 
 /**
  * A curved, hand-drawn arrow from `from` to `to` that draws itself on, its head landing last. For
@@ -11,14 +9,23 @@ import {type Pt, accentWord, card, useArea, useTempo} from '../_shared';
  *   <Arrow from={{x: 620, y: 360}} to={{x: 1180, y: 560}} start={10} />
  */
 export const Arrow: React.FC<{
+  /** Where it starts, in px of its parent. */
   from: Pt;
+  /** Where the head lands, in px of its parent. */
   to: Pt;
+  /** How much it curves: 0 is straight, more bows it to the left of travel, less to the right (default 0.25). */
   bend?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames the line takes to draw (default 28). */
   frames?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
+  /** Its colour; the style's accent if not set. */
   color?: string;
+  /** Line width in px (default 6). */
   strokeWidth?: number;
+  /** Length of the head's two strokes in px (default 26). */
   head?: number;
 }> = ({from, to, bend = 0.25, start = 0, frames = 28, exit, color, strokeWidth = 6, head = 26}) => {
   const {look, ramp} = useTempo();
@@ -44,48 +51,3 @@ export const Arrow: React.FC<{
     </svg>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const ArrowDemo: React.FC = () => {
-  const {look, cx, cy, w} = useArea();
-  const button = (look.format !== 'landscape') ? {x: cx + 40, y: cy + 170} : {x: cx + 270, y: cy + 70};
-  const label = (look.format !== 'landscape') ? {x: cx - 170, y: cy - 230} : {x: cx - 420, y: cy - 150};
-  const size = Math.min(48, w / 16);
-  return (
-    <AbsoluteFill>
-      <div style={{position: 'absolute', left: label.x, top: label.y, transform: 'translate(-50%, -50%)', ...look.headline, fontSize: size * 1.3, whiteSpace: 'nowrap'}}>
-        Start <span style={accentWord(look)}>here</span>
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          left: button.x,
-          top: button.y,
-          transform: 'translate(-50%, -50%)',
-          padding: `${size * 0.5}px ${size * 0.9}px`,
-          ...card(look),
-          border: `1px solid ${look.line}`,
-          fontFamily: look.fonts.body,
-          fontWeight: 700,
-          fontSize: size * 0.8,
-          color: look.ink,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        Deploy to production
-      </div>
-      <Arrow
-        from={{x: label.x + ((look.format !== 'landscape') ? 20 : size * 3.7), y: label.y + size * ((look.format !== 'landscape') ? 1.1 : 0.25)}}
-        to={{x: button.x - ((look.format !== 'landscape') ? 60 : size * 3.4), y: button.y - size * ((look.format !== 'landscape') ? 1.4 : 1.4)}}
-        bend={(look.format !== 'landscape') ? -0.3 : 0.3}
-        start={10}
-      />
-    </AbsoluteFill>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Point with an arrow', code: '<Arrow from={label} to={button} start={10} />', seconds: 2.5, hero: 50, Component: ArrowDemo},
-];

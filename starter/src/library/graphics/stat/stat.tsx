@@ -1,7 +1,6 @@
 import React from 'react';
 import {ease} from '../../../kit';
-import type {Demo} from '../../types';
-import {Area, numberFormat, useArea, useTempo} from '../_shared';
+import {numberFormat, useTempo} from '../_shared';
 
 /**
  * A big number counting up to `value`, its label under it. For the one figure a scene is about.
@@ -10,16 +9,27 @@ import {Area, numberFormat, useArea, useTempo} from '../_shared';
  *   <Stat value={12400} label="teams shipping" start={6} />
  */
 export const Stat: React.FC<{
+  /** The number it counts up to. */
   value: number;
+  /** Words under the number. */
   label?: string;
+  /** Before the number, like '$'. */
   prefix?: string;
+  /** After the number, like '%' or 'k'. */
   suffix?: string;
+  /** Decimal places shown (default 0). */
   decimals?: number;
+  /** A small chip beside the number once the count lands, like '+38%'. */
   delta?: string;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames the count takes (default 50). */
   frames?: number;
+  /** Size of the number in px; twice the style's headline size if not set. */
   size?: number;
+  /** 'center' puts the label under the middle of the number, 'left' lines both up on the left (default 'center'). */
   align?: 'left' | 'center';
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
 }> = ({value, label, prefix = '', suffix = '', decimals = 0, delta, start = 0, frames = 50, size, align = 'center', exit}) => {
   const {look, ramp, glide, pop, gone} = useTempo();
@@ -71,22 +81,3 @@ export const Stat: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const StatDemo: React.FC = () => {
-  const {look, w} = useArea();
-  const size = (look.format !== 'landscape') ? Math.min(look.size * 1.7, w / 4.2) : Math.min(look.size * 2, w / 8);
-  return (
-    <Area row={!(look.format !== 'landscape')} gap={(look.format !== 'landscape') ? size * 0.6 : size * 1.2}>
-      <Stat value={3.2} decimals={1} suffix="×" label="faster builds" start={6} size={size} />
-      <Stat value={12400} label="teams shipping" start={12} size={size} />
-      <Stat value={99.99} decimals={2} suffix="%" label="uptime" start={18} size={size} />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Big number', code: '<Stat value={12400} label="teams shipping" />', seconds: 3.5, hero: 95, Component: StatDemo},
-];

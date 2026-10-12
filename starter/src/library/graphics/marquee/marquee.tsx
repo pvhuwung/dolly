@@ -1,6 +1,5 @@
 import React from 'react';
-import type {Demo} from '../../types';
-import {useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 /**
  * A row of words (or logos) sliding past for ever, one full loop every `loop` seconds, its ends
@@ -10,14 +9,23 @@ import {useArea, useTempo} from '../_shared';
  *   <Marquee items={['Fast', 'Private', 'Native', 'Open source']} />
  */
 export const Marquee: React.FC<{
+  /** What slides past: strings are set in the headline face; pass elements for logos. */
   items: React.ReactNode[];
+  /** Seconds one full loop takes (default 9). */
   loop?: number;
+  /** Space between items in px; 70% of `size` if not set. */
   gap?: number;
+  /** Slide the other way. */
   reverse?: boolean;
+  /** Size of the words in px; 1.1 times the style's headline size if not set. */
   size?: number;
+  /** Colour of the words; the style's ink if not set. */
   color?: string;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Put an accent dot between items (default true). */
   separator?: boolean;
+  /** Its width, in px or any CSS width (default '100%'). */
   width?: number | string;
 }> = ({items, loop = 9, gap, reverse, size, color, start = 0, separator = true, width = '100%'}) => {
   const {look, frame, fps, glide} = useTempo();
@@ -49,20 +57,3 @@ export const Marquee: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const MarqueeDemo: React.FC = () => {
-  const {look, cy} = useArea();
-  return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: cy, transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: look.size * 0.5}}>
-      <Marquee items={['Native', 'Private', 'Keyboard-first', 'Open source', 'Fast']} />
-      <Marquee items={['Claude Code', 'Codex', 'Gemini', 'Aider', 'Cursor']} reverse color={look.dim} size={look.size * 0.75} loop={12} />
-    </div>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Marquee', code: "<Marquee items={['Native', 'Private', ...]} />", seconds: 3, hero: 45, Component: MarqueeDemo},
-];

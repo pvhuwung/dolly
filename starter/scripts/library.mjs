@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Builds the library's index and catalog from its folders. Each item is a folder in
-// src/library/<category>/<name>/ with one <name>.tsx and an item.json; this reads them all and writes:
+// src/library/<category>/<name>/ with <name>.tsx (the component), <name>.demo.tsx (its gallery
+// sample) and item.json; this reads them all and writes:
 //
 //   src/library/index.ts       every item's exports, the backdrops and transitions by name, and
 //                              every gallery sample (don't edit: it's regenerated)
@@ -10,8 +11,9 @@
 //   npm run library            after adding, removing or changing an item
 //   npm run library -- --check exits 1 if the files above are out of date
 //
-// An item's props come from its TypeScript types, so the catalog can't drift from the code. What an
-// item needs (other items, packages) comes from its imports.
+// An item's props come from its TypeScript types (with their doc comments), so the catalog can't
+// drift from the code. What an item needs (other items, packages) comes from the component's
+// imports; its sample's imports are listed apart, since copying an item doesn't need its sample.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -50,7 +52,8 @@ for (const category of fs.readdirSync(lib).filter((d) => fs.statSync(path.join(l
     if (!fs.existsSync(file) || !fs.existsSync(json)) throw new Error(`library/${category}/${folder}: needs ${folder}.tsx and item.json`);
     const meta = JSON.parse(read(json));
     for (const key of ['name', 'summary', 'usage', 'order']) if (meta[key] === undefined) throw new Error(`library/${category}/${folder}/item.json: missing "${key}"`);
-    items.push({id: `${category}/${folder}`, category, folder, file, ...meta, tags: meta.tags ?? []});
+    const demoFile = path.join(dir, `${folder}.demo.tsx`);
+    items.push({id: `${category}/${folder}`, category, folder, file, demoFile: fs.existsSync(demoFile) ? demoFile : null, ...meta, tags: meta.tags ?? []});
   }
 }
 const order = Object.keys(CATEGORIES);
@@ -80,7 +83,7 @@ const resolveTs = (from, spec) => {
   for (const p of [`${base}.tsx`, `${base}.ts`, path.join(base, 'index.ts')]) if (fs.existsSync(p)) return p;
   return null;
 };
-const needsOf = (item) => {
+const needsOf = (item, from) => {
   const needs = new Set();
   const packages = new Set();
   const seen = new Set();
@@ -104,7 +107,7 @@ const needsOf = (item) => {
       }
     }
   };
-  walk(item.file);
+  walk(from);
   return {needs: [...needs].sort(), packages: [...packages].sort()};
 };
 
@@ -112,12 +115,18 @@ for (const item of items) {
   const src = read(item.file);
   const {values, types} = exportsOf(src);
   const reg = REGISTRY[item.category];
-  if (!values.includes('demos')) throw new Error(`${item.id}: must export \`demos\` (an empty array if it has no gallery sample)`);
+  if (item.demoFile) {
+    if (values.includes('demos')) throw new Error(`${item.id}: \`demos\` belongs in ${item.folder}.demo.tsx, not ${item.folder}.tsx`);
+    if (!exportsOf(read(item.demoFile)).values.includes('demos')) throw new Error(`${item.id}: ${item.folder}.demo.tsx must export \`demos\``);
+  } else if (!values.includes('demos')) {
+    throw new Error(`${item.id}: needs ${item.folder}.demo.tsx exporting \`demos\` (an empty array if it has no gallery sample)`);
+  }
   if (reg && !values.includes(reg.export)) throw new Error(`${item.id}: a ${item.category} item must export \`${reg.export}\``);
   item.values = values.filter((v) => v !== 'demos' && (!reg || v !== reg.export));
   item.types = types;
   if (!reg && !item.values.includes(item.name) && !item.types.includes(item.name)) throw new Error(`${item.id}: item.json name "${item.name}" isn't exported by ${item.folder}.tsx`);
-  Object.assign(item, needsOf(item));
+  Object.assign(item, needsOf(item, item.file));
+  item.demoNeeds = item.demoFile ? needsOf(item, item.demoFile).needs.filter((n) => !item.needs.includes(n)) : [];
 }
 
 // Two items exporting the same name would collide in the index.
@@ -146,12 +155,13 @@ const propsOf = (item) => {
   const param = signature?.getParameters()[0];
   if (!param || !/^[A-Z]/.test(item.name)) return [];
   const propsType = checker.getTypeOfSymbolAtLocation(param, sf);
-  return propsType.getProperties().map((p) => {
+  return propsType.getProperties().filter((p) => !p.getJsDocTags(checker).some((t) => t.name === 'deprecated')).map((p) => {
     const decl = p.valueDeclaration ?? p.declarations?.[0];
     const t = checker.getTypeOfSymbolAtLocation(p, decl ?? sf);
     const optional = (p.flags & ts.SymbolFlags.Optional) !== 0;
     let typeText = checker.typeToString(optional ? checker.getNonNullableType(t) : t, decl, ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.UseSingleQuotesForStringLiteralType);
-    if (typeText.length > 90) typeText = `${typeText.slice(0, 87)}…`;
+    if (p.name === 'children') typeText = 'ReactNode';
+    else if (typeText.length > 90) typeText = `${typeText.slice(0, 87)}…`;
     const doc = ts.displayPartsToString(p.getDocumentationComment(checker)).replace(/\s+/g, ' ').trim();
     return {name: p.name, type: typeText, optional, doc};
   });
@@ -167,6 +177,7 @@ let index = `// GENERATED by scripts/library.mjs from the folders in library/: d
 
 import type {Demo} from './types';
 ${items.map((i) => `import * as ${ident(i)} from '${rel(i)}';`).join('\n')}
+${items.filter((i) => i.demoFile).map((i) => `import * as ${ident(i)}_demo from '${rel(i)}.demo';`).join('\n')}
 
 export * from './types';
 `;
@@ -181,7 +192,7 @@ for (const [category, reg] of Object.entries(REGISTRY)) {
 index += `\n/** Every item's gallery samples, by category, in catalog order. */\nexport const DEMOS: Record<${order.map((c) => `'${c}'`).join(' | ')}, Demo[]> = {\n`;
 for (const category of order) {
   const list = items.filter((i) => i.category === category);
-  index += `  ${category}: [${list.map((i) => `...${ident(i)}.demos`).join(', ')}],\n`;
+  index += `  ${category}: [${list.map((i) => `...${ident(i)}${i.demoFile ? '_demo' : ''}.demos`).join(', ')}],\n`;
 }
 index += '};\n';
 
@@ -210,8 +221,8 @@ for (const category of order) {
   }
 }
 
-const catalog = items.map(({id, category, name, summary, usage, tags, values, types, needs, packages, props}) => ({
-  id, category, name, summary, usage, tags, exports: [...values, ...types], needs, packages, props,
+const catalog = items.map(({id, category, name, summary, usage, tags, values, types, needs, demoNeeds, packages, props}) => ({
+  id, category, name, summary, usage, tags, exports: [...values, ...types], needs, demoNeeds, packages, props,
 }));
 
 const outputs = {

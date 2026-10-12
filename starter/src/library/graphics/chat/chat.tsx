@@ -1,8 +1,7 @@
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {mix} from '../../../look';
-import type {Demo} from '../../types';
-import {Area, useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 export type ChatMessage = {from: 'me' | 'them'; text: string; at: number};
 
@@ -34,7 +33,18 @@ const TypingDots: React.FC<{size: number; color: string}> = ({size, color}) => {
  *
  *   <Chat messages={[{from: 'them', text: 'Can you ship it tonight?', at: 20}, {from: 'me', text: 'Already merged.', at: 46}]} />
  */
-export const Chat: React.FC<{messages: ChatMessage[]; width?: number; size?: number; typing?: number; exit?: number}> = ({
+export const Chat: React.FC<{
+  /** The bubbles, in order: who sent each (`from`: 'me' or 'them'), its `text`, and the frame `at` it lands. */
+  messages: ChatMessage[];
+  /** Its width in px (default 640). */
+  width?: number;
+  /** Size of the text in px (default 28). */
+  size?: number;
+  /** Frames of typing dots before each of their messages (default 22). */
+  typing?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
+  exit?: number;
+}> = ({
   messages,
   width = 640,
   size = 28,
@@ -87,27 +97,3 @@ export const Chat: React.FC<{messages: ChatMessage[]; width?: number; size?: num
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const ChatDemo: React.FC = () => {
-  const {look, w} = useArea();
-  return (
-    <Area>
-      <Chat
-        width={Math.min(860, w * 0.95)}
-        size={(look.format !== 'landscape') ? 38 : 36}
-        messages={[
-          {from: 'them', text: 'Can you ship the fix tonight?', at: 22},
-          {from: 'me', text: 'Already merged. Deploying now.', at: 48},
-          {from: 'them', text: 'You’re a legend.', at: 92},
-        ]}
-      />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Chat', code: "<Chat messages={[{from: 'them', text, at: 22}, ...]} />", seconds: 4, hero: 112, Component: ChatDemo},
-];

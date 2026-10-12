@@ -26,7 +26,8 @@ cd my-video && npx remotion studio         # optional: the user can scrub it at 
 `new.sh` installs Node with Homebrew if it's missing, runs `npm install` (which also generates the
 sound effects), downloads the headless Chrome that Remotion renders with, and says whether
 observee is installed. On Windows, run it in Git Bash, after `winget install OpenJS.NodeJS.LTS`.
-For an existing Remotion 4.0.320+ project, copy `src/kit.tsx`, `src/look.tsx` and `src/fx/`.
+For an existing Remotion 4.0.320+ project, copy `src/kit.tsx`, `src/look.tsx`, `src/parts.tsx`,
+`src/sequence.tsx`, `src/backdrop.tsx` and `src/library/`.
 
 | File | What's in it |
 |---|---|
@@ -35,12 +36,13 @@ For an existing Remotion 4.0.320+ project, copy `src/kit.tsx`, `src/look.tsx` an
 | `src/Video.tsx` | The take-based video: its scenes in order with their lengths, and the sound cues |
 | `src/Promo.tsx` | The template-only video, the same way |
 | `src/scenes/` | The take-based scenes. `takes.ts` says where things are in the takes |
-| `src/templates.tsx` | Ready-made scenes: `Statement`, `Metric`, `Features`, `Quote`, `Compare`, `Steps`, `LogoReveal`, `EndCard`, and for other agendas `Announcement`, `Lineup`, `Agenda`, `Countdown`, `Changelog`, `Timeline`, `List` |
-| `src/fx/` | Effects: `text.tsx` (kinetic type), `graphics.tsx` (charts, cursors, toasts…), `drawings.tsx` (illustrations drawn with code), `backdrops.tsx`, `transitions.tsx` |
+| `src/library/` | The component library: every template, text effect, graphic, drawing, voice part, backdrop and transition, one folder each. `CATALOG.md` lists them all with their props |
+| `src/sequence.tsx` | `Scenes`: a video's scenes in order, joined by transitions; `sceneStarts`, `scenesLength` |
+| `src/backdrop.tsx` | `Backdrop`: the style's page behind a shot |
 | `src/parts.tsx` | What goes over a shot: `Caption`, `Tap`, `Callout`, `Speed`, `Pop` |
 | `src/kit.tsx` | The 3D kit and the camera moves (section 4) |
 | `public/takes/` | The recordings. Replace them with the user's own |
-| `scripts/` | `take.sh` records a take; `sfx.mjs` and `music.mjs` generate sound; `voice.mjs` turns a script into a voiceover |
+| `scripts/` | `take.sh` records a take; `sfx.mjs` and `music.mjs` generate sound; `voice.mjs` turns a script into a voiceover; `library.mjs` rebuilds the library's index and catalog |
 
 `examples/` in this skill's folder holds finished videos' code: `spacejot/` cuts a phone app's
 real takes into phone-and-picture scenes in two cuts (16:9 and 9:16), and `mocks/` has 18
@@ -183,32 +185,21 @@ A scene is a component that fills the frame. `SCENES` in `Video.tsx` (or `Promo.
 with their lengths; the style's transition joins them, and a scene can name its own
 (`transition: 'iris'`, the one into it). A whoosh plays under every transition that isn't a cut.
 
-**Templates** are whole scenes that take words as props. They read the style and lay themselves out
-for the format:
+**The library** (`src/library/`) holds every ready-made piece, one folder each: templates (whole
+scenes), text effects, graphics, drawings, voice parts, backdrops and transitions. **Read
+`src/library/CATALOG.md` before you build**: each item's summary, a usage line that works as
+written, and its props. Import from the library (`import {Stat, Statement} from './library'`). Every
+item reads the style through `useLook()`, takes `start` (the frame it begins, from the start of its
+scene) and, where it can leave, `exit`. `npm run gallery` renders every item's sample, labelled with
+its code (`--props='{"only":"graphics","style":"bold","format":"vertical"}'` narrows it).
+
+A template is a whole scene, so it goes straight into `SCENES`:
 
 ```tsx
 {name: 'Features', seconds: 4.5, component: () => (
   <Features title="Everything in" accent="one window." items={[{icon: Columns3, title: 'Split panes', text: '…'}]} />
 )},
 ```
-
-| Template | For |
-|---|---|
-| `Statement` | One big line: a hook, a punchline, a turn |
-| `Metric` | A number counting up and what it counts. Real numbers only |
-| `Features` | Three to six features as cards with icons ([lucide](https://lucide.dev) names) |
-| `Quote` | A testimonial. Real quotes only, with permission |
-| `Compare` | Before and after: the old way struck, the product's way ticked |
-| `Steps` | How it works, numbered, joined by a line that draws |
-| `LogoReveal` | The logo arriving: `kind` `pop`, `iris`, `slide`, `focus` |
-| `EndCard` | The ask: name, line, button, URL |
-| `Announcement` | Big news, with a punch and a drawn stroke: funding, a milestone, a launch date |
-| `Lineup` | People as cards: speakers, a team, hosts |
-| `Agenda` | A schedule, row by row, one row highlighted |
-| `Countdown` | Days, hours, minutes and seconds ticking down to a date |
-| `Changelog` | A version and what's new, improved and fixed |
-| `Timeline` | Milestones on a line that draws: company history, a year in review |
-| `List` | Labels with dotted leaders to values: a menu, open roles, prices |
 
 **Shots from takes** are built with the 3D kit: the camera moves, the things stay put.
 
@@ -252,35 +243,19 @@ to)` along a wide screen, `orbit(at)` for parallax, `pushThrough(at, lens)` to f
 as the scene ends. `references/recipes.md` has bigger ones: a fly-past with motion blur, a dolly
 zoom, text behind the product, a reflection, a turn-around reveal.
 
-**Effects** go over any scene. `npm run gallery` renders every one, labelled with its code
-(`--props='{"only":"text","style":"bold","format":"vertical"}'` narrows it), and
-`references/effects.md` lists their props.
-
-- **Text** (`fx/text.tsx`): `Kinetic` sets a line with an effect (`rise`, `reveal`, `blur`, `pop`,
-  `type`, `letters`, `slide`, `scramble`, `fade`; the style picks one) and marks its accent phrase
-  (`marker`, `block`, `pill`, `underline`, `circle`, `strike`, `box`). `Mark` marks any words,
-  `Cycle` rotates one word, `Counter` counts.
-- **Graphics** (`fx/graphics.tsx`): numbers and charts (`Stat`, `Ring`, `Bars`, `LineChart`,
-  `Progress`, `Checklist`); pointing (`Arrow`, `Draw`, `Spotlight`); input (`Cursor`, `Keys`);
-  product UI (`Toast`, `Chat`, `Badge`, `Icon`, `Marquee`); moments (`Burst` of confetti, `Shine`).
-- **Drawings** (`fx/drawings.tsx`): illustrations drawn with code that animate as they're drawn:
-  `Paper` cards to hold them, `Flower` (watercolour, blooming), `Stamps`, `HexField`, `Butterfly`,
-  `Plant` (growing), `Stitch` (embroidery), `Watercolor` (a wash behind a headline), `Doodles`
-  (hand-drawn marks), `Constellation`, `Contours` (a topographic map), `Ripple`, `Scribble`. They
-  tint themselves toward the brand colour; for a crafty, human feel, and in the `paper` style.
-- **Voice** (`fx/voice.tsx`): `npm run voice -- script.txt name` speaks a script with the Mac's or
-  Windows' built-in voices (or use recorded WAVs) into `public/voice/name/` and
-  `src/voice/name.ts`. `Voiceover` plays it, `voiceTiming`/`voiceEnd` time scenes to it,
-  `Captions` show the words in sync (`karaoke`, `pop`, `line`), and `Waveform` moves with the
-  voice (`bars`, `line`, a `circle` round a face). Feeds play muted: a narrated video still needs
-  its captions. Built-in voices are for drafts; for a published video, record a person or use a
-  voice the user has the rights to.
-- **Backdrops** (`fx/backdrops.tsx`): `Backdrop` draws the style's page: `plain`, `glow`, `grid`,
-  `dots`, `blobs`, `scanlines`, `grain`, `aurora`, `beams`, `spotlight`.
-- **Transitions** (`fx/transitions.tsx`): `cut`, `fade`, `dip` (through the page colour), `slide`,
-  `wipe`, `iris`, `clock`, `flip`, `zoom` (forward through), `whip` (a fast smear), `bars`,
-  `flash`, `glitch`, `pushCut`, and WebGL shaders: `zoomBlur`, `crossZoom`, `dreamyZoom`,
-  `filmBurn`, `crosswarp`, `ripple`, `swap`, `bookFlip`, `blurSlide`, `linearBlur`.
+**Using the library well.**
+- `Metric`, `Stat` and `Quote` take real numbers and real quotes only, with permission.
+- Drawings tint themselves toward the brand colour: for a crafty, human feel, and in `paper`.
+- **Voice:** `npm run voice -- script.txt name` speaks a script with the Mac's or Windows' built-in
+  voices (or use recorded WAVs) into `public/voice/name/` and `src/voice/name.ts`. `Voiceover` plays
+  it, `voiceTiming`/`voiceEnd` time scenes to it, and `Captions` and `Waveform` follow it. Feeds play
+  muted: a narrated video still needs its captions. Built-in voices are for drafts; for a published
+  video, record a person or use a voice the user has the rights to.
+- Transitions the catalog calls a WebGL shader are accents only: check every frame of the final
+  render around one.
+- **Give back what a video invents.** A layout, a chip or a move another video could use becomes an
+  item in the project's library (a folder with the component, its sample in `<name>.demo.tsx` and
+  `item.json`, then `npm run library`), and offer the user to add it to dolly's own library too.
 
 **Several brands in one project** (variants for clients, or one video per product):
 `<LookProvider style="soft" brand={{name, url, logo, accent}}>` sets them for everything inside,

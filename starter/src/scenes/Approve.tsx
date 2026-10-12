@@ -53,7 +53,7 @@ export const Approve: React.FC = () => {
         <Layer {...layout.phone} ry={tall ? 0 : -4}>
           <Screen frame="phone" width={PHONE.width} height={PHONE.height} glare={0.4}>
             <Footage src={PHONE.src} at={AT} speed={SPEED} />
-            <Tap x={315} y={701} at={TAP} />
+            <Tap x={315} y={701} start={TAP} />
           </Screen>
         </Layer>
       </Stage>

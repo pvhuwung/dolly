@@ -1,6 +1,6 @@
 import {wipe} from '@remotion/transitions/wipe';
 import type {TransitionDef} from '../../types';
-import {as, linear, transitionDemos} from '../_shared';
+import {as, linear} from '../_shared';
 
 const FRAMES = 16;
 
@@ -9,5 +9,3 @@ export const transition: TransitionDef = {
   frames: FRAMES,
   make: () => linear(FRAMES, as(wipe({direction: 'from-right'}))),
 };
-
-export const demos = transitionDemos('wipe', transition);

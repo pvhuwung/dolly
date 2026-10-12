@@ -1,12 +1,18 @@
 import React from 'react';
 import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {alpha, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, inner} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
 /** Numbered steps joined by a line that draws from one to the next: how it works. */
-export const Steps: React.FC<{title?: string; accent?: string; steps: string[]}> = ({title, accent, steps}) => {
+export const Steps: React.FC<{
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** The steps in order, one short line each. */
+  steps: string[];
+}> = ({title, accent, steps}) => {
   const look = useLook();
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -77,8 +83,3 @@ export const Steps: React.FC<{title?: string; accent?: string; steps: string[]}>
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Steps', code: '<Steps title="How it works" steps={[...]} />', seconds: 4, hero: 95, backdrop: false, Component: () => <Steps title="How it" accent="works." steps={['Open a group', 'Start your agents', 'Get pinged when one asks']} />},
-];

@@ -1,9 +1,6 @@
 import React from 'react';
 import {Easing, interpolate, useCurrentFrame} from 'remotion';
 import {useLook} from '../../../look';
-import type {Demo} from '../../types';
-import {Center} from '../_shared';
-import {Kinetic} from '../kinetic/kinetic';
 
 const outEase = Easing.bezier(0.16, 1, 0.3, 1);
 
@@ -14,13 +11,21 @@ const outEase = Easing.bezier(0.16, 1, 0.3, 1);
  *   <Counter to={12480} suffix="+" start={20} />
  */
 export const Counter: React.FC<{
+  /** The number it counts to. */
   to: number;
+  /** The number it counts from (default 0). */
   from?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames the count takes; 50 times the style's pace if not set. */
   frames?: number;
+  /** Digits after the decimal point (default 0). */
   decimals?: number;
+  /** Text before the number, like $. */
   prefix?: string;
+  /** Text after the number, like + or %. */
   suffix?: string;
+  /** CSS merged over the headline style: font size, colour. */
   style?: React.CSSProperties;
 }> = ({to, from = 0, start = 0, frames, decimals = 0, prefix = '', suffix = '', style}) => {
   const frame = useCurrentFrame();
@@ -40,20 +45,3 @@ export const Counter: React.FC<{
     </span>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const CounterDemo: React.FC = () => {
-  const look = useLook();
-  return (
-    <Center>
-      <Counter to={12480} suffix="+" start={6} style={{fontSize: Math.round(look.size * 2.6), lineHeight: 1}} />
-      <Kinetic text="videos rendered this week" effect="fade" start={14} align="center" style={{fontFamily: look.fonts.body, fontSize: Math.max(44, Math.round(look.size * 0.6)), fontWeight: 500, letterSpacing: 0, color: look.dim}} />
-    </Center>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Counter', code: '<Counter to={12480} suffix="+" />', seconds: 3, hero: 80, Component: CounterDemo},
-];

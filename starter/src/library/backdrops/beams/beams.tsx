@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {alpha, mix} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {Vignette, backdropDemos} from '../_shared';
+import {Vignette} from '../_shared';
 
 /** Light falling from a point far above the frame, in beams that sway slowly. */
 export const backdrop: React.FC<BackdropProps> = ({look, tone, t}) => {
@@ -20,5 +20,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, tone, t}) => {
     </AbsoluteFill>
   );
 };
-
-export const demos = backdropDemos('beams');

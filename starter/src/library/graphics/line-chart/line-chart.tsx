@@ -1,8 +1,7 @@
 import React, {useId} from 'react';
 import {interpolate} from 'remotion';
 import {alpha} from '../../../look';
-import type {Demo} from '../../types';
-import {Area, type Pt, numberFormat, useArea, useTempo} from '../_shared';
+import {type Pt, numberFormat, useTempo} from '../_shared';
 
 /** Catmull-Rom through the points, as cubic Béziers: a smooth line that passes through every value. */
 const smoothPath = (pts: Pt[]) => {
@@ -34,16 +33,27 @@ const smoothPath = (pts: Pt[]) => {
  *   <LineChart values={[12, 18, 15, 26, 31, 29, 44, 58]} start={6} />
  */
 export const LineChart: React.FC<{
+  /** The points, left to right. */
   values: number[];
+  /** Labels under the points, one per value. */
   labels?: string[];
+  /** Its width in px (default 960). */
   width?: number;
+  /** Its height in px (default 440). */
   height?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames the line takes to draw across (default 70). */
   frames?: number;
+  /** The value at the bottom (default 0). */
   min?: number;
+  /** The value at the top; 12% above the largest value if not set. */
   max?: number;
+  /** Its colour; the style's accent if not set. */
   color?: string;
+  /** How the value at the line's head is written (default a whole number with thousands separators). */
   format?: (n: number) => string;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
 }> = ({values, labels, width = 960, height = 440, start = 0, frames = 70, min = 0, max, color, format = (n) => numberFormat(0).format(n), exit}) => {
   const {look, ramp, glide, pop, gone} = useTempo();
@@ -128,26 +138,3 @@ export const LineChart: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const LineDemo: React.FC = () => {
-  const {w, h} = useArea();
-  return (
-    <Area>
-      <LineChart
-        values={[12, 18, 15, 26, 31, 29, 44, 58]}
-        labels={['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']}
-        start={8}
-        width={Math.min(1080, w * 0.9)}
-        height={Math.min(480, h * 0.72)}
-        format={(n) => `${Math.round(n)}k`}
-      />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Line chart', code: '<LineChart values={[12, 18, 15, 26, 31, 29, 44, 58]} />', seconds: 4, hero: 104, Component: LineDemo},
-];

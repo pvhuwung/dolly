@@ -2,8 +2,7 @@ import React, {useMemo} from 'react';
 import {random} from 'remotion';
 import {ease} from '../../../kit';
 import {mix} from '../../../look';
-import type {Demo} from '../../types';
-import {CardSample, Wobble, useClock, useInk, usePalette, useUid, type Palette} from '../_shared';
+import {Wobble, useClock, useInk, usePalette, useUid, type Palette} from '../_shared';
 
 /**
  * Drops of ink landing one after another and rippling out in wobbly rings, each leaving its blot.
@@ -11,7 +10,24 @@ import {CardSample, Wobble, useClock, useInk, usePalette, useUid, type Palette} 
  *
  *   <Ripple width={700} height={460} drops={6} start={4} />
  */
-export const Ripple: React.FC<{width: number; height: number; drops?: number; start?: number; every?: number; seed?: number; color?: string; palette?: Partial<Palette>}> = ({
+export const Ripple: React.FC<{
+  /** Its width in px. */
+  width: number;
+  /** Its height in px. */
+  height: number;
+  /** How many drops land (default 6). */
+  drops?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
+  start?: number;
+  /** Frames between one drop and the next (default 9). */
+  every?: number;
+  /** Changes the random layout; the same seed always draws the same. */
+  seed?: number;
+  /** Its colour; ink mixed with the palette's sky if not set. */
+  color?: string;
+  /** Overrides some of the drawing's colours. */
+  palette?: Partial<Palette>;
+}> = ({
   width,
   height,
   drops = 6,
@@ -59,13 +75,3 @@ export const Ripple: React.FC<{width: number; height: number; drops?: number; st
     </svg>
   );
 };
-
-export const demos: Demo[] = [
-  {
-    name: 'Ink ripples',
-    code: '<Ripple width={700} height={460} drops={6} />',
-    seconds: 3,
-    hero: 66,
-    Component: () => <CardSample aspect={1.3}>{(w, h) => <Ripple width={w * 0.86} height={h * 0.84} drops={7} start={4} />}</CardSample>,
-  },
-];

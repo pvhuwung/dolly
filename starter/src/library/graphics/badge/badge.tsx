@@ -1,29 +1,37 @@
 import React from 'react';
 import type {LucideIcon} from 'lucide-react';
-import {ShieldCheck, Sparkles} from 'lucide-react';
 import {alpha} from '../../../look';
-import type {Demo} from '../../types';
-import {Area, useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 /**
  * A pill label that pops in: an icon and a few words. `tone` is how loud it is. `pulse` adds a live
  * dot. For "New", "Beta", "SOC 2", "Live".
  *
- *   <Badge icon={Sparkles} text="New in 2.0" at={10} />
+ *   <Badge icon={Sparkles} text="New in 2.0" start={10} />
  */
 export const Badge: React.FC<{
+  /** The words on it. */
   text: string;
+  /** A lucide icon before the words. */
   icon?: LucideIcon;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
+  start?: number;
+  /** @deprecated Use start. */
   at?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
+  /** How loud it is: 'soft', 'accent', 'card' or 'alert' (default 'soft'). */
   tone?: 'accent' | 'soft' | 'card' | 'alert';
+  /** Size of the text in px; scaled to the format's headline if not set. */
   size?: number;
+  /** Add a live dot that pulses. */
   pulse?: boolean;
-}> = ({text, icon: Glyph, at = 0, exit, tone = 'soft', size: sizeProp, pulse}) => {
+}> = ({text, icon: Glyph, start: startProp, at, exit, tone = 'soft', size: sizeProp, pulse}) => {
+  const start = startProp ?? at ?? 0;
   const {look, frame, pop, gone} = useTempo();
   // Scales with the format's headline: 30 px in 16:9, 40 in 9:16.
   const size = sizeProp ?? Math.round(look.size * 0.48);
-  const p = pop(at, 20);
+  const p = pop(start, 20);
   const out = gone(exit);
   const colors = {
     accent: {background: look.accent, color: look.onAccent, border: 'none'},
@@ -31,7 +39,7 @@ export const Badge: React.FC<{
     card: {background: look.surface, color: look.ink, border: `1px solid ${look.line}`},
     alert: {background: look.alert, color: '#ffffff', border: 'none'},
   }[tone];
-  const beat = ((frame - at) % 40) / 40;
+  const beat = ((frame - start) % 40) / 40;
   return (
     <div
       style={{
@@ -63,21 +71,3 @@ export const Badge: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const BadgeDemo: React.FC = () => {
-  const {look} = useArea();
-  return (
-    <Area gap={(look.format !== 'landscape') ? 28 : 24} row={!(look.format !== 'landscape')}>
-      <Badge text="Live" tone="accent" pulse at={4} size={44} />
-      <Badge text="New in 2.0" icon={Sparkles} at={12} size={44} />
-      <Badge text="SOC 2 Type II" icon={ShieldCheck} tone="card" at={20} size={44} />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Badges', code: '<Badge icon={Sparkles} text="New in 2.0" />', seconds: 2.5, hero: 50, Component: BadgeDemo},
-];

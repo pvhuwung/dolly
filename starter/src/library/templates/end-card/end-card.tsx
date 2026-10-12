@@ -2,12 +2,20 @@ import React from 'react';
 import {Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {ArrowRight} from 'lucide-react';
 import {alpha, useBrand, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {useIn, Page} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
 /** The ask, big and held: the name, one line, a button and where to go. */
-export const EndCard: React.FC<{line?: string; accent?: string; button?: string; url?: string}> = ({line, accent, button = 'Get started', url}) => {
+export const EndCard: React.FC<{
+  /** One line under the name, before its accent phrase. */
+  line?: string;
+  /** The phrase set in the style's accent way, after the line. */
+  accent?: string;
+  /** The button's words; `Get started` if not set. */
+  button?: string;
+  /** Where to go, under the button; the brand's URL if not set. */
+  url?: string;
+}> = ({line, accent, button = 'Get started', url}) => {
   const look = useLook();
   const b = useBrand();
   const frame = useCurrentFrame();
@@ -55,8 +63,3 @@ export const EndCard: React.FC<{line?: string; accent?: string; button?: string;
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'EndCard', code: '<EndCard line="…" accent="…" button="Download free" />', seconds: 4, hero: 100, backdrop: false, Component: () => <EndCard line="Your agents keep working." accent="Even when you walk away." button="Download free" />},
-];

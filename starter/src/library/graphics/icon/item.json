@@ -1,7 +1,7 @@
 {
   "name": "Icon",
   "summary": "A lucide icon in a tinted tile that pops in, for feature grids.",
-  "usage": "<Icon icon={Zap} at={8} />",
+  "usage": "<Icon icon={Zap} start={8} />",
   "tags": [
     "icon",
     "feature",

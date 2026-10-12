@@ -2,8 +2,7 @@ import React, {useMemo} from 'react';
 import {random} from 'remotion';
 import {ease} from '../../../kit';
 import {alpha, mix} from '../../../look';
-import type {Demo} from '../../types';
-import {CardSample, DrawOn, Wobble, bladePoints, smooth, useClock, usePalette, useUid, type Palette} from '../_shared';
+import {DrawOn, Wobble, bladePoints, smooth, useClock, usePalette, useUid, type Palette} from '../_shared';
 
 /**
  * A watercolour flower: translucent petals layered over each other with pooled edges, a cluster
@@ -13,13 +12,21 @@ import {CardSample, DrawOn, Wobble, bladePoints, smooth, useClock, usePalette, u
  *   <Flower size={320} petals={6} start={10} />
  */
 export const Flower: React.FC<{
+  /** Its width in px; it's 1.5 times as tall with a stem (default 320). */
   size?: number;
+  /** How many petals (default 6). */
   petals?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames it takes to draw (default 80). */
   frames?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** The petals' colour; the palette's rose if not set. */
   color?: string;
+  /** Draws the stem and its two leaves (default true). */
   stem?: boolean;
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({size = 320, petals = 6, start = 0, frames = 80, seed = 1, color, stem = true, palette}) => {
   const p = usePalette(palette);
@@ -111,13 +118,3 @@ export const Flower: React.FC<{
     </svg>
   );
 };
-
-export const demos: Demo[] = [
-  {
-    name: 'Watercolour flower',
-    code: '<Flower size={320} petals={6} start={6} />',
-    seconds: 3.5,
-    hero: 100,
-    Component: () => <CardSample aspect={0.8}>{(w, h) => <Flower size={Math.min(w * 0.62, (h * 0.86) / 1.5)} start={6} frames={80} />}</CardSample>,
-  },
-];

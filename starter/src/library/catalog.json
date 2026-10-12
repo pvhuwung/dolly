@@ -17,37 +17,38 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "eyebrow",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small label above the headline."
       },
       {
         "name": "text",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "The line, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the text."
       },
       {
         "name": "effect",
         "type": "TextEffect",
         "optional": true,
-        "doc": ""
+        "doc": "How the words come in; the style's own if not set."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -70,43 +71,44 @@
       "text/counter",
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "value",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "The number it counts up to."
       },
       {
         "name": "label",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "What the number counts, under it."
       },
       {
         "name": "prefix",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Text before the number, such as `$`."
       },
       {
         "name": "suffix",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Text after the number, such as `%` or `k`."
       },
       {
         "name": "decimals",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Decimal places to show; 0 if not set."
       },
       {
         "name": "note",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small line under the label, such as a source or a date."
       }
     ]
   },
@@ -128,6 +130,7 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [
       "lucide-react"
     ],
@@ -136,25 +139,25 @@
         "name": "eyebrow",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small label above the headline."
       },
       {
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "items",
         "type": "{ icon: LucideIcon; title: string; text?: string; }[]",
         "optional": false,
-        "doc": ""
+        "doc": "Three to six features, one card each."
       }
     ]
   },
@@ -176,31 +179,32 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "quote",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "What they said, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the quote."
       },
       {
         "name": "name",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "Who said it; their initials make the avatar."
       },
       {
         "name": "role",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Their role and company, under the name."
       }
     ]
   },
@@ -222,6 +226,7 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [
       "lucide-react"
     ],
@@ -230,25 +235,25 @@
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "before",
         "type": "{ title: string; items: string[]; }",
         "optional": false,
-        "doc": ""
+        "doc": "The old way: a heading and its items, struck through."
       },
       {
         "name": "after",
         "type": "{ title: string; items: string[]; }",
         "optional": false,
-        "doc": ""
+        "doc": "The product's way: a heading and its items, ticked."
       }
     ]
   },
@@ -270,25 +275,26 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "steps",
         "type": "string[]",
         "optional": false,
-        "doc": ""
+        "doc": "The steps in order, one short line each."
       }
     ]
   },
@@ -310,37 +316,38 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "kind",
         "type": "'pop' | 'slide' | 'iris' | 'focus'",
         "optional": true,
-        "doc": ""
+        "doc": "How the logo arrives: `pop`, `iris`, `slide` or `focus`; `pop` if not set."
       },
       {
         "name": "tagline",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A line under the name, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the tagline."
       },
       {
         "name": "logo",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "An image in public/; the brand's logo if not set."
       },
       {
         "name": "name",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The name under the logo; the brand's name if not set."
       }
     ]
   },
@@ -362,6 +369,7 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [
       "lucide-react"
     ],
@@ -370,25 +378,25 @@
         "name": "line",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "One line under the name, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the line."
       },
       {
         "name": "button",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The button's words; `Get started` if not set."
       },
       {
         "name": "url",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Where to go, under the button; the brand's URL if not set."
       }
     ]
   },
@@ -410,31 +418,32 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "eyebrow",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small label above the headline."
       },
       {
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "people",
         "type": "{ name: string; role?: string; initials?: string; image?: string; }[]",
         "optional": false,
-        "doc": ""
+        "doc": "Two to eight people, one card each."
       }
     ]
   },
@@ -456,43 +465,44 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "eyebrow",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small label above the headline."
       },
       {
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "date",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The day it happens, shown with the headline."
       },
       {
         "name": "items",
         "type": "{ time: string; title: string; who?: string; }[]",
         "optional": false,
-        "doc": ""
+        "doc": "The schedule, one row each."
       },
       {
         "name": "highlight",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "The row to highlight, counted from 0; none if not set."
       }
     ]
   },
@@ -514,37 +524,38 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "eyebrow",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small label above the headline."
       },
       {
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "to",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "The date and time it counts down to, as it should read."
       },
       {
         "name": "from",
         "type": "{ days: number; hours: number; minutes: number; seconds: number; }",
         "optional": false,
-        "doc": ""
+        "doc": "How long is left when the scene starts; it ticks down in real time."
       }
     ]
   },
@@ -566,31 +577,32 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "version",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "The release, in the badge, such as `v2.4`."
       },
       {
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "items",
         "type": "{ tag: 'New' | 'Improved' | 'Fixed'; text: string; }[]",
         "optional": false,
-        "doc": ""
+        "doc": "The changes, one row each."
       }
     ]
   },
@@ -612,31 +624,32 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "eyebrow",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small label above the headline."
       },
       {
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "items",
         "type": "{ when: string; what: string; }[]",
         "optional": false,
-        "doc": ""
+        "doc": "The milestones in order; the last one is marked."
       }
     ]
   },
@@ -658,31 +671,32 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "eyebrow",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small label above the headline."
       },
       {
         "name": "title",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The headline, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the title."
       },
       {
         "name": "items",
         "type": "{ label: string; detail?: string; value?: string; }[]",
         "optional": false,
-        "doc": ""
+        "doc": "The rows."
       }
     ]
   },
@@ -704,37 +718,38 @@
     "needs": [
       "text/kinetic"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "eyebrow",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small label above the headline."
       },
       {
         "name": "text",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "The news, before its accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way, after the text."
       },
       {
         "name": "detail",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A line of detail under it."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "The headline's font size in px; sized to the frame if not set."
       }
     ]
   },
@@ -755,61 +770,62 @@
       "Kinetic"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "text",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "The words, before the accent phrase."
       },
       {
         "name": "accent",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The phrase set in the style's accent way."
       },
       {
         "name": "effect",
         "type": "TextEffect",
         "optional": true,
-        "doc": ""
+        "doc": "How the words come in; the style's own if not set."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "stagger",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames between one word (or letter) starting and the next; the effect's own if not set."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       },
       {
         "name": "mark",
         "type": "MarkKind",
         "optional": true,
-        "doc": ""
+        "doc": "What's drawn behind the accent phrase; the style's own if not set."
       },
       {
         "name": "align",
         "type": "'left' | 'center'",
         "optional": true,
-        "doc": ""
+        "doc": "Left-aligned or centred (default left)."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
         "optional": true,
-        "doc": ""
+        "doc": "CSS merged over the headline style: font size, colour, max width."
       }
     ]
   },
@@ -818,7 +834,7 @@
     "category": "text",
     "name": "Mark",
     "summary": "Draws a highlighter, block, pill, underline, circle, strike or box on any inline words at a given frame.",
-    "usage": "<Mark kind=\"circle\" at={40}>3×</Mark>",
+    "usage": "<Mark kind=\"circle\" start={40}>3×</Mark>",
     "tags": [
       "highlight",
       "underline",
@@ -829,31 +845,32 @@
       "Mark"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "kind",
         "type": "MarkKind",
         "optional": false,
-        "doc": ""
+        "doc": "Which mark: marker, block, pill, underline, circle, strike or box."
       },
       {
-        "name": "at",
+        "name": "start",
         "type": "number",
-        "optional": false,
-        "doc": ""
+        "optional": true,
+        "doc": "Frame its mark starts to draw, counted from the start of its scene (default 0)."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the style's accent if not set (the alert colour for a strike)."
       },
       {
         "name": "children",
-        "type": "React.ReactNode",
+        "type": "ReactNode",
         "optional": false,
-        "doc": ""
+        "doc": "The words, number or name to mark."
       }
     ]
   },
@@ -872,7 +889,8 @@
     "exports": [
       "Cycle"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "text/kinetic"
     ],
     "packages": [],
@@ -881,25 +899,25 @@
         "name": "words",
         "type": "string[]",
         "optional": false,
-        "doc": ""
+        "doc": "The words it cycles through, in order; it loops."
       },
       {
         "name": "every",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames each word holds before the next comes in; 45 times the style's pace if not set."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
         "optional": true,
-        "doc": ""
+        "doc": "CSS merged over the headline and accent style: font size, colour."
       }
     ]
   },
@@ -918,7 +936,8 @@
     "exports": [
       "Counter"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "text/kinetic"
     ],
     "packages": [],
@@ -927,49 +946,49 @@
         "name": "to",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "The number it counts to."
       },
       {
         "name": "from",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "The number it counts from (default 0)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the count takes; 50 times the style's pace if not set."
       },
       {
         "name": "decimals",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Digits after the decimal point (default 0)."
       },
       {
         "name": "prefix",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Text before the number, like $."
       },
       {
         "name": "suffix",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Text after the number, like + or %."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
         "optional": true,
-        "doc": ""
+        "doc": "CSS merged over the headline style: font size, colour."
       }
     ]
   },
@@ -989,67 +1008,68 @@
       "Draw"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "d",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "The SVG path to draw, in a `width` × `height` box."
       },
       {
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px: the box `d` is drawn in."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px: the box `d` is drawn in."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the line takes to draw (default 36)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to undraw; it stays to the end if not set."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the style's accent if not set."
       },
       {
         "name": "strokeWidth",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Line width in px (default 6)."
       },
       {
         "name": "stretch",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Let `style` size the box to any width and height, stretching the path: for an underline as wide as its word."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
         "optional": true,
-        "doc": ""
+        "doc": "CSS for the SVG, to place or size it."
       }
     ]
   },
@@ -1069,61 +1089,62 @@
       "Arrow"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "from",
         "type": "Pt",
         "optional": false,
-        "doc": ""
+        "doc": "Where it starts, in px of its parent."
       },
       {
         "name": "to",
         "type": "Pt",
         "optional": false,
-        "doc": ""
+        "doc": "Where the head lands, in px of its parent."
       },
       {
         "name": "bend",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How much it curves: 0 is straight, more bows it to the left of travel, less to the right (default 0.25)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the line takes to draw (default 28)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the style's accent if not set."
       },
       {
         "name": "strokeWidth",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Line width in px (default 6)."
       },
       {
         "name": "head",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Length of the head's two strokes in px (default 26)."
       }
     ]
   },
@@ -1143,61 +1164,62 @@
       "Ring"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "value",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "The percentage it fills to, 0 to 100."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the ring takes to fill (default 60)."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width and height in px (default 320)."
       },
       {
         "name": "thickness",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Width of the ring in px; 7.5% of `size` if not set."
       },
       {
         "name": "label",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Words under the number."
       },
       {
         "name": "suffix",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "After the number (default '%')."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the style's accent if not set."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -1217,67 +1239,68 @@
       "Bars"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "data",
         "type": "{ label: string; value: number; }[]",
         "optional": false,
-        "doc": ""
+        "doc": "The bars, in order: a label and a value each."
       },
       {
         "name": "highlight",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Index of the bar drawn in the accent."
       },
       {
         "name": "across",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Lay the bars on their side with the labels on the left: for named categories, and for many bars in a tall frame."
       },
       {
         "name": "width",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px (default 900)."
       },
       {
         "name": "height",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its height in px (default 480)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "stagger",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames between one bar starting to grow and the next (default 5)."
       },
       {
         "name": "max",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "The value a full bar stands for; the largest value if not set."
       },
       {
         "name": "format",
         "type": "(n: number) => string",
         "optional": true,
-        "doc": ""
+        "doc": "How a value is written (default a whole number with thousands separators)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -1297,73 +1320,74 @@
       "LineChart"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "values",
         "type": "number[]",
         "optional": false,
-        "doc": ""
+        "doc": "The points, left to right."
       },
       {
         "name": "labels",
         "type": "string[]",
         "optional": true,
-        "doc": ""
+        "doc": "Labels under the points, one per value."
       },
       {
         "name": "width",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px (default 960)."
       },
       {
         "name": "height",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its height in px (default 440)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the line takes to draw across (default 70)."
       },
       {
         "name": "min",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "The value at the bottom (default 0)."
       },
       {
         "name": "max",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "The value at the top; 12% above the largest value if not set."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the style's accent if not set."
       },
       {
         "name": "format",
         "type": "(n: number) => string",
         "optional": true,
-        "doc": ""
+        "doc": "How the value at the line's head is written (default a whole number with thousands separators)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -1383,73 +1407,74 @@
       "Stat"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "value",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "The number it counts up to."
       },
       {
         "name": "label",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Words under the number."
       },
       {
         "name": "prefix",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Before the number, like '$'."
       },
       {
         "name": "suffix",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "After the number, like '%' or 'k'."
       },
       {
         "name": "decimals",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Decimal places shown (default 0)."
       },
       {
         "name": "delta",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A small chip beside the number once the count lands, like '+38%'."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the count takes (default 50)."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Size of the number in px; twice the style's headline size if not set."
       },
       {
         "name": "align",
         "type": "'left' | 'center'",
         "optional": true,
-        "doc": ""
+        "doc": "'center' puts the label under the middle of the number, 'left' lines both up on the left (default 'center')."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -1469,49 +1494,50 @@
       "Progress"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "value",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "The percentage it fills to; at 100 it says Done."
       },
       {
         "name": "label",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Words above the bar, on the left."
       },
       {
         "name": "width",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px (default 760)."
       },
       {
         "name": "thickness",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Height of the bar in px (default 16)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the bar takes to fill (default 50)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -1531,37 +1557,38 @@
       "Checklist"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "items",
         "type": "string[]",
         "optional": false,
-        "doc": ""
+        "doc": "The lines to tick off, in order."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "stagger",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames between one item ticking and the next (default 16)."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Size of the text in px (default 34)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -1570,7 +1597,7 @@
     "category": "graphics",
     "name": "Burst",
     "summary": "Confetti bursting from a point and falling away under gravity: a success moment.",
-    "usage": "<Burst x={960} y={500} at={14} />",
+    "usage": "<Burst x={960} y={500} start={14} />",
     "tags": [
       "confetti",
       "celebration",
@@ -1580,54 +1607,53 @@
     "exports": [
       "Burst"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "graphics/icon"
     ],
-    "packages": [
-      "lucide-react"
-    ],
+    "packages": [],
     "props": [
       {
         "name": "x",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Where it bursts from, in px of its parent."
       },
       {
         "name": "y",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Where it bursts from, in px of its parent."
       },
       {
-        "name": "at",
+        "name": "start",
         "type": "number",
-        "optional": false,
-        "doc": ""
+        "optional": true,
+        "doc": "Frame it bursts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "count",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many pieces of confetti (default 80)."
       },
       {
         "name": "power",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How big and far it bursts; 1 is normal (default 1)."
       },
       {
         "name": "seed",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the pattern, so two bursts don't match (default 'burst')."
       },
       {
         "name": "colors",
         "type": "string[]",
         "optional": true,
-        "doc": ""
+        "doc": "Colours of the confetti; the accent, the alert colour, a light accent and the ink if not set."
       }
     ]
   },
@@ -1636,7 +1662,7 @@
     "category": "graphics",
     "name": "Shine",
     "summary": "A glint of light sweeping across its children, once or on a loop.",
-    "usage": "<Shine at={20} every={50}><div>Get early access</div></Shine>",
+    "usage": "<Shine start={20} every={50}><div>Get early access</div></Shine>",
     "tags": [
       "glint",
       "button",
@@ -1647,45 +1673,44 @@
       "Shine"
     ],
     "needs": [],
-    "packages": [
-      "lucide-react"
-    ],
+    "demoNeeds": [],
+    "packages": [],
     "props": [
       {
-        "name": "at",
+        "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame the first glint starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames one sweep takes (default 30)."
       },
       {
         "name": "every",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Sweep again every this many frames; just once if not set."
       },
       {
         "name": "radius",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Corner radius of what it shines on, in px; the style's if not set."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Colour of the glint (default a soft white)."
       },
       {
         "name": "children",
-        "type": "React.ReactNode",
+        "type": "ReactNode",
         "optional": false,
-        "doc": ""
+        "doc": "What it shines across: a button, a logo, a price."
       }
     ]
   },
@@ -1706,39 +1731,38 @@
       "CursorPoint"
     ],
     "needs": [],
-    "packages": [
-      "lucide-react"
-    ],
+    "demoNeeds": [],
+    "packages": [],
     "props": [
       {
         "name": "points",
         "type": "CursorPoint[]",
         "optional": false,
-        "doc": ""
+        "doc": "Where it goes: each point's `x` and `y` in px of its parent, the frame `at` it arrives there, and `click` to press there."
       },
       {
         "name": "travel",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to move from one point to the next (default 22)."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its size in px (default 40)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       },
       {
         "name": "light",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "A white pointer with a dark edge, for dark footage; a black one if not set."
       }
     ]
   },
@@ -1747,7 +1771,7 @@
     "category": "graphics",
     "name": "Keys",
     "summary": "Keyboard keys that pop in and press down one after another: a shortcut.",
-    "usage": "<Keys keys={['⌘', 'K']} at={6} />",
+    "usage": "<Keys keys={['⌘', 'K']} start={6} />",
     "tags": [
       "keyboard",
       "shortcut",
@@ -1758,43 +1782,44 @@
       "Keys"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "keys",
         "type": "string[]",
         "optional": false,
-        "doc": ""
+        "doc": "The keys, in the order they go down: '⌘', 'Shift', 'K'."
       },
       {
-        "name": "at",
+        "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "stagger",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames between one key going down and the next (default 8)."
       },
       {
         "name": "hold",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the keys stay down before they let go (default 30)."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Height of a key in px (default 140)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -1803,7 +1828,7 @@
     "category": "graphics",
     "name": "Spotlight",
     "summary": "Dims the whole frame except one rectangle, the hole tightening onto it.",
-    "usage": "<Spotlight rect={{x: 700, y: 300, width: 520, height: 260}} at={15} />",
+    "usage": "<Spotlight rect={{x: 700, y: 300, width: 520, height: 260}} start={15} />",
     "tags": [
       "focus",
       "dim",
@@ -1814,55 +1839,56 @@
       "Spotlight"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "rect",
         "type": "{ x: number; y: number; width: number; height: number; }",
         "optional": false,
-        "doc": ""
+        "doc": "The part to light, in px of the frame: `x`, `y`, `width`, `height`."
       },
       {
-        "name": "at",
+        "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames the light takes to close in (default 26)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       },
       {
         "name": "dim",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How dark the rest of the frame gets, 0 to 1 (default 0.62)."
       },
       {
         "name": "pad",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Space left around `rect` in px (default 14)."
       },
       {
         "name": "radius",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Corner radius of the hole in px; the style's if not set."
       },
       {
         "name": "ring",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Draw an accent outline round the hole (default true)."
       }
     ]
   },
@@ -1871,7 +1897,7 @@
     "category": "graphics",
     "name": "Toast",
     "summary": "A notification sliding in like macOS or iOS: app icon, name, time, title and body.",
-    "usage": "<Toast title=\"Build passed\" body=\"All 214 checks green on main\" at={8} />",
+    "usage": "<Toast title=\"Build passed\" body=\"All 214 checks green on main\" start={8} />",
     "tags": [
       "notification",
       "alert",
@@ -1882,6 +1908,7 @@
       "Toast"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "lucide-react"
     ],
@@ -1890,61 +1917,61 @@
         "name": "title",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "The notification's title."
       },
       {
         "name": "body",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "A line under the title."
       },
       {
         "name": "app",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The app's name; the brand's if not set."
       },
       {
         "name": "time",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The time beside the app's name (default 'now')."
       },
       {
         "name": "icon",
         "type": "LucideIcon",
         "optional": true,
-        "doc": ""
+        "doc": "A lucide icon on an accent tile, in place of the logo."
       },
       {
         "name": "logo",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "An image in public/ for the app's icon; the brand logo if not set."
       },
       {
-        "name": "at",
+        "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       },
       {
         "name": "width",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px (default 560)."
       },
       {
         "name": "from",
         "type": "'top' | 'right'",
         "optional": true,
-        "doc": ""
+        "doc": "Where it slides in from: 'top' or 'right' (default 'top')."
       }
     ]
   },
@@ -1965,37 +1992,38 @@
       "ChatMessage"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "messages",
         "type": "ChatMessage[]",
         "optional": false,
-        "doc": ""
+        "doc": "The bubbles, in order: who sent each (`from`: 'me' or 'them'), its `text`, and the frame `at` it lands."
       },
       {
         "name": "width",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px (default 640)."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Size of the text in px (default 28)."
       },
       {
         "name": "typing",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames of typing dots before each of their messages (default 22)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       }
     ]
   },
@@ -2004,7 +2032,7 @@
     "category": "graphics",
     "name": "Badge",
     "summary": "A pill label that pops in with an icon or a live dot: New, Beta, Live.",
-    "usage": "<Badge icon={Sparkles} text=\"New in 2.0\" at={10} />",
+    "usage": "<Badge icon={Sparkles} text=\"New in 2.0\" start={10} />",
     "tags": [
       "label",
       "pill",
@@ -2015,6 +2043,7 @@
       "Badge"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "lucide-react"
     ],
@@ -2023,43 +2052,43 @@
         "name": "text",
         "type": "string",
         "optional": false,
-        "doc": ""
+        "doc": "The words on it."
       },
       {
         "name": "icon",
         "type": "LucideIcon",
         "optional": true,
-        "doc": ""
+        "doc": "A lucide icon before the words."
       },
       {
-        "name": "at",
+        "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       },
       {
         "name": "tone",
         "type": "'accent' | 'soft' | 'card' | 'alert'",
         "optional": true,
-        "doc": ""
+        "doc": "How loud it is: 'soft', 'accent', 'card' or 'alert' (default 'soft')."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Size of the text in px; scaled to the format's headline if not set."
       },
       {
         "name": "pulse",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Add a live dot that pulses."
       }
     ]
   },
@@ -2068,7 +2097,7 @@
     "category": "graphics",
     "name": "Icon",
     "summary": "A lucide icon in a tinted tile that pops in, for feature grids.",
-    "usage": "<Icon icon={Zap} at={8} />",
+    "usage": "<Icon icon={Zap} start={8} />",
     "tags": [
       "icon",
       "feature",
@@ -2079,6 +2108,7 @@
       "Icon"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "lucide-react"
     ],
@@ -2087,31 +2117,31 @@
         "name": "icon",
         "type": "LucideIcon",
         "optional": false,
-        "doc": ""
+        "doc": "The lucide icon (lucide.dev): `import {Zap} from 'lucide-react'`."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Size of the tile in px (default 112)."
       },
       {
-        "name": "at",
+        "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "exit",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts to leave; it stays to the end if not set."
       },
       {
         "name": "tone",
         "type": "'accent' | 'soft' | 'card'",
         "optional": true,
-        "doc": ""
+        "doc": "The tile's fill: 'soft', 'accent' or 'card' (default 'soft')."
       }
     ]
   },
@@ -2131,61 +2161,62 @@
       "Marquee"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "items",
         "type": "React.ReactNode[]",
         "optional": false,
-        "doc": ""
+        "doc": "What slides past: strings are set in the headline face; pass elements for logos."
       },
       {
         "name": "loop",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Seconds one full loop takes (default 9)."
       },
       {
         "name": "gap",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Space between items in px; 70% of `size` if not set."
       },
       {
         "name": "reverse",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Slide the other way."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Size of the words in px; 1.1 times the style's headline size if not set."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Colour of the words; the style's ink if not set."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "separator",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Put an accent dot between items (default true)."
       },
       {
         "name": "width",
         "type": "string | number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width, in px or any CSS width (default '100%')."
       }
     ]
   },
@@ -2206,7 +2237,8 @@
       "noise",
       "Palette"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/flower",
       "drawings/hex-field",
       "drawings/stamps"
@@ -2217,55 +2249,55 @@
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px."
       },
       {
         "name": "rotate",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Tilt in degrees (default 0)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The paper's colour (default a warm off-white, #f6f1e5)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the grain and the edge; the same seed always draws the same."
       },
       {
         "name": "padding",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Space between the card's edge and what's on it, in px (default 0)."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
         "optional": true,
-        "doc": ""
+        "doc": "Styles for the card's outer box, to place it."
       },
       {
         "name": "children",
-        "type": "string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…",
+        "type": "ReactNode",
         "optional": true,
-        "doc": ""
+        "doc": "What sits on the card, centred."
       }
     ]
   },
@@ -2284,7 +2316,8 @@
     "exports": [
       "Flower"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2293,49 +2326,49 @@
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px; it's 1.5 times as tall with a stem (default 320)."
       },
       {
         "name": "petals",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many petals (default 6)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to draw (default 80)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The petals' colour; the palette's rose if not set."
       },
       {
         "name": "stem",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Draws the stem and its two leaves (default true)."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2354,7 +2387,8 @@
     "exports": [
       "Stamps"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2363,55 +2397,55 @@
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px."
       },
       {
         "name": "count",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many stamps (default 18)."
       },
       {
         "name": "motif",
         "type": "Motif",
         "optional": true,
-        "doc": ""
+        "doc": "What's stamped: flower, star, leaf, dot or sprig (default flower)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "stagger",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames between one stamp landing and the next (default 3)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "colors",
         "type": "string[]",
         "optional": true,
-        "doc": ""
+        "doc": "Ink colours to pick from; two mixes of the accent if not set."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2430,7 +2464,8 @@
     "exports": [
       "HexField"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2439,49 +2474,49 @@
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px."
       },
       {
         "name": "radius",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Size of each hexagon, centre to corner, in px (default 30)."
       },
       {
         "name": "origin",
         "type": "Pt",
         "optional": true,
-        "doc": ""
+        "doc": "The hot spot the colour spreads from, in fractions of the box (default {x: 0.62, y: 0.55})."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to draw (default 60)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2500,7 +2535,8 @@
     "exports": [
       "Butterfly"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2509,43 +2545,43 @@
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its size in px (default 300)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "flap",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames for one wingbeat (default 24)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its wing colour; the palette's warm colour if not set."
       },
       {
         "name": "arrive",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Flies in along a curve from below left; false to start in place, hovering (default true)."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2564,7 +2600,8 @@
     "exports": [
       "Plant"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2573,49 +2610,49 @@
         "name": "width",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px (default 420)."
       },
       {
         "name": "height",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its height in px (default 560)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to grow (default 100)."
       },
       {
         "name": "depth",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many times the branches fork (default 4)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Grows a different plant; the same seed always grows the same one (default 2)."
       },
       {
         "name": "blooms",
         "type": "boolean",
         "optional": true,
-        "doc": ""
+        "doc": "Some branch tips flower (default true)."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2634,7 +2671,8 @@
     "exports": [
       "Stitch"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2643,43 +2681,43 @@
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its size in px (default 380)."
       },
       {
         "name": "shape",
         "type": "'circle' | 'sun' | 'leaf' | 'heart'",
         "optional": true,
-        "doc": ""
+        "doc": "sun stitches out from the middle in rings; circle, heart and leaf fill in slanted rows (default sun)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to sew (default 80)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "colors",
         "type": "string[]",
         "optional": true,
-        "doc": ""
+        "doc": "Thread colours, shading across the shape; warm golds (greens for a leaf) if not set."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2698,7 +2736,8 @@
     "exports": [
       "Watercolor"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2707,55 +2746,55 @@
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px."
       },
       {
         "name": "kind",
         "type": "'stroke' | 'pool'",
         "optional": true,
-        "doc": ""
+        "doc": "stroke paints a brushstroke left to right; pool bleeds out from the middle (default stroke)."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The paint's colour; the accent mixed with the palette's sun if not set."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to paint (default 28)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       },
       {
         "name": "children",
-        "type": "string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…",
+        "type": "ReactNode",
         "optional": true,
-        "doc": ""
+        "doc": "What sits on the wash, centred."
       }
     ]
   },
@@ -2775,7 +2814,8 @@
       "Doodles",
       "DoodleKind"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2784,55 +2824,55 @@
         "name": "kind",
         "type": "DoodleKind",
         "optional": false,
-        "doc": ""
+        "doc": "Which mark: underline, circle, squiggle, arrow, loop, spiral, star, sparkle, heart, burst or check."
       },
       {
         "name": "width",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px (default 200)."
       },
       {
         "name": "height",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its height in px (default 200)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to draw (default 24)."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the ink colour (dark on paper and light pages, light on dark ones) if not set."
       },
       {
         "name": "strokeWidth",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Line width in px (default 5)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2851,7 +2891,8 @@
     "exports": [
       "Constellation"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2860,49 +2901,49 @@
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px."
       },
       {
         "name": "count",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many stars (default 14)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "stagger",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames between one star appearing and the next (default 5)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the ink colour (dark on paper and light pages, light on dark ones) if not set."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2921,7 +2962,8 @@
     "exports": [
       "Contours"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -2930,49 +2972,49 @@
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px."
       },
       {
         "name": "levels",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many contour lines (default 10)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to draw (default 70)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "The colour of every line; ink warming towards the palette's warm colour, level by level, if not set."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -2991,7 +3033,8 @@
     "exports": [
       "Ripple"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -3000,49 +3043,49 @@
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px."
       },
       {
         "name": "drops",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many drops land (default 6)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "every",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames between one drop and the next (default 9)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; ink mixed with the palette's sky if not set."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -3061,7 +3104,8 @@
     "exports": [
       "Scribble"
     ],
-    "needs": [
+    "needs": [],
+    "demoNeeds": [
       "drawings/paper"
     ],
     "packages": [],
@@ -3070,61 +3114,61 @@
         "name": "width",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its width in px."
       },
       {
         "name": "height",
         "type": "number",
         "optional": false,
-        "doc": ""
+        "doc": "Its height in px."
       },
       {
         "name": "shape",
         "type": "'circle' | 'blob'",
         "optional": true,
-        "doc": ""
+        "doc": "The outline it fills: a loose blob or a circle (default blob)."
       },
       {
         "name": "density",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many back-and-forth passes (default 11)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "frames",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frames it takes to draw (default 30)."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the palette's sun, see-through, if not set."
       },
       {
         "name": "strokeWidth",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Line width in px (default 14)."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Changes the random layout; the same seed always draws the same."
       },
       {
         "name": "palette",
         "type": "Partial<Palette>",
         "optional": true,
-        "doc": ""
+        "doc": "Overrides some of the drawing's colours."
       }
     ]
   },
@@ -3149,31 +3193,32 @@
       "Word"
     ],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "lines",
         "type": "VoiceLine[]",
         "optional": false,
-        "doc": ""
+        "doc": "The voiceover's lines, from src/voice/<name>.ts (written by npm run voice)."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "gap",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Seconds of silence between lines (default 0.3)."
       },
       {
         "name": "volume",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its volume, 0 to 1 (default 1)."
       }
     ]
   },
@@ -3195,73 +3240,74 @@
     "needs": [
       "voice/voiceover"
     ],
+    "demoNeeds": [],
     "packages": [],
     "props": [
       {
         "name": "lines",
         "type": "VoiceLine[]",
         "optional": true,
-        "doc": ""
+        "doc": "A voiceover's lines to caption; give it the Voiceover's start and gap."
       },
       {
         "name": "only",
         "type": "number[]",
         "optional": true,
-        "doc": "The indices of the lines this waveform follows; the others leave it flat. Default: all."
+        "doc": "Not used by Captions, which shows every line; Waveform takes the same prop."
       },
       {
         "name": "text",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Words to caption without a voiceover, spoken over `seconds` from `start`."
       },
       {
         "name": "seconds",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Seconds `text` is spoken over (default 3)."
       },
       {
         "name": "words",
         "type": "Word[]",
         "optional": true,
-        "doc": ""
+        "doc": "Exact words with their start and end frames, instead of lines or text."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "gap",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Seconds between the voiceover's lines, as given to Voiceover (default 0.3)."
       },
       {
         "name": "variant",
         "type": "'pop' | 'karaoke' | 'line'",
         "optional": true,
-        "doc": ""
+        "doc": "karaoke (a box jumps to the word being said), pop (words pop in on their beat) or line (a plain subtitle); default karaoke."
       },
       {
         "name": "max",
         "type": "number",
         "optional": true,
-        "doc": "The most words on screen at once."
+        "doc": "The most words on screen at once (default 3 in tall frames, 5 in wide ones)."
       },
       {
         "name": "position",
         "type": "'bottom' | 'middle'",
         "optional": true,
-        "doc": ""
+        "doc": "Low in the safe area (bottom, the default) or in the middle."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its font size in px; sized to the frame if not set."
       },
       {
         "name": "plate",
@@ -3287,8 +3333,10 @@
       "Waveform"
     ],
     "needs": [
-      "voice/captions",
       "voice/voiceover"
+    ],
+    "demoNeeds": [
+      "voice/captions"
     ],
     "packages": [
       "@remotion/media-utils"
@@ -3298,7 +3346,7 @@
         "name": "lines",
         "type": "VoiceLine[]",
         "optional": true,
-        "doc": ""
+        "doc": "A voiceover's lines to follow; give it the Voiceover's start and gap."
       },
       {
         "name": "only",
@@ -3310,67 +3358,67 @@
         "name": "gap",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Seconds between the voiceover's lines, as given to Voiceover (default 0.3)."
       },
       {
         "name": "src",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "One audio file in public/ to follow, playing from `start`."
       },
       {
         "name": "start",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Frame it starts on, counted from the start of its scene (default 0)."
       },
       {
         "name": "variant",
         "type": "'circle' | 'line' | 'bars'",
         "optional": true,
-        "doc": ""
+        "doc": "bars (a centred spectrum), line (the wave) or circle (bars round a ring, with children inside); default bars."
       },
       {
         "name": "width",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its width in px, for bars and line (default 720)."
       },
       {
         "name": "height",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Its height in px, for bars and line (default 160)."
       },
       {
         "name": "size",
         "type": "number",
         "optional": true,
-        "doc": "The circle's diameter."
+        "doc": "The circle's diameter in px (default 360)."
       },
       {
         "name": "bars",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "How many bars (default 48, or 72 round a circle)."
       },
       {
         "name": "color",
         "type": "string",
         "optional": true,
-        "doc": ""
+        "doc": "Its colour; the style's accent if not set."
       },
       {
         "name": "seed",
         "type": "number",
         "optional": true,
-        "doc": ""
+        "doc": "Seed for the made-up motion it shows with no voice to follow (default 3)."
       },
       {
         "name": "children",
-        "type": "string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructo…",
+        "type": "ReactNode",
         "optional": true,
-        "doc": ""
+        "doc": "What sits inside the circle: a face, a cover."
       }
     ]
   },
@@ -3386,6 +3434,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3402,6 +3451,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3418,6 +3468,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3433,6 +3484,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3449,6 +3501,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3465,6 +3518,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3481,6 +3535,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3497,6 +3552,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3513,6 +3569,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3529,6 +3586,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [],
     "props": []
   },
@@ -3545,9 +3603,8 @@
     ],
     "exports": [],
     "needs": [],
-    "packages": [
-      "@remotion/transitions"
-    ],
+    "demoNeeds": [],
+    "packages": [],
     "props": []
   },
   {
@@ -3562,6 +3619,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3580,6 +3638,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3598,6 +3657,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3616,6 +3676,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3634,6 +3695,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3652,6 +3714,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3670,6 +3733,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3688,6 +3752,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3706,6 +3771,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3724,6 +3790,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3742,6 +3809,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3760,6 +3828,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3778,6 +3847,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3796,6 +3866,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3814,6 +3885,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3832,6 +3904,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3850,6 +3923,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3868,6 +3942,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3886,6 +3961,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3904,6 +3980,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3922,6 +3999,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3940,6 +4018,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],
@@ -3958,6 +4037,7 @@
     ],
     "exports": [],
     "needs": [],
+    "demoNeeds": [],
     "packages": [
       "@remotion/transitions"
     ],

@@ -1,8 +1,7 @@
 import React from 'react';
 import {ease} from '../../../kit';
 import {alpha} from '../../../look';
-import type {Demo} from '../../types';
-import {Area, useArea, useTempo} from '../_shared';
+import {useTempo} from '../_shared';
 
 /**
  * A bar filling to `value` percent, its label and percentage above it. For an upload, an index, a
@@ -11,12 +10,19 @@ import {Area, useArea, useTempo} from '../_shared';
  *   <Progress value={72} label="Indexing repository" start={6} />
  */
 export const Progress: React.FC<{
+  /** The percentage it fills to; at 100 it says Done. */
   value: number;
+  /** Words above the bar, on the left. */
   label?: string;
+  /** Its width in px (default 760). */
   width?: number;
+  /** Height of the bar in px (default 16). */
   thickness?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames the bar takes to fill (default 50). */
   frames?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
 }> = ({value, label, width = 760, thickness = 16, start = 0, frames = 50, exit}) => {
   const {look, frame, ramp, glide, gone} = useTempo();
@@ -51,22 +57,3 @@ export const Progress: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const ProgressDemo: React.FC = () => {
-  const {w, look} = useArea();
-  const width = Math.min(1000, w * 0.95);
-  return (
-    <Area gap={look.size * 0.85}>
-      <Progress label="Install" value={100} start={4} frames={24} width={width} />
-      <Progress label="Build" value={100} start={22} frames={30} width={width} />
-      <Progress label="Deploy" value={64} start={44} frames={40} width={width} />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Progress bars', code: '<Progress value={64} label="Deploy" />', seconds: 4, hero: 110, Component: ProgressDemo},
-];

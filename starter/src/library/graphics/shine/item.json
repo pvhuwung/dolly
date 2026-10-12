@@ -1,7 +1,7 @@
 {
   "name": "Shine",
   "summary": "A glint of light sweeping across its children, once or on a loop.",
-  "usage": "<Shine at={20} every={50}><div>Get early access</div></Shine>",
+  "usage": "<Shine start={20} every={50}><div>Get early access</div></Shine>",
   "tags": [
     "glint",
     "button",

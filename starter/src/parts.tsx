@@ -69,7 +69,18 @@ export const Caption: React.FC<{
 };
 
 /** A soft dot that blooms where something was tapped or clicked, in the clip's coordinates. */
-export const Tap: React.FC<{x: number; y: number; at: number; color?: string}> = ({x, y, at, color}) => {
+export const Tap: React.FC<{
+  /** Where the tap lands, in the clip's points. */
+  x: number;
+  y: number;
+  /** Frame the tap happens on, counted from the start of its scene. */
+  start?: number;
+  /** @deprecated Use start. */
+  at?: number;
+  /** Its colour; the style's accent if not set. */
+  color?: string;
+}> = ({x, y, start: startProp, at: atProp, color}) => {
+  const at = startProp ?? atProp ?? 0;
   const look = useLook();
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -93,15 +104,25 @@ export const Tap: React.FC<{x: number; y: number; at: number; color?: string}> =
 };
 
 /** An outline that draws itself around part of a clip, to point at something. */
-export const Callout: React.FC<{x: number; y: number; width: number; height: number; at: number; until?: number; color?: string}> = ({
-  x,
-  y,
-  width,
-  height,
-  at,
-  until,
-  color,
-}) => {
+export const Callout: React.FC<{
+  /** The box it draws around, in the clip's points. */
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  /** Frame it starts to draw, counted from the start of its scene. */
+  start?: number;
+  /** Frame it starts to leave; it stays to the end if not set. */
+  exit?: number;
+  /** @deprecated Use start. */
+  at?: number;
+  /** @deprecated Use exit. */
+  until?: number;
+  /** Its colour; the style's accent if not set. */
+  color?: string;
+}> = ({x, y, width, height, start, exit, at: atProp, until: untilProp, color}) => {
+  const at = start ?? atProp ?? 0;
+  const until = exit ?? untilProp;
   const look = useLook();
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -151,8 +172,16 @@ export const Speed: React.FC<{label: string}> = ({label}) => {
   );
 };
 
-/** Fades and lifts its children in at frame `at`. */
-export const Pop: React.FC<{at: number; children: React.ReactNode; style?: React.CSSProperties}> = ({at, children, style}) => {
+/** Fades and lifts its children in at frame `start`. */
+export const Pop: React.FC<{
+  /** Frame it comes in on, counted from the start of its scene. */
+  start?: number;
+  /** @deprecated Use start. */
+  at?: number;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+}> = ({start, at: atProp, children, style}) => {
+  const at = start ?? atProp ?? 0;
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const t = spring({frame: frame - at, fps, config: {damping: 200}, durationInFrames: 22});

@@ -1,6 +1,6 @@
 import {linearBlur} from '@remotion/transitions/linear-blur';
 import type {TransitionDef} from '../../types';
-import {as, linear, transitionDemos} from '../_shared';
+import {as, linear} from '../_shared';
 
 const FRAMES = 20;
 
@@ -9,5 +9,3 @@ export const transition: TransitionDef = {
   frames: FRAMES,
   make: () => linear(FRAMES, as(linearBlur({}))),
 };
-
-export const demos = transitionDemos('linearBlur', transition);

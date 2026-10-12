@@ -1,7 +1,7 @@
 import React, {useId} from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import type {TransitionDef} from '../../types';
-import {bump, inOut, linear, presentation, type PresentationProps, transitionDemos} from '../_shared';
+import {bump, inOut, linear, presentation, type PresentationProps} from '../_shared';
 
 const FRAMES = 10;
 
@@ -30,5 +30,3 @@ export const transition: TransitionDef = {
   frames: FRAMES,
   make: (look) => linear(FRAMES, presentation(Whip, {width: look.width}), Easing.linear),
 };
-
-export const demos = transitionDemos('whip', transition);

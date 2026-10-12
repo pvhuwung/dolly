@@ -1,7 +1,6 @@
 import React from 'react';
 import {alpha} from '../../../look';
-import type {Demo} from '../../types';
-import {Area, numberFormat, useArea, useTempo} from '../_shared';
+import {numberFormat, useTempo} from '../_shared';
 
 /**
  * A bar chart: bars grow in one after another, their values counting up, the `highlight` bar in
@@ -13,15 +12,25 @@ import {Area, numberFormat, useArea, useTempo} from '../_shared';
  *   <Bars across data={[{label: 'Beans', value: 45}, ...]} highlight={0} width={900} height={560} />
  */
 export const Bars: React.FC<{
+  /** The bars, in order: a label and a value each. */
   data: {label: string; value: number}[];
+  /** Index of the bar drawn in the accent. */
   highlight?: number;
+  /** Lay the bars on their side with the labels on the left: for named categories, and for many bars in a tall frame. */
   across?: boolean;
+  /** Its width in px (default 900). */
   width?: number;
+  /** Its height in px (default 480). */
   height?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames between one bar starting to grow and the next (default 5). */
   stagger?: number;
+  /** The value a full bar stands for; the largest value if not set. */
   max?: number;
+  /** How a value is written (default a whole number with thousands separators). */
   format?: (n: number) => string;
+  /** Frame it starts to leave; it stays to the end if not set. */
   exit?: number;
 }> = ({data, highlight, across, width = 900, height = 480, start = 0, stagger = 5, max, format = (n) => numberFormat(0).format(n), exit}) => {
   const {look, pop, glide, gone} = useTempo();
@@ -137,27 +146,3 @@ export const Bars: React.FC<{
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------------------------
-// Samples for the gallery
-
-const MONTHS = [
-  {label: 'May', value: 1200},
-  {label: 'Jun', value: 1900},
-  {label: 'Jul', value: 2600},
-  {label: 'Aug', value: 4100},
-  {label: 'Sep', value: 6800},
-];
-
-const BarsDemo: React.FC = () => {
-  const {w, h} = useArea();
-  return (
-    <Area>
-      <Bars data={MONTHS} highlight={4} start={6} width={Math.min(980, w * 0.92)} height={Math.min(520, h * 0.8)} />
-    </Area>
-  );
-};
-
-export const demos: Demo[] = [
-  {name: 'Bar chart', code: '<Bars data={MONTHS} highlight={4} />', seconds: 3, hero: 75, Component: BarsDemo},
-];

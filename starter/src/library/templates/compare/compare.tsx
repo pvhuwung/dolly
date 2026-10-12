@@ -2,12 +2,30 @@ import React from 'react';
 import {spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {Check, X} from 'lucide-react';
 import {alpha, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, inner} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
 /** Before and after: the old way struck through, the product's way ticked. */
-export const Compare: React.FC<{title?: string; accent?: string; before: {title: string; items: string[]}; after: {title: string; items: string[]}}> = ({
+export const Compare: React.FC<{
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** The old way: a heading and its items, struck through. */
+  before: {
+    /** The column's heading. */
+    title: string;
+    /** One short line each, struck through. */
+    items: string[];
+  };
+  /** The product's way: a heading and its items, ticked. */
+  after: {
+    /** The column's heading. */
+    title: string;
+    /** One short line each, ticked. */
+    items: string[];
+  };
+}> = ({
   title,
   accent,
   before,
@@ -78,8 +96,3 @@ export const Compare: React.FC<{title?: string; accent?: string; before: {title:
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Compare', code: '<Compare before={{title, items}} after={{title, items}} />', seconds: 5, hero: 130, backdrop: false, Component: () => <Compare title="Stop checking" accent="every tab." before={{title: 'Before', items: ['Tab through every terminal', 'Miss the prompt that waits']}} after={{title: 'With Termary', items: ['Every agent in one view', 'The waiting one lights up']}} />},
-];

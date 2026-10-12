@@ -1,7 +1,6 @@
 import React from 'react';
 import {interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, inner, Heading, useStagger} from '../_shared';
 
 /**
@@ -10,7 +9,27 @@ import {Page, inner, Heading, useStagger} from '../_shared';
  *
  *   <Countdown title="Doors open" accent="soon." to="Oct 24 · 9:00 AM" from={{days: 12, hours: 4, minutes: 32, seconds: 9}} />
  */
-export const Countdown: React.FC<{eyebrow?: string; title?: string; accent?: string; to: string; from: {days: number; hours: number; minutes: number; seconds: number}}> = ({
+export const Countdown: React.FC<{
+  /** A small label above the headline. */
+  eyebrow?: string;
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** The date and time it counts down to, as it should read. */
+  to: string;
+  /** How long is left when the scene starts; it ticks down in real time. */
+  from: {
+    /** Days left. */
+    days: number;
+    /** Hours left, after the days. */
+    hours: number;
+    /** Minutes left, after the hours. */
+    minutes: number;
+    /** Seconds left, after the minutes. */
+    seconds: number;
+  };
+}> = ({
   eyebrow,
   title,
   accent,
@@ -107,8 +126,3 @@ export const Countdown: React.FC<{eyebrow?: string; title?: string; accent?: str
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Countdown', code: '<Countdown title="Doors open" to="Oct 24 · 9:00 AM" from={{days, hours, minutes, seconds}} />', seconds: 4, hero: 96, backdrop: false, Component: () => <Countdown title="Doors open" accent="soon." to="Oct 24 · 9:00 AM" from={{days: 12, hours: 4, minutes: 32, seconds: 9}} />},
-];

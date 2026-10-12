@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import type {TransitionDef} from '../../types';
-import {clamp01, inOut, linear, presentation, type PresentationProps, transitionDemos} from '../_shared';
+import {clamp01, inOut, linear, presentation, type PresentationProps} from '../_shared';
 
 const FRAMES = 14;
 
@@ -26,5 +26,3 @@ export const transition: TransitionDef = {
   frames: FRAMES,
   make: () => linear(FRAMES, presentation(Zoom, {scale: 1})),
 };
-
-export const demos = transitionDemos('zoom', transition);

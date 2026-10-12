@@ -1,7 +1,6 @@
 import React, {useMemo} from 'react';
 import {ease} from '../../../kit';
-import type {Demo} from '../../types';
-import {CardSample, DrawOn, n1, noise, smooth, useClock, useInk, usePalette, type Palette, type Pt} from '../_shared';
+import {DrawOn, n1, noise, smooth, useClock, useInk, usePalette, type Palette, type Pt} from '../_shared';
 
 export type DoodleKind = 'underline' | 'circle' | 'squiggle' | 'arrow' | 'loop' | 'spiral' | 'star' | 'sparkle' | 'heart' | 'burst' | 'check';
 
@@ -79,14 +78,23 @@ const doodleStrokes = (kind: DoodleKind): Pt[][] => {
  *   <Doodles kind="circle" width={300} height={140} start={20} />
  */
 export const Doodles: React.FC<{
+  /** Which mark: underline, circle, squiggle, arrow, loop, spiral, star, sparkle, heart, burst or check. */
   kind: DoodleKind;
+  /** Its width in px (default 200). */
   width?: number;
+  /** Its height in px (default 200). */
   height?: number;
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames it takes to draw (default 24). */
   frames?: number;
+  /** Its colour; the ink colour (dark on paper and light pages, light on dark ones) if not set. */
   color?: string;
+  /** Line width in px (default 5). */
   strokeWidth?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({kind, width = 200, height = 200, start = 0, frames = 24, color, strokeWidth = 5, seed = 1, palette}) => {
   const p = usePalette(palette);
@@ -125,24 +133,3 @@ export const Doodles: React.FC<{
     </svg>
   );
 };
-
-const DOODLES: DoodleKind[] = ['circle', 'underline', 'arrow', 'star', 'sparkle', 'heart', 'squiggle', 'spiral', 'burst'];
-
-const DoodlesDemo: React.FC = () => (
-  <CardSample aspect={1.2}>
-    {(w) => {
-      const cell = (w * 0.8) / 3;
-      return (
-        <div style={{display: 'grid', gridTemplateColumns: `repeat(3, ${cell}px)`, gap: cell * 0.04}}>
-          {DOODLES.map((k, i) => (
-            <div key={k} style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: cell * 0.78}}>
-              <Doodles kind={k} width={cell * 0.62} height={cell * 0.56} start={6 + i * 7} frames={20} seed={i + 1} strokeWidth={Math.max(3, cell / 48)} />
-            </div>
-          ))}
-        </div>
-      );
-    }}
-  </CardSample>
-);
-
-export const demos: Demo[] = [{name: 'Doodles', code: '<Doodles kind="circle" width={300} height={140} />', seconds: 3.5, hero: 100, Component: DoodlesDemo}];

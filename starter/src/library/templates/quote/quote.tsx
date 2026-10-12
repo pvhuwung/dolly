@@ -1,11 +1,19 @@
 import React from 'react';
 import {useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {useIn, Page} from '../_shared';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
 /** What a user said, with who said it. Real quotes only, with permission. */
-export const Quote: React.FC<{quote: string; accent?: string; name: string; role?: string}> = ({quote, accent, name, role}) => {
+export const Quote: React.FC<{
+  /** What they said, before its accent phrase. */
+  quote: string;
+  /** The phrase set in the style's accent way, after the quote. */
+  accent?: string;
+  /** Who said it; their initials make the avatar. */
+  name: string;
+  /** Their role and company, under the name. */
+  role?: string;
+}> = ({quote, accent, name, role}) => {
   const look = useLook();
   const mark = useIn(0, 20);
   const who = useIn(Math.round((quote.split(' ').length + (accent?.split(' ').length ?? 0)) * 4 + 20));
@@ -46,8 +54,3 @@ export const Quote: React.FC<{quote: string; accent?: string; name: string; role
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Quote', code: '<Quote quote="…" accent="…" name="…" role="…" />', seconds: 4.5, hero: 110, backdrop: false, Component: () => <Quote quote="I stopped tabbing through terminals." accent="Now they come to me." name="Your Customer" role="Their role, their company" />},
-];

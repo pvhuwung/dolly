@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {alpha, mix} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {Vignette, backdropDemos} from '../_shared';
+import {Vignette} from '../_shared';
 
 /** One soft light from above that breathes slowly, the corners in shadow. */
 export const backdrop: React.FC<BackdropProps> = ({look, tone, t}) => {
@@ -17,5 +17,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, tone, t}) => {
     </AbsoluteFill>
   );
 };
-
-export const demos = backdropDemos('spotlight');

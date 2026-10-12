@@ -1,7 +1,6 @@
 import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
 import {alpha, useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {Page, inner, Heading, headingHeight, useStagger} from '../_shared';
 
 /**
@@ -11,7 +10,21 @@ import {Page, inner, Heading, headingHeight, useStagger} from '../_shared';
  *
  *   <Timeline title="How we" accent="got here." items={[{when: '2023', what: 'Two people, one idea'}, ...]} />
  */
-export const Timeline: React.FC<{eyebrow?: string; title?: string; accent?: string; items: {when: string; what: string}[]}> = ({eyebrow, title, accent, items}) => {
+export const Timeline: React.FC<{
+  /** A small label above the headline. */
+  eyebrow?: string;
+  /** The headline, before its accent phrase. */
+  title?: string;
+  /** The phrase set in the style's accent way, after the title. */
+  accent?: string;
+  /** The milestones in order; the last one is marked. */
+  items: {
+    /** When, such as a year. */
+    when: string;
+    /** What happened, one short line. */
+    what: string;
+  }[];
+}> = ({eyebrow, title, accent, items}) => {
   const look = useLook();
   const frame = useCurrentFrame();
   const pop = useStagger();
@@ -157,8 +170,3 @@ export const Timeline: React.FC<{eyebrow?: string; title?: string; accent?: stri
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Timeline', code: '<Timeline title="How we" accent="got here." items={[{when, what}, ...]} />', seconds: 4.5, hero: 120, backdrop: false, Component: () => <Timeline title="How we" accent="got here." items={[{when: '2023', what: 'Two people, one idea'}, {when: '2024', what: 'First 1,000 users'}, {when: '2025', what: 'Seed round'}, {when: '2026', what: 'Series A'}]} />},
-];

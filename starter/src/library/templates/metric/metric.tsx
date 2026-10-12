@@ -1,12 +1,24 @@
 import React from 'react';
 import {useLook} from '../../../look';
-import type {Demo} from '../../types';
 import {useIn, Page, inner} from '../_shared';
 import {Counter} from '../../text/counter/counter';
 import {Kinetic} from '../../text/kinetic/kinetic';
 
 /** A number that counts up, with what it counts: "12 agents in one window". */
-export const Metric: React.FC<{value: number; label: string; prefix?: string; suffix?: string; decimals?: number; note?: string}> = ({
+export const Metric: React.FC<{
+  /** The number it counts up to. */
+  value: number;
+  /** What the number counts, under it. */
+  label: string;
+  /** Text before the number, such as `$`. */
+  prefix?: string;
+  /** Text after the number, such as `%` or `k`. */
+  suffix?: string;
+  /** Decimal places to show; 0 if not set. */
+  decimals?: number;
+  /** A small line under the label, such as a source or a date. */
+  note?: string;
+}> = ({
   value,
   label,
   prefix,
@@ -37,8 +49,3 @@ export const Metric: React.FC<{value: number; label: string; prefix?: string; su
     </Page>
   );
 };
-
-// The gallery sample. The copy is placeholder: write the product's own.
-export const demos: Demo[] = [
-  {name: 'Metric', code: '<Metric value={12} label="agents in one window" />', seconds: 3.5, hero: 80, backdrop: false, Component: () => <Metric value={12} label="agents in one window" />},
-];

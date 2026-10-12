@@ -2,7 +2,6 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {alpha} from '../../../look';
 import type {BackdropProps} from '../../types';
-import {backdropDemos} from '../_shared';
 
 /** A swiss column grid: twelve columns inside the safe margins, square modules, a + at every other crossing. */
 export const backdrop: React.FC<BackdropProps> = ({look, t, id}) => {
@@ -28,5 +27,3 @@ export const backdrop: React.FC<BackdropProps> = ({look, t, id}) => {
     </AbsoluteFill>
   );
 };
-
-export const demos = backdropDemos('grid');

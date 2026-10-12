@@ -1,8 +1,7 @@
 import React, {useMemo} from 'react';
 import {random} from 'remotion';
 import {mix} from '../../../look';
-import type {Demo} from '../../types';
-import {CardSample, n1, useClock, usePalette, type Palette} from '../_shared';
+import {n1, useClock, usePalette, type Palette} from '../_shared';
 
 type Stitchline = {x1: number; y1: number; x2: number; y2: number; color: string; t: number};
 
@@ -26,12 +25,19 @@ const insideShape = (shape: 'circle' | 'heart' | 'leaf', x: number, y: number) =
  *   <Stitch size={380} shape="sun" start={6} />
  */
 export const Stitch: React.FC<{
+  /** Its size in px (default 380). */
   size?: number;
+  /** sun stitches out from the middle in rings; circle, heart and leaf fill in slanted rows (default sun). */
   shape?: 'sun' | 'circle' | 'heart' | 'leaf';
+  /** Frame it starts on, counted from the start of its scene (default 0). */
   start?: number;
+  /** Frames it takes to sew (default 80). */
   frames?: number;
+  /** Changes the random layout; the same seed always draws the same. */
   seed?: number;
+  /** Thread colours, shading across the shape; warm golds (greens for a leaf) if not set. */
   colors?: string[];
+  /** Overrides some of the drawing's colours. */
   palette?: Partial<Palette>;
 }> = ({size = 380, shape = 'sun', start = 0, frames = 80, seed = 1, colors, palette}) => {
   const p = usePalette(palette);
@@ -109,20 +115,3 @@ export const Stitch: React.FC<{
     </svg>
   );
 };
-
-export const demos: Demo[] = [
-  {
-    name: 'Embroidery',
-    code: '<Stitch size={380} shape="sun" />',
-    seconds: 3.5,
-    hero: 100,
-    Component: () => <CardSample aspect={1}>{(w) => <Stitch size={w * 0.72} start={4} frames={84} />}</CardSample>,
-  },
-  {
-    name: 'Stitched heart',
-    code: '<Stitch size={340} shape="heart" />',
-    seconds: 3,
-    hero: 85,
-    Component: () => <CardSample aspect={1}>{(w) => <Stitch size={w * 0.62} shape="heart" start={4} frames={70} palette={{sun: '#e88a7a', warm: '#c4473f'}} />}</CardSample>,
-  },
-];

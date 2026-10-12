@@ -1,7 +1,7 @@
 {
   "name": "Mark",
   "summary": "Draws a highlighter, block, pill, underline, circle, strike or box on any inline words at a given frame.",
-  "usage": "<Mark kind=\"circle\" at={40}>3×</Mark>",
+  "usage": "<Mark kind=\"circle\" start={40}>3×</Mark>",
   "tags": [
     "highlight",
     "underline",
