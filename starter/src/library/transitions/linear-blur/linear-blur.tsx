@@ -7,5 +7,6 @@ const FRAMES = 20;
 /** A directional blur carries one scene into the next. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: () => linear(FRAMES, as(linearBlur({}))),
 };

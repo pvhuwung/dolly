@@ -2,8 +2,8 @@ import React from 'react';
 import {Audio, CalculateMetadataFunction, Sequence, staticFile} from 'remotion';
 import {BellRing, Columns3, Smartphone} from 'lucide-react';
 import {brand} from './brand';
-import {Scene, Scenes, sceneStarts, scenesLength} from './sequence';
-import {FORMATS, FormatName, LookProvider, StyleName, makeLook} from './look';
+import {Scene, Scenes, sceneStarts, scenesLength, whooshStarts} from './sequence';
+import {FORMATS, FormatName, LookProvider, StyleName} from './look';
 import {Compare, EndCard, Features, LogoReveal, Statement, Steps} from './library';
 
 // A second sample: a motion-graphics cut made only of templates, with no takes. It's the shape of
@@ -55,17 +55,14 @@ export const promoMetadata: CalculateMetadataFunction<PromoProps> = ({props}) =>
 
 export const Promo: React.FC<PromoProps> = ({style = brand.style}) => {
   const starts = sceneStarts(PROMO, style);
-  const transition = makeLook(style, 1920, 1080).transition;
   return (
     <LookProvider style={style}>
       <Scenes scenes={PROMO} />
-      {PROMO.slice(1).map((s, i) =>
-        (s.transition ?? transition) === 'cut' ? null : (
-          <Sequence key={s.name} from={starts[i + 1]} durationInFrames={30}>
-            <Audio src={staticFile('sfx/whoosh.wav')} volume={0.25} />
-          </Sequence>
-        ),
-      )}
+      {whooshStarts(PROMO, style).map((from) => (
+        <Sequence key={`whoosh-${from}`} from={from} durationInFrames={30}>
+          <Audio src={staticFile('sfx/whoosh.wav')} volume={0.25} />
+        </Sequence>
+      ))}
       <Sequence from={starts[1] + 2} durationInFrames={40}>
         <Audio src={staticFile('sfx/ting.wav')} volume={0.4} />
       </Sequence>

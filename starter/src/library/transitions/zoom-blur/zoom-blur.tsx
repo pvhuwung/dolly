@@ -7,5 +7,6 @@ const FRAMES = 20;
 /** A radial zoom blur through the cut. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: () => linear(FRAMES, as(zoomBlur({}))),
 };

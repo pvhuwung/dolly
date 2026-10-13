@@ -51,7 +51,7 @@ For an existing Remotion 4.0.320+ project, copy `src/kit.tsx`, `src/look.tsx`, `
 | `src/parts.tsx` | What goes over a shot: `Caption`, `Tap`, `Callout`, `Speed`, `Pop` |
 | `src/kit.tsx` | The 3D kit and the camera moves (`references/camera.md`) |
 | `public/takes/` | The recordings. Replace them with the user's own |
-| `scripts/` | `take.sh` records a take, `scan.mjs` (`npm run scan`) reads recordings, `sfx.mjs` and `music.mjs` make sound, `voice.mjs` a voiceover, `library.mjs` rebuilds the catalog |
+| `scripts/` | `take.sh` records a take, `scan.mjs` (`npm run scan`) reads recordings, `sfx.mjs` and `music.mjs` make sound, `voice.mjs` a voiceover, `library.mjs` rebuilds the catalog, `check.mjs` (`npm run check`) measures a render, `web.mjs` (`npm run web`) makes the upload copy |
 
 Remotion is free for individuals and companies of up to 3 people; bigger companies need a
 company license (remotion.pro). Tell the user once if that applies.
@@ -112,7 +112,8 @@ nobody has described to you. Those times are the `at` values shots play from.
 
 A scene is a component that fills the frame. `SCENES` in `Video.tsx` (or `Promo.tsx`) lists them
 with their lengths; the style's transition joins them, and a scene can name its own
-(`transition: 'iris'`, the one into it). A whoosh plays under every transition that isn't a cut.
+(`transition: 'iris'`, the one into it). A whoosh plays under each transition that moves the
+whole frame (a slide, a whip, a zoom).
 
 **The library** (`src/library/`) holds every ready-made piece, one folder each: templates (whole
 scenes), text effects, graphics, drawings, voice parts, backdrops and transitions. **Read
@@ -166,9 +167,12 @@ What makes it look expensive, in any style:
   around what a push-in goes to.
 - **Show the input.** `Tap` where something is tapped, `Callout` or `Spotlight` around what
   matters, a `Cursor` over a template, a `Speed` chip whenever footage is sped up.
-- **Sound on every turn.** `public/sfx/ting.wav` on each moment the story turns on, `whoosh.wav`
-  under transitions and fast moves, `click.wav` on a tap. Music under it: the user's licensed
-  track, or `npm run music -- <seconds>` for an original generated one.
+- **Sound on every turn, and little else.** `public/sfx/ting.wav` on each moment the story turns
+  on, on the frame it becomes readable (not the bar line after); `click.wav` on a tap; `whoosh.wav`
+  only under moves of the whole frame (the video plays one under a transition that travels:
+  slide, whip, zoom, flip, at most one every 8 s), about two a video. Keep effects to about 5
+  per 10 s and let the music carry the other cuts: the user's licensed track, or
+  `npm run music -- <seconds>`.
 - **Avoid the tells of generated design:** gradient text, purple-to-blue gradients, cyan on dark,
   every card the same, an effect on every word, five transitions in one video. One effect per
   idea, one transition style per video (plus one accent), the style's defaults first.
@@ -184,6 +188,13 @@ What makes it look expensive, in any style:
 7. **Cut on the beat** (0.5 s at 120 BPM), and keep the direction of motion across the cut: a
    scene leaves the way the next one arrives.
 8. **Restraint.** The product is the star: one showy move or effect per 10 s at most.
+
+**The numbers top launch videos hit** (measured frame by frame): the
+picture moves within 0.1 s and the first word reads by 0.4 s; the product is on screen by a
+quarter of the way in; something changes about every 0.7 s, even inside a long shot; text being
+read moves under about 3 px a frame; one designed hold of 1–1.6 s on the key claim, no other
+stillness over 0.8 s; the biggest moment at about 80% of the running time, then a calm end card of
+about 2 s.
 
 `references/gotchas.md` has the traps: what flattens 3D, what breaks frame-by-frame rendering, the
 limits of the bundled ffmpeg.
@@ -208,7 +219,10 @@ Read every PNG. Check that:
 - close-ups are sharp, and no stray pointer, banner or private data shows in any take.
 
 Stills can't show speed. Render a draft (`npx remotion render Video out/draft.mp4 --scale=0.5`)
-and ask the user specific questions ("is the push-in at 0:12 too fast?").
+and run `npm run check -- out/draft.mp4`: it times the hook, finds stutters (a repeated frame
+mid-move) and dead stretches, and lists every one-frame jump, each of which should be a cut you
+meant. Fix every ✗, look at every ! on a sheet, then ask the user specific questions ("is the
+push-in at 0:12 too fast?").
 
 ## 7. Render
 
@@ -223,7 +237,9 @@ npx remotion still Video out/poster.png --frame=150                      # thumb
 - **Music** only if the user has the rights to it, or the generated one (`npm run music -- 45`):
   `<Audio src={staticFile('music.wav')} volume={0.5} />` inside `Video`, scenes cut on its beat.
 - **For upload,** normalise loudness and put the index at the front so it starts playing at once:
-  `npx remotion ffmpeg -i out/video.mp4 -c:v copy -c:a aac -b:a 192k -af loudnorm=I=-14:TP=-1.5:LRA=11 -movflags +faststart out/video-web.mp4`
+  `npm run web -- out/video.mp4` writes `out/video-web.mp4` at -14 LUFS; then
+  `npm run check -- out/video-web.mp4 --upload` gates the size, codec and loudness.
+- **A GIF** for a README or a site: `npm run gif -- --frames=0-149` (5 s, 15 fps, half size).
 
 Finish by telling the user where the files are, how long they run, and the commands to re-render.
 Close any window you opened for recording.

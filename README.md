@@ -40,7 +40,8 @@ git clone https://github.com/gettermary/observee && cd observee && ./install.sh
 3. **Build.** Windows, panes and phones float in 3D under headlines, the camera pushes in on what
    matters, and components from the library fill in the rest.
 4. **Review and render.** It can't watch video, so it renders contact sheets and reads them, frame
-   by frame, before you see anything. Then every format you need.
+   by frame, then measures the render (`npm run check`) for what stills can't show: a slow hook,
+   a stutter, a dead stretch, the loudness. Then every format you need.
 
 ## Real footage, not mock-ups
 
@@ -104,6 +105,37 @@ const camera = useShot(moves.zoomIn(wide, card), {dolly: 40});
 
 ![Six moves from the sample reel, each labelled with the line that makes it](docs/moves.jpg)
 
+## Checked before you see it
+
+The agent can't watch a video, and a sheet of stills can't show speed or sound. So before it hands
+anything over, `npm run check` measures the render itself, frame by frame:
+
+```
+out/video.mp4
+  · file   landscape, 30 fps, 41.05 s, h264, aac 48 kHz stereo
+  ! sound  -21.07 LUFS, true peak -12.38 dBTP: feeds play at -14 LUFS and -1 dBTP
+  · hook   first motion at 0:00.63
+  ! still  nothing moves 0:10.60–0:13.00: give it a drift or cut it shorter
+  · jumps  one-frame changes at 0:08.00, 0:13.00, 0:20.00, 0:25.00, 0:35.00: each should be a cut you meant
+```
+
+That's a real run (lines shortened) on an earlier cut of the starter: it caught the logo scene
+frozen for 2.4 s and a mix too quiet for a feed. What it checks:
+
+| Check | Fails or warns when |
+|---|---|
+| Hook | Nothing moves in the first second: a muted feed decides there (top launch videos move within 0.1 s) |
+| Stutter | A frame repeats in the middle of a move |
+| Dead air | Nothing moves for 2 s or more, outside the end card's last seconds |
+| Cuts | Lists every one-frame jump, so each can be confirmed as a cut that was meant |
+| Sound | Loudness and peak are off the -14 LUFS / -1 dBTP that feeds play at |
+| File | Not H.264 in 4:2:0, or not one of the four formats' sizes |
+| Loop | With `--loop`, the last frame doesn't flow into the first |
+
+`npm run web` then makes the upload copy at exactly -14 LUFS, measured in two passes, with the
+index at the front so it starts playing at once. Sound follows the same restraint: a whoosh only
+where the whole frame moves, at most one every 8 s, and the music carries the other cuts.
+
 ## Without an agent
 
 The starter is a normal Remotion project:
@@ -115,6 +147,9 @@ npm run styles                                       # a frame in every style
 scripts/take.sh start A 30 && scripts/take.sh wait   # record a 30 s take
 npm run scan                                         # read the recordings in public/takes/
 npm run render                                       # out/video.mp4; render:vertical, render:square, render:portrait
+npm run check -- out/video.mp4                       # the hook, stutters, dead stretches, loudness
+npm run web -- out/video.mp4                         # out/video-web.mp4, at the -14 LUFS feeds play at
+npm run gif -- --frames=0-149                        # a 5 s GIF for a README or a site
 npm run gallery                                      # every component, labelled with its code
 npm run music -- 45                                  # 45 s of original music
 ```
@@ -131,7 +166,7 @@ observee) and on Windows in Git Bash with ffmpeg. The editing works anywhere.
 | `starter/` | The project every video starts from: a take-based `Video` and a templates-only `Promo` |
 | `starter/src/library/` | The 87 components, one folder each, and [`CATALOG.md`](starter/src/library/CATALOG.md), their index |
 | `starter/src/kit.tsx`, `look.tsx` | The 3D kit and camera moves; the styles and formats |
-| `starter/scripts/` | Record a take, scan recordings, make sound and music, a voiceover, rebuild the catalog, render the samples |
+| `starter/scripts/` | Record a take, scan recordings, make sound and music, a voiceover, rebuild the catalog, render the samples, check a render and make its upload copy |
 | `examples/` | The videos made with dolly |
 
 Contributions are welcome: [CONTRIBUTING.md](CONTRIBUTING.md) says how to add a component.

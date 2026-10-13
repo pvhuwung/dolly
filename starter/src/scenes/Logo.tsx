@@ -40,10 +40,13 @@ export const wordmark = (look: ReturnType<typeof useLook>, fontSize: number): Re
 export const Logo: React.FC = () => {
   const look = useLook();
   const brand = useBrand();
+  const frame = useCurrentFrame();
+  // A slow creep toward the viewer, so the held lockup never stops dead (4% over 5 s).
+  const creep = 1 + 0.008 * (frame / 30);
   return (
     <AbsoluteFill>
       <Backdrop />
-      <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 30, padding: `0 ${look.safe.right}px 0 ${look.safe.left}px`}}>
+      <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 30, padding: `0 ${look.safe.right}px 0 ${look.safe.left}px`, transform: `scale(${creep})`}}>
         <Icon size={220} land={0} />
         <Kinetic text={brand.name} start={16} effect="rise" style={wordmark(look, 112)} />
         <Kinetic

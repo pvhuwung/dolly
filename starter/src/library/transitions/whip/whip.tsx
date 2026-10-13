@@ -28,5 +28,6 @@ const Whip: React.FC<PresentationProps<{width: number}>> = ({children, presentat
 /** A very fast push sideways with a motion smear at its peak. */
 export const transition: TransitionDef = {
   frames: FRAMES,
+  travels: true,
   make: (look) => linear(FRAMES, presentation(Whip, {width: look.width}), Easing.linear),
 };
