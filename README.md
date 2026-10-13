@@ -14,7 +14,7 @@ dolly is an Agent Skill: a folder your agent
 reads. For Claude Code:
 
 ```sh
-git clone https://github.com/gettermary/dolly ~/.claude/skills/dolly
+git clone https://github.com/pvhuwung/dolly ~/.claude/skills/dolly
 ```
 
 Then ask:
