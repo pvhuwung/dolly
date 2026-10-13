@@ -105,6 +105,37 @@ const camera = useShot(moves.zoomIn(wide, card), {dolly: 40});
 
 ![Six moves from the sample reel, each labelled with the line that makes it](docs/moves.jpg)
 
+## Checked before you see it
+
+The agent can't watch a video, and a sheet of stills can't show speed or sound. So before it hands
+anything over, `npm run check` measures the render itself, frame by frame:
+
+```
+out/video.mp4
+  · file   landscape, 30 fps, 41.05 s, h264, aac 48 kHz stereo
+  ! sound  -21.07 LUFS, true peak -12.38 dBTP: feeds play at -14 LUFS and -1 dBTP
+  · hook   first motion at 0:00.63
+  ! still  nothing moves 0:10.60–0:13.00: give it a drift or cut it shorter
+  · jumps  one-frame changes at 0:08.00, 0:13.00, 0:20.00, 0:25.00, 0:35.00: each should be a cut you meant
+```
+
+That's a real run (lines shortened) on an earlier cut of the starter: it caught the logo scene
+frozen for 2.4 s and a mix too quiet for a feed. What it checks:
+
+| Check | Fails or warns when |
+|---|---|
+| Hook | Nothing moves in the first second: a muted feed decides there (top launch videos move within 0.1 s) |
+| Stutter | A frame repeats in the middle of a move |
+| Dead air | Nothing moves for 2 s or more, outside the end card's last seconds |
+| Cuts | Lists every one-frame jump, so each can be confirmed as a cut that was meant |
+| Sound | Loudness and peak are off the -14 LUFS / -1 dBTP that feeds play at |
+| File | Not H.264 in 4:2:0, or not one of the four formats' sizes |
+| Loop | With `--loop`, the last frame doesn't flow into the first |
+
+`npm run web` then makes the upload copy at exactly -14 LUFS, measured in two passes, with the
+index at the front so it starts playing at once. Sound follows the same restraint: a whoosh only
+where the whole frame moves, at most one every 8 s, and the music carries the other cuts.
+
 ## Without an agent
 
 The starter is a normal Remotion project:
